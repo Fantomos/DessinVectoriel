@@ -16,22 +16,47 @@ public class Segment extends Figure{
     private Point depart;
     private Point fin;
     
+    //Constructeur
     public Segment(Point a, Point b, String nom){
         super(nom);
         this.depart = a;
         this.fin = b;
     }
    
+   //Méthode création
    public static Segment nouveauSegment(){
        System.out.println("Entrez le nom du segment : ");
        String nom = Lire.S();
        return new Segment(Point.nouveauPoint(),Point.nouveauPoint(),nom);
     } 
    
+   //Définition méthode abstract de Figure
     @Override
     public String toString(){
-        return super.getNom() + " = (" + depart + "," + fin + ")";
+        return super.getNom() + " = [" + depart + "," + fin + "]";
     }
+    
+    @Override
+    public double minX(){
+        return Math.min(depart.getCoordx(), fin.getCoordx());
+    };
+    
+    @Override
+    public double maxX(){
+         return Math.max(depart.getCoordx(), fin.getCoordx());
+    };
+    
+    @Override
+     public double minY(){
+        return Math.min(depart.getCoordy(), fin.getCoordy());
+    };
+     
+    @Override
+    public double maxY(){
+        return Math.max(depart.getCoordy(), fin.getCoordy());
+    };
+    
+    
     
     @Override
     public double distancePoint(Point p) {

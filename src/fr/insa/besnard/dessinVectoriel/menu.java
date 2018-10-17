@@ -12,30 +12,55 @@ import utils.Lire;
  * @author nbesnard01
  */
 public class menu {
+    public static int MAXFIG = 2000;
+    public static Figure[] tabFigures = new Figure[MAXFIG];
     public static void menu(){
-    Figure[] lesFigs = new Figure[MAXFIG];
+    
     int n = 0;
     int rep;
     do{
-        System.out.println("0) Quitter"); 
+        System.out.println("\n0) Quitter"); 
         System.out.println("1) Ajouter"); 
         System.out.println("2) Supprimer"); 
         System.out.println("3) Tout afficher"); 
-        System.out.println("4) Trouver figure proche"); 
+        System.out.println("4) Trouver figure proche du point"); 
         rep = Lire.i();
-    }while(rep !=0);
+    
     
     if(rep == 1){
-        lesFigs[n] = Figure.entreeFig();
+        tabFigures[n] = Figure.entreFigure();
         n = n+1;
     }
     else if(rep == 2){
         for(int i =0;i<n;i++){
-            System.out.println(i+":"+lesFigs[i]);
+            System.out.println(i+" | "+tabFigures[i]);
         }
-       int choix = Lire.i();
-       lesFigs[choix] = lesFigs[n-1];
-       lesFigs[n-1] = null;
+       tabFigures[Lire.i()] = tabFigures[n-1];
+       tabFigures[n-1] = null;
        n=n-1;
+    }
+    else if(rep == 3){
+        for(int i =0;i<n;i++){
+            System.out.println(i+" | "+tabFigures[i]+ " | Min X : "+tabFigures[i].minX()+" | Min Y : "+tabFigures[i].minY()+" | Max X : "+tabFigures[i].maxX()+" | Max Y : "+tabFigures[i].maxY());
+        }
+    }
+    else if(rep == 4){
+      Point p = Point.nouveauPoint();
+      double MinDistance = Double.MAX_VALUE;
+      int idMinDistance = 0;
+      for(int i =0;i<n;i++){
+          double distance = tabFigures[i].distancePoint(p);
+          if(distance < MinDistance){
+              MinDistance = distance;
+              idMinDistance = i;
+          }
+      }
+      System.out.println(tabFigures[idMinDistance]);
+    }
+    
+    }while(rep !=0);
+}
+    public static void main(String[] args) {
+       menu();
     }
 }

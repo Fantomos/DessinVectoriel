@@ -14,7 +14,7 @@ import utils.Lire;
 public class Point extends Figure{
     private double coordx;
     private double coordy;
-
+    
     public double getCoordx() {
         return coordx;
     }
@@ -31,6 +31,7 @@ public class Point extends Figure{
         this.coordy = coordy;
     }
     
+    // Constructeur
     public Point() {
         this(0,0,"Point");
     }
@@ -45,11 +46,7 @@ public class Point extends Figure{
         this.coordy = py;
     }
     
-     @Override
-    public String toString(){
-        return super.getNom() + " = (" + this.coordx + "," + this.coordy + ")";
-    }
-  
+    // Methode création
     public static Point nouveauPoint(){
        System.out.println("Entrez le nom du point : ");
        String nom = Lire.S();
@@ -59,7 +56,34 @@ public class Point extends Figure{
        double y = Lire.d();
        return new Point(x,y,nom);
     }
+    
+    
+    //Définition méthode abstract de Figure
+    @Override
+    public String toString(){
+        return super.getNom() + " = (" + this.coordx + "," + this.coordy + ")";
+    }
+  
+    @Override
+    public double minX(){
+        return this.coordx;
+    };
+    
+    @Override
+    public double maxX(){
+        return this.coordx;
+    };
+    
+    @Override
+     public double minY(){
+        return this.coordy;
+    };
      
+    @Override
+    public double maxY(){
+        return this.coordy;
+    };
+    
     @Override
     public double distancePoint(Point p) {
         return Math.sqrt(Math.pow(
@@ -68,10 +92,7 @@ public class Point extends Figure{
                 this.coordy-p.coordy,2));
     }
     
-
-    
-    
-   
+  
  
     
     

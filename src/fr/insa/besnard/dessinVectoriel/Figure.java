@@ -28,7 +28,9 @@ public abstract class Figure {
         this.nom = nom;
     }
     
-    public Figure entreFigure(){
+    public static Figure entreFigure(){
+        System.out.println("\n0) Point");
+        System.out.println("1) Segment");
         int choix = Lire.i();
         if(choix == 0){
             return Point.nouveauPoint();
@@ -38,6 +40,11 @@ public abstract class Figure {
         }
     }
     
+    
+    public abstract double minX();
+    public abstract double minY();
+    public abstract double maxX();
+    public abstract double maxY();
     public abstract double distancePoint(Point p); 
     
    
