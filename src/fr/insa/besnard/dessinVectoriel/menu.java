@@ -24,6 +24,7 @@ public class menu {
         System.out.println("2) Supprimer"); 
         System.out.println("3) Tout afficher"); 
         System.out.println("4) Trouver figure proche du point"); 
+        System.out.println("5) Afficher distance à un point"); 
         rep = Lire.i();
     
     
@@ -56,6 +57,13 @@ public class menu {
           }
       }
       System.out.println(tabFigures[idMinDistance]);
+    }
+    else if(rep == 5){
+       Point p = Point.nouveauPoint();
+       for(int i =0;i<n;i++){
+          double distance = tabFigures[i].distancePoint(p);
+         System.out.println(i+" | "+tabFigures[i]+ " | Distance : "+distance);
+      }
     }
     
     }while(rep !=0);
