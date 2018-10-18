@@ -60,10 +60,12 @@ public class menu {
     }
     else if(rep == 5){
        Point p = Point.nouveauPoint();
-       for(int i =0;i<n;i++){
-          double distance = tabFigures[i].distancePoint(p);
-         System.out.println(i+" | "+tabFigures[i]+ " | Distance : "+distance);
-      }
+        System.out.println("Selectionner une figure : ");
+        for(int i =0;i<n;i++){
+            System.out.println(i+" | "+tabFigures[i]);
+        }
+        System.out.println("Distance : " + tabFigures[Lire.i()].distancePoint(p));
+     
     }
     
     }while(rep !=0);
