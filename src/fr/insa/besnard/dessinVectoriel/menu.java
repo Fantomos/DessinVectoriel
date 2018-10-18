@@ -42,7 +42,7 @@ public class menu {
     }
     else if(rep == 3){
         for(int i =0;i<n;i++){
-            System.out.println(i+" | "+tabFigures[i]+ " | Min X : "+tabFigures[i].minX()+" | Min Y : "+tabFigures[i].minY()+" | Max X : "+tabFigures[i].maxX()+" | Max Y : "+tabFigures[i].maxY());
+            System.out.println(i+" | "+tabFigures[i]+ " | Min X : "+tabFigures[i].minX()+" | Min Y : "+tabFigures[i].minY()+" | Max X : "+tabFigures[i].maxX()+" | Max Y : "+tabFigures[i].maxY()+" | Couleur : "+tabFigures[i].getCouleur());
         }
     }
     else if(rep == 4){
