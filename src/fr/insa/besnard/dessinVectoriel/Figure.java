@@ -5,6 +5,7 @@
  */
 package fr.insa.besnard.dessinVectoriel;
 
+import java.awt.Color;
 import utils.Lire;
 
 /**
@@ -14,6 +15,15 @@ import utils.Lire;
 public abstract class Figure {
     
     private String nom;
+    private Color couleur;
+
+    public Color getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
+    }
 
     public String getNom() {
         return nom;
@@ -24,8 +34,9 @@ public abstract class Figure {
     }
 
    
-    public Figure(String nom) {
+    public Figure(String nom, Color couleur) {
         this.nom = nom;
+        this.couleur = couleur;
     }
     
     public static Figure entreFigure(){
@@ -39,6 +50,8 @@ public abstract class Figure {
             return Segment.nouveauSegment();
         }
     }
+    
+    
     
     
     public abstract double minX();

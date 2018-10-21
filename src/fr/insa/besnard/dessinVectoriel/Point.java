@@ -5,6 +5,7 @@
  */
 package fr.insa.besnard.dessinVectoriel;
 
+import java.awt.Color;
 import utils.Lire;
 
 /**
@@ -33,15 +34,15 @@ public class Point extends Figure{
     
     // Constructeur
     public Point() {
-        this(0,0,"Point");
+        this(0,0,"Point",Color.black);
     }
     
     public Point(double px, double py){
-        this(px, py, "Point");
+        this(px, py, "Point",Color.black);
     }
     
-    public Point(double px,double py, String nom) {
-        super(nom);
+    public Point(double px,double py, String nom, Color couleur) {
+        super(nom,couleur);
         this.coordx = px;
         this.coordy = py;
     }
@@ -54,7 +55,7 @@ public class Point extends Figure{
        double x = Lire.d();
        System.out.println("Entrez l'ordonnée : ");
        double y = Lire.d();
-       return new Point(x,y,nom);
+       return new Point(x,y,nom,Color.BLACK);
     }
     
     

@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 
+import java.awt.Color;
 import utils.Lire;
 
 /**
@@ -17,8 +18,8 @@ public class Segment extends Figure{
     private Point fin;
     
     //Constructeur
-    public Segment(Point a, Point b, String nom){
-        super(nom);
+    public Segment(Point a, Point b, String nom,Color couleur){
+        super(nom,couleur);
         this.depart = a;
         this.fin = b;
     }
@@ -27,8 +28,17 @@ public class Segment extends Figure{
    public static Segment nouveauSegment(){
        System.out.println("Entrez le nom du segment : ");
        String nom = Lire.S();
-       return new Segment(Point.nouveauPoint(),Point.nouveauPoint(),nom);
+       return new Segment(Point.nouveauPoint(),Point.nouveauPoint(),nom,Color.black);
     } 
+   
+   
+   public double longueur(){
+       return Math.sqrt(Math.pow(
+                this.fin.getCoordx()-this.depart.getCoordx(),2)+ 
+                Math.pow(
+                this.fin.getCoordy()-this.depart.getCoordy(),2));
+   }   
+   
    
    //Définition méthode abstract de Figure
     @Override
