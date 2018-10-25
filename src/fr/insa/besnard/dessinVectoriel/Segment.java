@@ -18,6 +18,10 @@ public class Segment extends Figure{
     private Point fin;
     
     //Constructeur
+    public Segment(Point a, Point b){
+        this(a,b,"Segment",Color.BLACK);
+    }
+    
     public Segment(Point a, Point b, String nom,Color couleur){
         super(nom,couleur);
         this.depart = a;

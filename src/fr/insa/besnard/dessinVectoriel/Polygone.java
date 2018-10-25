@@ -17,12 +17,27 @@ import utils.Lire;
  */
 public class Polygone extends Figure {
     private ArrayList<Point> sommet;
+
+    public ArrayList<Point> getSommet() {
+        return sommet;
+    }
+
+    public void setSommet(ArrayList<Point> sommet) {
+        this.sommet = sommet;
+    }
+    
+    //Constructeur
+    public Polygone(ArrayList<Point> sommet){
+        this(sommet, "Polygone",Color.BLACK);
+    }
     
     public Polygone(ArrayList<Point> sommet,String nom, Color couleur) {
         super(nom,couleur);
         this.sommet = sommet;
     }
     
+    
+    // Méthode Création
     public static Polygone nouveauPolygone(){
        ArrayList<Point> sommet = new ArrayList<Point>();
        System.out.println("Entrez le nom du polygone : ");
@@ -34,6 +49,8 @@ public class Polygone extends Figure {
        }
        return new Polygone(sommet,nom,Color.black);
     } 
+    
+    
     
      @Override
     public String toString(){
