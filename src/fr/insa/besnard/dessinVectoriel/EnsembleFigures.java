@@ -16,14 +16,22 @@ import utils.Lire;
  * @author nbesnard01
  */
 public class EnsembleFigures extends Figure{
-
+    // Attributs
     public ArrayList<Figure> tabFigures;
 
-    public EnsembleFigures(String nom, Color couleur) {
+    // Constructeur
+    public EnsembleFigures(ArrayList<Figure> tabFigures, String nom, Color couleur) {
         super(nom,couleur);
-        this.tabFigures = new ArrayList<Figure>();
+        this.tabFigures = tabFigures;
     }
 
+    // Méthode création
+    public static EnsembleFigures nouveauEnsembleFigures(){
+       ArrayList<Figure> tabFigures = new ArrayList<Figure>();
+       return new EnsembleFigures(tabFigures,"ensemble",Color.black);
+    } 
+     
+    
     public void afficheFigure(){
         for (int i = 0; i < this.tabFigures.size(); i++) {
                     System.out.println(i + " | " + this.tabFigures.get(i) + " | Min X : " + this.tabFigures.get(i).minX() + " | Min Y : " + this.tabFigures.get(i).minY() + " | Max X : " + this.tabFigures.get(i).maxX() + " | Max Y : " + this.tabFigures.get(i).maxY() + " | Couleur : " + this.tabFigures.get(i).getCouleur());
@@ -73,6 +81,8 @@ public class EnsembleFigures extends Figure{
         } while (rep != 0);
     }
     
+    
+    //Définition méthode abstract de Figure
     @Override
     public double distancePoint(Point p){
         Figure figureProche =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.distancePoint(p)));
@@ -90,6 +100,7 @@ public class EnsembleFigures extends Figure{
 //           return MinDistance;        
     }
     
+  
     @Override
     public double minX(){
         Figure figureMinX =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.minX()));
@@ -114,7 +125,7 @@ public class EnsembleFigures extends Figure{
    
 
     public static void main(String[] args) {
-        EnsembleFigures ensemble1 = new EnsembleFigures("test",Color.BLACK);
+        EnsembleFigures ensemble1 = EnsembleFigures.nouveauEnsembleFigures();
         ensemble1.tabFigures.add(new Point(6,10));
         ensemble1.tabFigures.add(new Point(0,5));
         ensemble1.tabFigures.add(new Point(8,9));
