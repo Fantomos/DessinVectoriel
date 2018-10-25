@@ -7,6 +7,8 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import utils.Lire;
 
 /**
@@ -45,8 +47,6 @@ public class EnsembleFigures extends Figure{
     }
     
     
-    
-    
     public void gestion() {
         int n = 0;
         int rep;
@@ -56,52 +56,68 @@ public class EnsembleFigures extends Figure{
             System.out.println("1) Ajouter");
             System.out.println("2) Supprimer");
             System.out.println("3) Tout afficher");
-            System.out.println("4) Trouver figure proche du point");
-            System.out.println("5) Afficher distance à un point");
+            System.out.println("4) Afficher distance à un point");
             System.out.println("------------------------------------------------------------------------------");
             rep = Lire.i();
 
             if (rep == 1) {
-                tabFigures[n] = Figure.entreFigure();
-                n = n + 1;
+                this.ajouterFigure();
             } else if (rep == 2) {
-                for (int i = 0; i < n; i++) {
-                    System.out.println(i + " | " + tabFigures[i]);
-                }
-                tabFigures[Lire.i()] = tabFigures[n - 1];
-                tabFigures[n - 1] = null;
-                n = n - 1;
+                this.supprimeFigure();
             } else if (rep == 3) {
-                for (int i = 0; i < n; i++) {
-                    System.out.println(i + " | " + tabFigures[i] + " | Min X : " + tabFigures[i].minX() + " | Min Y : " + tabFigures[i].minY() + " | Max X : " + tabFigures[i].maxX() + " | Max Y : " + tabFigures[i].maxY() + " | Couleur : " + tabFigures[i].getCouleur());
-                }
+                this.afficheFigure();
             } else if (rep == 4) {
                 Point p = Point.nouveauPoint();
-                double MinDistance = Double.MAX_VALUE;
-                int idMinDistance = 0;
-                for (int i = 0; i < n; i++) {
-                    double distance = tabFigures[i].distancePoint(p);
-                    if (distance < MinDistance) {
-                        MinDistance = distance;
-                        idMinDistance = i;
-                    }
-                }
-                System.out.println(tabFigures[idMinDistance]);
-            } else if (rep == 5) {
-                Point p = Point.nouveauPoint();
-                System.out.println("Selectionner une figure : ");
-                for (int i = 0; i < n; i++) {
-                    System.out.println(i + " | " + tabFigures[i]);
-                }
-                System.out.println("Distance : " + tabFigures[Lire.i()].distancePoint(p));
-
+                System.out.println("Distance : "+this.distancePoint(p));
             }
-
         } while (rep != 0);
     }
+    
+    @Override
+    public double distancePoint(Point p){
+        Figure figureProche =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.distancePoint(p)));
+        return figureProche.distancePoint(p);
+        
+//        double MinDistance = Double.MAX_VALUE;
+//        int idMinDistance = 0 ;
+//                for (int i = 0; i < this.tabFigures.size(); i++) {
+//                    double distance = tabFigures.get(i).distancePoint(p);
+//                    if (distance < MinDistance) {
+//                        MinDistance = distance;
+//                        idMinDistance = i;
+//                    }
+//                }
+//           return MinDistance;        
+    }
+    
+    @Override
+    public double minX(){
+        Figure figureMinX =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.minX()));
+        return figureMinX.minX();
+    };
+    @Override
+    public double minY(){
+        Figure figureMinY =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.minY()));
+        return figureMinY.minY();
+    };
+    @Override
+    public double maxX(){
+        Figure figureMaxX =  Collections.max(this.tabFigures, Comparator.comparing(a -> a.maxX()));
+        return figureMaxX.maxX();
+    };
+    @Override
+    public  double maxY(){
+        Figure figureMaxY =  Collections.max(this.tabFigures, Comparator.comparing(a -> a.maxY()));
+        return figureMaxY.maxY();
+    };
+    
+   
 
     public static void main(String[] args) {
-        EnsembleFigures menu1 = new EnsembleFigures();
-        menu1.gestion();
+        EnsembleFigures ensemble1 = new EnsembleFigures("test",Color.BLACK);
+        ensemble1.tabFigures.add(new Point(6,10));
+        ensemble1.tabFigures.add(new Point(0,5));
+        ensemble1.tabFigures.add(new Point(8,9));
+        System.out.println(ensemble1.distancePoint(new Point()));
     }
 }
