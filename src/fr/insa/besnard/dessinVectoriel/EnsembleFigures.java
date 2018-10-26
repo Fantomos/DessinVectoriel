@@ -17,7 +17,7 @@ import utils.Lire;
  */
 public class EnsembleFigures extends Figure{
     // Attributs
-    public ArrayList<Figure> tabFigures;
+    private ArrayList<Figure> tabFigures;
 
     // Constructeur
     public EnsembleFigures(ArrayList<Figure> tabFigures, String nom, Color couleur) {
@@ -28,6 +28,9 @@ public class EnsembleFigures extends Figure{
     // Méthode création
     public static EnsembleFigures nouveauEnsembleFigures(){
        ArrayList<Figure> tabFigures = new ArrayList<Figure>();
+       
+       
+       
        return new EnsembleFigures(tabFigures,"ensemble",Color.black);
     } 
      
@@ -85,7 +88,7 @@ public class EnsembleFigures extends Figure{
     //Définition méthode abstract de Figure
     @Override
     public double distancePoint(Point p){
-        Figure figureProche =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.distancePoint(p)));
+        Figure figureProche =  Collections.min(this.tabFigures, Comparator.comparing((Figure a) -> a.distancePoint(p)));
         return figureProche.distancePoint(p);
         
 //        double MinDistance = Double.MAX_VALUE;
@@ -100,25 +103,26 @@ public class EnsembleFigures extends Figure{
 //           return MinDistance;        
     }
     
+    
   
     @Override
     public double minX(){
-        Figure figureMinX =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.minX()));
+        Figure figureMinX =  Collections.min(this.tabFigures, Comparator.comparing((Figure a) -> a.minX()));
         return figureMinX.minX();
     };
     @Override
     public double minY(){
-        Figure figureMinY =  Collections.min(this.tabFigures, Comparator.comparing(a -> a.minY()));
+        Figure figureMinY =  Collections.min(this.tabFigures, Comparator.comparing((Figure a) -> a.minY()));
         return figureMinY.minY();
     };
     @Override
     public double maxX(){
-        Figure figureMaxX =  Collections.max(this.tabFigures, Comparator.comparing(a -> a.maxX()));
+        Figure figureMaxX =  Collections.max(this.tabFigures, Comparator.comparing((Figure a) -> a.maxX()));
         return figureMaxX.maxX();
     };
     @Override
     public  double maxY(){
-        Figure figureMaxY =  Collections.max(this.tabFigures, Comparator.comparing(a -> a.maxY()));
+        Figure figureMaxY =  Collections.max(this.tabFigures, Comparator.comparing((Figure a) -> a.maxY()));
         return figureMaxY.maxY();
     };
     

@@ -47,7 +47,7 @@ public class Polygone extends Figure {
        for(int i=0;i<nombreSommet;i++){
          sommet.add(Point.nouveauPoint());
        }
-       return new Polygone(sommet,nom,Color.black);
+       return new Polygone(sommet,nom,Color.BLACK);
     } 
     
     
