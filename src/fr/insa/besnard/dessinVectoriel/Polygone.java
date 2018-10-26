@@ -49,6 +49,7 @@ public class Polygone extends Figure {
        }
        return new Polygone(sommet,nom,Color.BLACK);
     } 
+    .
     
     
     
@@ -89,7 +90,6 @@ public class Polygone extends Figure {
         return pointProche.distancePoint(p);
     }
     public static void main(String[] args) {
-        
         Polygone pol = Polygone.nouveauPolygone();
         System.out.println(pol);
     }

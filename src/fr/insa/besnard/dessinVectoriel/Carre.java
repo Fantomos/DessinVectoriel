@@ -6,8 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import utils.Lire;
+
 
 /**
  *
@@ -19,10 +18,8 @@ public class Carre extends Polygone{
     // Constructeur
   
     public Carre(Point centre, double longueurCote, String nom, Color couleur) {
-        
-        
-        
         super(sommet, nom, couleur);
+        
     }
     
     
