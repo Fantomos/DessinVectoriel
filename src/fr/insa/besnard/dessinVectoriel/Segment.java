@@ -70,8 +70,6 @@ public class Segment extends Figure{
         return Math.max(depart.getCoordy(), fin.getCoordy());
     };
     
-    
-    
     @Override
     public double distancePoint(Point p) {
         double upnum = (p.getCoordx()-depart.getCoordx())*(fin.getCoordx() - depart.getCoordx()) + (p.getCoordy() - depart.getCoordy())*(fin.getCoordy() - depart.getCoordy());
@@ -90,6 +88,16 @@ public class Segment extends Figure{
         
  
     }
+    
+    @Override
+    public String toSave(){
+        return "S;" + this.getNom() + ";"
+                + this.depart.getCoordx() + ";"
+                + this.depart.getCoordy() + ";"
+                + this.fin.getCoordx() + ";"
+                + this.fin.getCoordy() + ";"
+                + this.getCouleur() + ";\n"; // ?
+    };
     
      public static void main(String[] args) {
        

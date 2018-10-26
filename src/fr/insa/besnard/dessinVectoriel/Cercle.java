@@ -74,6 +74,15 @@ public class Cercle extends Figure{
     public double distancePoint(Point p){
         return Math.abs(centre.distancePoint(p) - rayon);  
     };
+
+    @Override
+     public String toSave(){
+        return "C;" + this.getNom() + ";"
+                + this.centre.toSave()
+                + this.rayon + ";"
+                + this.getCouleur() + ";\n"; // ?
+    }
+     
     
     
     

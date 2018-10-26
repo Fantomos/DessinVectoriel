@@ -93,6 +93,14 @@ public class Point extends Figure{
                 this.coordy-p.coordy,2));
     }
     
+    @Override
+    public String toSave(){
+        return "P;" + this.getNom() + ";"
+                + this.coordx + ";"
+                + this.coordy + ";"
+                + this.getCouleur() + ";\n"; // ?
+    };
+    
   
  
     

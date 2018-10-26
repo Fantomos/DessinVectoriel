@@ -6,9 +6,15 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.Lire;
 
 /**
@@ -17,7 +23,7 @@ import utils.Lire;
  */
 public class EnsembleFigures extends Figure{
     // Attributs
-    private ArrayList<Figure> tabFigures;
+    private ArrayList<Figure> tabFigures; 
 
     // Constructeur
     public EnsembleFigures(ArrayList<Figure> tabFigures, String nom, Color couleur) {
@@ -51,6 +57,7 @@ public class EnsembleFigures extends Figure{
           this.afficheFigure();
           System.out.println("Supprimer la figure :");
           this.tabFigures.remove(Lire.i());
+    
     }
     
     public void ajouterFigure(){
@@ -83,6 +90,34 @@ public class EnsembleFigures extends Figure{
             }
         } while (rep != 0);
     }
+    
+    
+    public void save(File f) {
+        try (BufferedWriter bf = new BufferedWriter(new FileWriter(f))) {
+        
+            bf.append((this.toSave()));
+
+        } catch (IOException ex) {
+            throw new Error(ex);
+          
+        }
+        
+        
+  
+    }
+    
+    
+    @Override
+     public String toSave(){
+        String texte = this.getNom() + "\n";
+        for(int i=0;i<this.tabFigures.size();i++){
+            texte = texte + this.tabFigures.get(i).toSave() + ";"; 
+        }
+        texte = texte + this.getCouleur() + ";";
+        return texte;
+    }
+     
+    
     
     
     //Définition méthode abstract de Figure
@@ -127,12 +162,17 @@ public class EnsembleFigures extends Figure{
     };
     
    
+    
+   
 
     public static void main(String[] args) {
         EnsembleFigures ensemble1 = EnsembleFigures.nouveauEnsembleFigures();
         ensemble1.tabFigures.add(new Point(6,10));
         ensemble1.tabFigures.add(new Point(0,5));
         ensemble1.tabFigures.add(new Point(8,9));
+      
+        File fout = new File("test.txt");
+        ensemble1.save(fout);
         System.out.println(ensemble1.distancePoint(new Point()));
     }
 }

@@ -53,7 +53,7 @@ public abstract class Figure {
     
     
     
-    
+    public abstract String toSave();
     public abstract double minX();
     public abstract double minY();
     public abstract double maxX();

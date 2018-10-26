@@ -49,9 +49,8 @@ public class Polygone extends Figure {
        }
        return new Polygone(sommet,nom,Color.BLACK);
     } 
-    .
     
-    
+
     
      @Override
     public String toString(){
@@ -89,6 +88,20 @@ public class Polygone extends Figure {
         Point pointProche =  Collections.min(this.sommet, Comparator.comparing(a -> a.distancePoint(p)));
         return pointProche.distancePoint(p);
     }
+    
+    @Override
+    public String toSave(){
+        String texte = "PG;" + this.getNom() + ";" + this.sommet.size() + ";";
+        for(int i=0;i<this.sommet.size();i++){
+            texte = texte +  + this.sommet.get(i).getCoordx() + ";"
+                + this.sommet.get(i).getCoordy()  + ";";
+        }
+        texte = texte + getCouleur() +";\n";
+        return texte;
+    };
+    
+    
+    
     public static void main(String[] args) {
         Polygone pol = Polygone.nouveauPolygone();
         System.out.println(pol);
