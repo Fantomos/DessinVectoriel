@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 
 import java.awt.Color;
+import java.awt.Graphics;
 import utils.Lire;
 
 /**
@@ -45,6 +46,13 @@ public class Segment extends Figure{
    
    
    //Définition méthode abstract de Figure
+   
+    @Override
+    public void dessine(Graphics g) {
+        g.setColor(this.getCouleur());
+        g.drawLine((int)this.depart.getCoordx(),(int)this.depart.getCoordy(),(int)this.fin.getCoordx(),(int)this.fin.getCoordy());
+    }
+   
     @Override
     public String toString(){
         return super.getNom() + " = [" + depart + "," + fin + "]";

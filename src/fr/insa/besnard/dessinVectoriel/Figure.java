@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import utils.Lire;
 
 /**
@@ -52,7 +53,7 @@ public abstract class Figure {
     }
     
     
-    
+    public abstract void dessine(Graphics g);
     public abstract String toSave();
     public abstract double minX();
     public abstract double minY();

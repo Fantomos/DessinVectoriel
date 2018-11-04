@@ -1,4 +1,4 @@
-ensemble;P;Point;6.0;10.0;java.awt.Color[r=0,g=0,b=0];
-;P;Point;0.0;5.0;java.awt.Color[r=0,g=0,b=0];
-;P;Point;8.0;9.0;java.awt.Color[r=0,g=0,b=0];
-;java.awt.Color[r=0,g=0,b=0];
+EF;ensemble;3;P;Point;6.0;10.0;java.awt.Color[r=0,g=0,b=0];
+P;Point;0.0;5.0;java.awt.Color[r=0,g=0,b=0];
+P;Point;8.0;9.0;java.awt.Color[r=0,g=0,b=0];
+java.awt.Color[r=0,g=0,b=0];

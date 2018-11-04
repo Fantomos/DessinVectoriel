@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import utils.Lire;
 
 /**
@@ -38,6 +39,7 @@ public class Cercle extends Figure{
         this.rayon = rayon;
     }
     
+    
     public static Cercle nouveauCercle(){
         System.out.println("Entrez le nom du cercle : ");
         String nom = Lire.S();
@@ -48,7 +50,12 @@ public class Cercle extends Figure{
         return new Cercle(Point.nouveauPoint(),rayon,nom,Color.black);
     }
     
-    
+    @Override
+     public void dessine(Graphics g) {
+        g.setColor(this.getCouleur());
+        g.drawOval((int)(this.centre.getCoordx() - this.rayon),(int)(this.centre.getCoordx() + this.rayon),(int)(2*this.rayon),(int)(2*this.rayon));
+    }
+     
      @Override
     public String toString() {
         return super.getNom() + " : Centre = " + centre + ", Rayon : " + rayon ;

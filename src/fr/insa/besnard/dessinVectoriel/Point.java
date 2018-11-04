@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import utils.Lire;
 
 /**
@@ -56,6 +57,12 @@ public class Point extends Figure{
        System.out.println("Entrez l'ordonnée : ");
        double y = Lire.d();
        return new Point(x,y,nom,Color.BLACK);
+    }
+    
+    @Override
+    public void dessine(Graphics g) {
+        g.setColor(this.getCouleur());
+        g.fillOval((int)this.coordx,(int)this.coordy,10,10);
     }
     
     

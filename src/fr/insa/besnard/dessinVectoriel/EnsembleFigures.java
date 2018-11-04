@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -105,13 +106,14 @@ public class EnsembleFigures extends Figure{
         
   
     }
-    
+      
+    //Définition méthode abstract de Figure
     
     @Override
      public String toSave(){
-        String texte = this.getNom() + "\n";
+        String texte = "EF;" + this.getNom() + ";" + this.tabFigures.size() + ";\n";
         for(int i=0;i<this.tabFigures.size();i++){
-            texte = texte + this.tabFigures.get(i).toSave() + ";"; 
+            texte = texte + this.tabFigures.get(i).toSave(); 
         }
         texte = texte + this.getCouleur() + ";";
         return texte;
@@ -119,8 +121,17 @@ public class EnsembleFigures extends Figure{
      
     
     
+  
+     
+    @Override
+      public void dessine(Graphics g) {
+        g.setColor(this.getCouleur());
+        for(int i=0;i<this.tabFigures.size();i++){
+            this.tabFigures.get(i).dessine(g);
+        }
+    }
     
-    //Définition méthode abstract de Figure
+     
     @Override
     public double distancePoint(Point p){
         Figure figureProche =  Collections.min(this.tabFigures, Comparator.comparing((Figure a) -> a.distancePoint(p)));

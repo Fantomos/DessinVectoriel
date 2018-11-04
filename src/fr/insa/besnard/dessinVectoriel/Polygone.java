@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -50,7 +51,17 @@ public class Polygone extends Figure {
        return new Polygone(sommet,nom,Color.BLACK);
     } 
     
-
+    @Override
+     public void dessine(Graphics g) {
+        g.setColor(this.getCouleur());
+        int[] x = new int[sommet.size()];
+        int[] y = new int[sommet.size()];
+        for(int i=0;i<this.sommet.size();i++){
+            x[i] = (int) this.sommet.get(i).getCoordx();
+            y[i] = (int) this.sommet.get(i).getCoordy();
+        }
+        g.drawPolygon(x,y,this.sommet.size());
+    }
     
      @Override
     public String toString(){
