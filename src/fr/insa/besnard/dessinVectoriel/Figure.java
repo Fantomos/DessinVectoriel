@@ -53,6 +53,7 @@ public abstract class Figure {
     }
     
     
+    public abstract Figure symetriqueOrigine();
     public abstract void dessine(Graphics g);
     public abstract String toSave();
     public abstract double minX();

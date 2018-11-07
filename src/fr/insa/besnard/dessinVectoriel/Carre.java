@@ -18,25 +18,10 @@ public class Carre extends Rectangle{
    
     // Constructeur
   
-    public Carre(ArrayList<Point> sommet, String nom, Color couleur) {
-        super(sommet, nom, couleur);
+    public Carre(Point p1, double longueur, String nom, Color couleur) {
+        super(p1, longueur,longueur,nom,couleur);
     }
     
-    public static Carre nouveauCarre(){
-       ArrayList<Point> sommet = new ArrayList<Point>();
-       System.out.println("Entrez le nom du carre : ");
-       String nom = Lire.S();
-       System.out.println("Entrez le premier point : ");
-       Point p1 = Point.nouveauPoint();
-       System.out.println("Entrez la longueur d'un coté : ");
-       double longueur = Lire.d();
-       
-       sommet.add(new Point (p1.getCoordx() + longueur,p1.getCoordy()));
-       sommet.add(new Point (p1.getCoordx() + longueur,p1.getCoordy() + longueur));
-       sommet.add(new Point (p1.getCoordx(),p1.getCoordy() + longueur));
-       
-       return new Carre(sommet,nom,Color.BLACK);
-    } 
     
     
 }

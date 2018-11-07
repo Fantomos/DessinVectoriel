@@ -31,6 +31,12 @@ public class EnsembleFigures extends Figure{
         super(nom,couleur);
         this.tabFigures = tabFigures;
     }
+    public EnsembleFigures(ArrayList<Figure> tabFigures, String nom) {
+       this(tabFigures, nom,Color.BLACK);
+    }
+      public EnsembleFigures(ArrayList<Figure> tabFigures) {
+       this(tabFigures, "Ensemble",Color.BLACK);
+    }
 
     // Méthode création
     public static EnsembleFigures nouveauEnsembleFigures(){
@@ -38,11 +44,12 @@ public class EnsembleFigures extends Figure{
        
        
        
-       return new EnsembleFigures(tabFigures,"ensemble",Color.black);
+       return new EnsembleFigures(tabFigures,"Ensemble",Color.black);
     } 
      
     
     public void afficheFigure(){
+        System.out.println(this.getNom() + " :");
         for (int i = 0; i < this.tabFigures.size(); i++) {
                     System.out.println(i + " | " + this.tabFigures.get(i) + " | Min X : " + this.tabFigures.get(i).minX() + " | Min Y : " + this.tabFigures.get(i).minY() + " | Max X : " + this.tabFigures.get(i).maxX() + " | Max Y : " + this.tabFigures.get(i).maxY() + " | Couleur : " + this.tabFigures.get(i).getCouleur());
         }
@@ -103,10 +110,23 @@ public class EnsembleFigures extends Figure{
           
         }
         
-        
+ 
   
     }
-      
+     
+    
+    // Ici la méthode "symetriques" de l'énoncé est en faite la spécialisation de "symetriqueOrigine" dans EnsembleFigure  
+    @Override
+    public EnsembleFigures symetriqueOrigine(){
+        ArrayList<Figure> tabFiguresSym = new ArrayList<Figure>(); 
+        for(int i=0;i<tabFigures.size();i++){
+            tabFiguresSym.add(tabFigures.get(i).symetriqueOrigine());
+        }
+        
+        return new EnsembleFigures(tabFiguresSym, "Symetrique");
+    }
+    
+    
     //Définition méthode abstract de Figure
     
     @Override
@@ -120,8 +140,6 @@ public class EnsembleFigures extends Figure{
     }
      
     
-    
-  
      
     @Override
       public void dessine(Graphics g) {
@@ -149,7 +167,6 @@ public class EnsembleFigures extends Figure{
 //           return MinDistance;        
     }
     
-    
   
     @Override
     public double minX(){
@@ -176,14 +193,23 @@ public class EnsembleFigures extends Figure{
     
    
 
+    // TP 3 : 3)
     public static void main(String[] args) {
-        EnsembleFigures ensemble1 = EnsembleFigures.nouveauEnsembleFigures();
-        ensemble1.tabFigures.add(new Point(6,10));
-        ensemble1.tabFigures.add(new Point(0,5));
-        ensemble1.tabFigures.add(new Point(8,9));
+      EnsembleFigures original = new EnsembleFigures(new ArrayList<Figure>(),"Original");
+      Point p1 = new Point(0,3,"P1");
+      Point p2 = new Point(-2,0, "P2");
+      Point p3 = new Point(4,0,"P3");
+      original.tabFigures.add(p1);
+      original.tabFigures.add(p2);
+      original.tabFigures.add(p3);
+      original.tabFigures.add(new Segment(p1,p2,"s1"));
+      original.tabFigures.add(new Segment(p2,p3,"s2"));
+      original.tabFigures.add(new Segment(p3,p1,"s3"));
       
-        File fout = new File("test.txt");
-        ensemble1.save(fout);
-        System.out.println(ensemble1.distancePoint(new Point()));
+      EnsembleFigures sym = original.symetriqueOrigine();
+      
+      original.afficheFigure();
+      sym.afficheFigure();
+      
     }
 }

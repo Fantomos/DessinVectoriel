@@ -33,6 +33,10 @@ public class Cercle extends Figure{
         this.rayon = rayon;
     }
     
+    public Cercle(Point centre, double rayon, String nom){
+       this(centre,rayon,nom,Color.BLACK);
+    }
+    
     public Cercle(Point centre, double rayon, String nom, Color couleur){
         super(nom,couleur);
         this.centre = centre;
@@ -49,6 +53,12 @@ public class Cercle extends Figure{
         double rayon = Lire.d();
         return new Cercle(Point.nouveauPoint(),rayon,nom,Color.black);
     }
+    
+    @Override
+    public Cercle symetriqueOrigine() {
+        return new Cercle(this.centre.symetriqueOrigine(),this.rayon,this.getNom()+"Sym");
+    };
+    
     
     @Override
      public void dessine(Graphics g) {

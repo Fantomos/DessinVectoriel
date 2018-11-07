@@ -32,6 +32,10 @@ public class Polygone extends Figure {
         this(sommet, "Polygone",Color.BLACK);
     }
     
+    public Polygone(ArrayList<Point> sommet,String nom) {
+        this(sommet,nom,Color.BLACK);
+    }
+    
     public Polygone(ArrayList<Point> sommet,String nom, Color couleur) {
         super(nom,couleur);
         this.sommet = sommet;
@@ -50,6 +54,16 @@ public class Polygone extends Figure {
        }
        return new Polygone(sommet,nom,Color.BLACK);
     } 
+    
+    @Override
+    public Polygone symetriqueOrigine(){
+        ArrayList<Point> sommetSym = new ArrayList<Point>(); 
+        for(int i=0;i<sommet.size();i++){
+            sommetSym.add(sommet.get(i).symetriqueOrigine());
+        }
+        
+        return new Polygone(sommetSym, this.getNom()+"Sym");
+    }
     
     @Override
      public void dessine(Graphics g) {

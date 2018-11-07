@@ -23,6 +23,10 @@ public class Segment extends Figure{
         this(a,b,"Segment",Color.BLACK);
     }
     
+    public Segment(Point a, Point b, String nom){
+        this(a,b,nom,Color.BLACK);
+    }
+    
     public Segment(Point a, Point b, String nom,Color couleur){
         super(nom,couleur);
         this.depart = a;
@@ -107,11 +111,21 @@ public class Segment extends Figure{
                 + this.getCouleur() + ";\n"; // ?
     };
     
+    @Override
+    public Segment symetriqueOrigine() {
+        Point departSym = this.depart.symetriqueOrigine();
+        Point finSym = this.fin.symetriqueOrigine(); 
+        return new Segment(departSym, finSym, this.getNom()+"Sym");
+    };
+    
+    
+    
+    
      public static void main(String[] args) {
        
         Segment seg1 = nouveauSegment();
-        Point p1 = Point.nouveauPoint();
-        System.out.println(seg1.distancePoint(p1));
+        Segment seg1Sym = seg1.symetriqueOrigine();
+        System.out.println(seg1Sym);
     }
    
     

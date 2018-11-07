@@ -42,6 +42,10 @@ public class Point extends Figure{
         this(px, py, "Point",Color.black);
     }
     
+    public Point(double px, double py, String nom){
+        this(px, py, nom,Color.black);
+    }
+    
     public Point(double px,double py, String nom, Color couleur) {
         super(nom,couleur);
         this.coordx = px;
@@ -62,7 +66,7 @@ public class Point extends Figure{
     @Override
     public void dessine(Graphics g) {
         g.setColor(this.getCouleur());
-        g.fillOval((int)this.coordx,(int)this.coordy,10,10);
+        g.fillOval((int)this.coordx,(int)this.coordy,5,5);
     }
     
     
@@ -106,6 +110,20 @@ public class Point extends Figure{
                 + this.coordx + ";"
                 + this.coordy + ";"
                 + this.getCouleur() + ";\n"; // ?
+    };
+    
+    @Override
+    public Point symetriqueOrigine() {
+        double coordxSym = - this.coordx; 
+        double coordySym = - this.coordy; 
+        if(coordxSym == -0){
+            coordxSym = 0;
+        }
+        if(coordySym == -0){
+            coordySym = 0;
+        }
+        
+        return new Point(coordxSym, coordySym,this.getNom()+"Sym");
     };
     
   

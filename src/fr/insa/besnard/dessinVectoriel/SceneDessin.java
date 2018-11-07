@@ -27,6 +27,7 @@ public class SceneDessin {
         this.contient = new ArrayList<Figure>();
     }
     
+    
     public static SceneDessin sceneTest(int nbr) {
         SceneDessin res = new SceneDessin();
    
@@ -60,7 +61,7 @@ public class SceneDessin {
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
 
-            res.contient.add(new Rectangle(sommet,"rectangle",
+            res.contient.add(new Rectangle(new Point(Math.random() * 400, Math.random() * 400),100,300,"Rectangle",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
