@@ -13,39 +13,41 @@ import java.util.ArrayList;
  * @author Nicolas
  */
 public class SceneDessin {
-     private ArrayList<Figure> contient;
+     private ArrayList<Figure> figuresScene;
 
     public ArrayList<Figure> getContient() {
-        return contient;
+        return figuresScene;
     }
 
     public void setContient(ArrayList<Figure> contient) {
-        this.contient = contient;
+        this.figuresScene = contient;
     }
 
     public SceneDessin() {
-        this.contient = new ArrayList<Figure>();
+        this.figuresScene = new ArrayList<Figure>();
     }
     
+    
+   
     
     public static SceneDessin sceneTest(int nbr) {
         SceneDessin res = new SceneDessin();
    
           
-            res.contient.add(
+            res.figuresScene.add(
                         new Point(
                                 Math.random() * 400,
                                 Math.random() * 400,"point",new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
-           res.contient.add(new Segment (new Point(Math.random() * 400, Math.random() * 400), new Point(Math.random() * 400,Math.random() * 400),"segment",
+           res.figuresScene.add(new Segment (new Point(Math.random() * 400, Math.random() * 400), new Point(Math.random() * 400,Math.random() * 400),"segment",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
            
-           res.contient.add(new Cercle (new Point(Math.random() * 400, Math.random() * 400), Math.random()*400,"cercle",
+           res.figuresScene.add(new Cercle (new Point(Math.random() * 400, Math.random() * 400), Math.random()*400,"cercle",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
@@ -55,13 +57,13 @@ public class SceneDessin {
            for(int i =0; i<5;i++){
                sommet.add(new Point(Math.random() * 400, Math.random() * 400));
            }
-            res.contient.add(new Polygone(sommet,"polygone",
+            res.figuresScene.add(new Polygone(sommet,"polygone",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
 
-            res.contient.add(new Rectangle(new Point(Math.random() * 400, Math.random() * 400),100,300,"Rectangle",
+            res.figuresScene.add(new Rectangle(new Point(Math.random() * 400, Math.random() * 400),100,300,"Rectangle",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),

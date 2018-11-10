@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utils.Lire;
 
 /**
@@ -39,12 +37,11 @@ public class EnsembleFigures extends Figure{
     }
 
     // Méthode création
-    public static EnsembleFigures nouveauEnsembleFigures(){
-       ArrayList<Figure> tabFigures = new ArrayList<Figure>();
+    public static EnsembleFigures nouveauEnsembleFigures(ArrayList<Figure> figure){
+       EnsembleFigures nouvelEnsemble = new EnsembleFigures(figure,"Ensemble",Color.black);
        
-       
-       
-       return new EnsembleFigures(tabFigures,"Ensemble",Color.black);
+       return nouvelEnsemble;
+      
     } 
      
     
@@ -61,16 +58,28 @@ public class EnsembleFigures extends Figure{
         return this.tabFigures.get(Lire.i());
     }
     
-    public void supprimeFigure(){
-          this.afficheFigure();
-          System.out.println("Supprimer la figure :");
-          this.tabFigures.remove(Lire.i());
-    
+    public void supprimeFigure(int i){
+          this.tabFigures.remove(i);
     }
     
-    public void ajouterFigure(){
-          this.tabFigures.add(Figure.entreFigure());
+    public void ajouterFigure(Figure fig){
+          this.tabFigures.add(fig);
     }
+    
+   public int trouverFigure(Figure fig){
+       int indice = -1;
+       for (int i = 0; i < this.tabFigures.size(); i++) {
+            if(tabFigures.get(i).equals(fig)){
+                indice = i;
+            }
+       }
+       if(indice == -1){
+           throw new Error("Figure non existante");
+       }
+       else{
+        return indice;
+       }
+   } 
     
     
     public void gestion() {
@@ -87,9 +96,11 @@ public class EnsembleFigures extends Figure{
             rep = Lire.i();
 
             if (rep == 1) {
-                this.ajouterFigure();
+                this.ajouterFigure(Figure.entreFigure());
             } else if (rep == 2) {
-                this.supprimeFigure();
+                this.afficheFigure();
+                System.out.println("Supprimer la figure :");
+                this.supprimeFigure(Lire.i());
             } else if (rep == 3) {
                 this.afficheFigure();
             } else if (rep == 4) {
@@ -99,6 +110,7 @@ public class EnsembleFigures extends Figure{
         } while (rep != 0);
     }
     
+   
     
     public void save(File f) {
         try (BufferedWriter bf = new BufferedWriter(new FileWriter(f))) {
@@ -113,7 +125,8 @@ public class EnsembleFigures extends Figure{
  
   
     }
-     
+    
+   
     
     // Ici la méthode "symetriques" de l'énoncé est en faite la spécialisation de "symetriqueOrigine" dans EnsembleFigure  
     @Override
@@ -195,6 +208,9 @@ public class EnsembleFigures extends Figure{
 
     // TP 3 : 3)
     public static void main(String[] args) {
+   
+        
+      
       EnsembleFigures original = new EnsembleFigures(new ArrayList<Figure>(),"Original");
       Point p1 = new Point(0,3,"P1");
       Point p2 = new Point(-2,0, "P2");

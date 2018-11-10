@@ -52,6 +52,11 @@ public abstract class Figure {
         }
     }
     
+    public void changerEnsemble(EnsembleFigures a, EnsembleFigures b){
+        a.supprimeFigure(a.trouverFigure(this));
+        b.ajouterFigure(this); 
+    }
+    
     
     public abstract Figure symetriqueOrigine();
     public abstract void dessine(Graphics g);
