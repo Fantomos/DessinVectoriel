@@ -22,7 +22,15 @@ import utils.Lire;
  */
 public class EnsembleFigures extends Figure{
     // Attributs
-    private ArrayList<Figure> tabFigures; 
+    private ArrayList<Figure> tabFigures;
+
+    public ArrayList<Figure> getTabFigures() {
+        return tabFigures;
+    }
+
+    public void setTabFigures(ArrayList<Figure> tabFigures) {
+        this.tabFigures = tabFigures;
+    }
 
     // Constructeur
     public EnsembleFigures(ArrayList<Figure> tabFigures, String nom, Color couleur) {
@@ -36,7 +44,7 @@ public class EnsembleFigures extends Figure{
        this(tabFigures, "Ensemble",Color.BLACK);
     }
 
-    // Méthode création
+    // Méthode création 
     public static EnsembleFigures nouveauEnsembleFigures(ArrayList<Figure> figure){
        EnsembleFigures nouvelEnsemble = new EnsembleFigures(figure,"Ensemble",Color.black);
        
@@ -61,7 +69,10 @@ public class EnsembleFigures extends Figure{
     public void supprimeFigure(int i){
           this.tabFigures.remove(i);
     }
-    
+    public void supprimeFigure(Figure i){
+          this.tabFigures.remove(i);
+    }
+      
     public void ajouterFigure(Figure fig){
           this.tabFigures.add(fig);
     }
@@ -168,7 +179,7 @@ public class EnsembleFigures extends Figure{
         Figure figureProche =  Collections.min(this.tabFigures, Comparator.comparing((Figure a) -> a.distancePoint(p)));
         return figureProche.distancePoint(p);
         
-//        double MinDistance = Double.MAX_VALUE;
+//        double MinDistance = this.tabFigures.get(0).distancePoint(p);
 //        int idMinDistance = 0 ;
 //                for (int i = 0; i < this.tabFigures.size(); i++) {
 //                    double distance = tabFigures.get(i).distancePoint(p);

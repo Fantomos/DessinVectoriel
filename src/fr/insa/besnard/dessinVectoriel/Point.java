@@ -39,6 +39,7 @@ public class Point extends Figure{
     }
     
     public Point(double px, double py){
+    
         this(px, py, "Point",Color.black);
     }
     
@@ -133,7 +134,11 @@ public class Point extends Figure{
     public static void main(String[] args) {
        Point p1 = nouveauPoint();
        Point p2 = nouveauPoint();
+       
+
        System.out.println(p1.distancePoint(p2));
+       
+       
       
     }
     

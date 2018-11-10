@@ -63,7 +63,8 @@ public class Cercle extends Figure{
     @Override
      public void dessine(Graphics g) {
         g.setColor(this.getCouleur());
-        g.drawOval((int)(this.centre.getCoordx() - this.rayon),(int)(this.centre.getCoordx() + this.rayon),(int)(2*this.rayon),(int)(2*this.rayon));
+        g.fillOval((int)(this.centre.getCoordx() - this.rayon),(int)(this.centre.getCoordx() + this.rayon),(int)(2*this.rayon),(int)(2*this.rayon));
+       
     }
      
      @Override

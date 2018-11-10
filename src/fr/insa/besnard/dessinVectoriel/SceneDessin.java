@@ -47,7 +47,7 @@ public class SceneDessin {
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
            
-           res.figuresScene.add(new Cercle (new Point(Math.random() * 400, Math.random() * 400), Math.random()*400,"cercle",
+           res.figuresScene.add(new Cercle (new Point(Math.random() * 400, Math.random() * 400), Math.random()*100,"cercle",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),

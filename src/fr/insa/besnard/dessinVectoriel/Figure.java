@@ -53,7 +53,7 @@ public abstract class Figure {
     }
     
     public void changerEnsemble(EnsembleFigures a, EnsembleFigures b){
-        a.supprimeFigure(a.trouverFigure(this));
+        a.getTabFigures().remove(this); 
         b.ajouterFigure(this); 
     }
     

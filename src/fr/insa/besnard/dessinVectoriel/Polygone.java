@@ -74,7 +74,8 @@ public class Polygone extends Figure {
             x[i] = (int) this.sommet.get(i).getCoordx();
             y[i] = (int) this.sommet.get(i).getCoordy();
         }
-        g.drawPolygon(x,y,this.sommet.size());
+        g.fillPolygon(x,y,this.sommet.size());
+       
     }
     
      @Override
