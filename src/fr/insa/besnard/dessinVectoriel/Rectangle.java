@@ -21,16 +21,16 @@ public class Rectangle extends Polygone{
 
     public Rectangle(Point p1, double largeur, double longueur, String nom, Color couleur) {
         super(new ArrayList<Point>(), nom, couleur);
-        this.getSommet().add(new Point (p1.getCoordx() + longueur,p1.getCoordy()));
-        this.getSommet().add(new Point (p1.getCoordx() + longueur,p1.getCoordy() + largeur));
-        this.getSommet().add(new Point (p1.getCoordx(),p1.getCoordy() + largeur));
+        super.getSommet().add(new Point (p1.getCoordx() + longueur,p1.getCoordy()));
+        super.getSommet().add(new Point (p1.getCoordx() + longueur,p1.getCoordy() + largeur));
+        super.getSommet().add(new Point (p1.getCoordx(),p1.getCoordy() + largeur));
     }
   
     
     @Override
      public void dessine(Graphics g) {
         g.setColor(this.getCouleur());
-        g.drawRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),15,20);
+        g.fillRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),15,20);
     }
   
 

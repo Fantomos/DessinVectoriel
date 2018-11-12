@@ -52,7 +52,12 @@ public class EnsembleFigures extends Figure{
       
     } 
      
-    
+     public void supprimeEnsemble(SceneDessin sd) {
+        sd.getfiguresScene().addAll(this.getTabFigures());
+        this.tabFigures.clear();
+
+    }
+     
     public void afficheFigure(){
         System.out.println(this.getNom() + " :");
         for (int i = 0; i < this.tabFigures.size(); i++) {
@@ -60,37 +65,26 @@ public class EnsembleFigures extends Figure{
         }
     }
     
-    public Figure choisiFigure(){
+    public Figure choisiFigure() {
         this.afficheFigure();
         System.out.println("Selectionner une figure :");
         return this.tabFigures.get(Lire.i());
     }
-    
-    public void supprimeFigure(int i){
-          this.tabFigures.remove(i);
+
+    public void supprimeFigure(int i) {
+        this.tabFigures.remove(i);
     }
-    public void supprimeFigure(Figure i){
-          this.tabFigures.remove(i);
+
+    public void supprimeFigure(Figure i) {
+        this.tabFigures.remove(i);
     }
-      
-    public void ajouterFigure(Figure fig){
-          this.tabFigures.add(fig);
+
+    public void ajouterFigure(Figure fig) {
+        this.tabFigures.add(fig);
     }
-    
-   public int trouverFigure(Figure fig){
-       int indice = -1;
-       for (int i = 0; i < this.tabFigures.size(); i++) {
-            if(tabFigures.get(i).equals(fig)){
-                indice = i;
-            }
-       }
-       if(indice == -1){
-           throw new Error("Figure non existante");
-       }
-       else{
-        return indice;
-       }
-   } 
+
+  
+
     
     
     public void gestion() {
@@ -238,5 +232,7 @@ public class EnsembleFigures extends Figure{
       original.afficheFigure();
       sym.afficheFigure();
       
+      
+     
     }
 }

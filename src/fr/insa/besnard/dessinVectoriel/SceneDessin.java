@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class SceneDessin {
      private ArrayList<Figure> figuresScene;
 
-    public ArrayList<Figure> getContient() {
+    public ArrayList<Figure> getfiguresScene() {
         return figuresScene;
     }
 
-    public void setContient(ArrayList<Figure> contient) {
+    public void getfiguresScene(ArrayList<Figure> contient) {
         this.figuresScene = contient;
     }
 
@@ -27,7 +27,10 @@ public class SceneDessin {
         this.figuresScene = new ArrayList<Figure>();
     }
     
-    
+    public void supprimeEnsemble(EnsembleFigures ef) {
+        this.figuresScene.addAll(ef.getTabFigures());
+        ef.getTabFigures().clear();
+    }
    
     
     public static SceneDessin sceneTest(int nbr) {
@@ -52,10 +55,14 @@ public class SceneDessin {
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
-           
+            res.figuresScene.add(new Ellipse (new Point(Math.random() * 400, Math.random() * 400), Math.random()*100,Math.random()*100,"cercle",
+                        new Color(
+                                ((int) (Math.random() * 255)),
+                                ((int) (Math.random() * 255)),
+                                ((int) (Math.random() * 255)))));
             ArrayList<Point> sommet = new ArrayList<Point>();
            for(int i =0; i<5;i++){
-               sommet.add(new Point(Math.random() * 400, Math.random() * 400));
+               sommet.add(new Point(Math.random() * 200, Math.random() * 200));
            }
             res.figuresScene.add(new Polygone(sommet,"polygone",
                         new Color(
@@ -68,6 +75,10 @@ public class SceneDessin {
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
+            
+            res.figuresScene.add(new Segment (new Point(-400, 0), new Point(400,0),"segment", new Color(0,0,0)));
+            res.figuresScene.add(new Segment (new Point(0, -400), new Point(0,400),"segment",
+                        new Color(0,0,0)));
         
         return res;
     }

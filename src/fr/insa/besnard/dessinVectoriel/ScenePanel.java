@@ -27,8 +27,8 @@ public class ScenePanel extends JPanel
     }
 
     public void paintComponent(Graphics g) {
-        for (int i = 0; i < this.laScene.getContient().size(); i++) {
-            Figure cur = this.laScene.getContient().get(i);
+        for (int i = 0; i < this.laScene.getfiguresScene().size(); i++) {
+            Figure cur = this.laScene.getfiguresScene().get(i);
             cur.dessine(g);
         }
     }
@@ -50,7 +50,7 @@ public class ScenePanel extends JPanel
     @Override
     public void mouseClicked(MouseEvent e) {
         // todo
-        this.laScene.getContient().add(
+        this.laScene.getfiguresScene().add(
                 new Point(e.getX(), e.getY()));
         this.repaint();
     }
