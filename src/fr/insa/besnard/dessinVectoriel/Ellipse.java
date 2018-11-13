@@ -65,7 +65,7 @@ public class Ellipse extends Figure{
     @Override
      public void dessine(Graphics g) {
         g.setColor(this.getCouleur());
-        g.fillOval((int)(this.centre.getCoordx() - this.rayonX),(int)(this.centre.getCoordx() + this.rayonY),(int)(2*this.rayonX),(int)(2*this.rayonY));
+        g.fillOval((int)(this.centre.getCoordx() - this.rayonX),(int)(this.centre.getCoordy() + this.rayonY),(int)(2*this.rayonX),(int)(2*this.rayonY));
        
     }
      

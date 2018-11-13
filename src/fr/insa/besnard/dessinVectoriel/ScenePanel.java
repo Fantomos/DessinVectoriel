@@ -50,9 +50,9 @@ public class ScenePanel extends JPanel
     @Override
     public void mouseClicked(MouseEvent e) {
         // todo
-        this.laScene.getfiguresScene().add(
-                new Point(e.getX(), e.getY()));
-        this.repaint();
+        
+        System.out.println(this.laScene.getfiguresScene().get(4).distancePoint(new Point(e.getX(),e.getY())));
+    
     }
 
     @Override

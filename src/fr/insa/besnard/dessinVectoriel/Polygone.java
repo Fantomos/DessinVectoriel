@@ -112,7 +112,38 @@ public class Polygone extends Figure {
     @Override
     public double distancePoint(Point p) {
         Point pointProche =  Collections.min(this.sommet, Comparator.comparing(a -> a.distancePoint(p)));
-        return pointProche.distancePoint(p);
+ 
+         Segment segmentProche1;
+         Segment segmentProche2;
+         int index = this.sommet.indexOf(pointProche);
+         
+         if(index == 0){
+             segmentProche1 = new Segment(this.sommet.get(index),this.sommet.get(index+1));
+             segmentProche2 = new Segment(this.sommet.get(index),this.sommet.get(this.sommet.size()-1)); 
+         }
+         else if(index == this.sommet.size()-1){
+             segmentProche1 = new Segment(this.sommet.get(index),this.sommet.get(0));
+             segmentProche2 = new Segment(this.sommet.get(index),this.sommet.get(index-1));
+         }
+         else{
+             segmentProche1 = new Segment(this.sommet.get(index),this.sommet.get(index+1));
+             segmentProche2 = new Segment(this.sommet.get(index),this.sommet.get(index-1));; 
+         }
+         
+        double distanceSegment1 = segmentProche1.distancePoint(p);
+        double distanceSegment2 = segmentProche2.distancePoint(p);
+        
+         if(distanceSegment1 <= distanceSegment2){
+            return distanceSegment1;
+            
+        }
+        else{
+            return distanceSegment2;
+        }
+        
+        
+        
+       
     }
     
     @Override

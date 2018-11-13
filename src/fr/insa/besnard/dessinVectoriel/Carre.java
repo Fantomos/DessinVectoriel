@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import utils.Lire;
 
@@ -21,7 +22,6 @@ public class Carre extends Rectangle{
     public Carre(Point p1, double longueur, String nom, Color couleur) {
         super(p1, longueur,longueur,nom,couleur);
     }
-    
     
     
 }
