@@ -26,6 +26,7 @@ public class ScenePanel extends JPanel
         this.addMouseListener(this);
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         for (int i = 0; i < this.laScene.getfiguresScene().size(); i++) {
             Figure cur = this.laScene.getfiguresScene().get(i);

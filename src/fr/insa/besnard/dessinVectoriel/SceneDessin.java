@@ -6,13 +6,17 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import javax.swing.*;
 
 /**
  *
  * @author Nicolas
  */
-public class SceneDessin {
+public class SceneDessin extends JPanel implements MouseListener{
      private ArrayList<Figure> figuresScene;
 
     public ArrayList<Figure> getfiguresScene() {
@@ -25,13 +29,60 @@ public class SceneDessin {
 
     public SceneDessin() {
         this.figuresScene = new ArrayList<Figure>();
+        this.addMouseListener(this);
     }
     
     public void supprimeEnsemble(EnsembleFigures ef) {
         this.figuresScene.addAll(ef.getTabFigures());
         ef.getTabFigures().clear();
     }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        for (int i = 0; i < this.getfiguresScene().size(); i++) {
+            Figure cur = this.getfiguresScene().get(i);
+            cur.dessine(g);
+        }
+    }
+    
+    
    
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // todo
+        
+        System.out.println(this.getfiguresScene().get(4).distancePoint(new Point(e.getX(),e.getY())));
+    
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+    
+    public static void main(String[] args) {
+        JFrame f = new JFrame("test point");
+        f.setSize(600, 400);
+        // l'instruction ci-dessous indique que l'on veut
+        // arréter l'application lorsque l'on ferme la fenetre
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        SceneDessin s = SceneDessin.sceneTest(20);
+
+        f.add(s);
+        f.setVisible(true);
+
+    }
     
     public static SceneDessin sceneTest(int nbr) {
         SceneDessin res = new SceneDessin();
