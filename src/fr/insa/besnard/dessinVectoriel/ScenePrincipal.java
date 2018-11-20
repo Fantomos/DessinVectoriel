@@ -18,9 +18,10 @@ import javax.swing.*;
 public class ScenePrincipal extends JPanel implements MouseListener{
 
     private SceneDessin sceneDessin;
+    private MenuPanel menu;
 
 
-    public ScenePrincipal(SceneDessin sceneDessin) {
+    public ScenePrincipal(SceneDessin sceneDessin,MenuPanel menu) {
         this.sceneDessin = sceneDessin;
         this.menu = menu;
         this.setLayout(new BorderLayout());
@@ -29,18 +30,12 @@ public class ScenePrincipal extends JPanel implements MouseListener{
         this.addMouseListener(this);
     }
     
-    @Override
-    public void paintComponent(Graphics g) {
-        for (int i = 0; i < this.sceneDessin.getfiguresScene().size(); i++) {
-            Figure cur = this.sceneDessin.getfiguresScene().get(i);
-            cur.dessine(g);
-        }
-}
+  
 
     public static void main(String[] args) {
         JFrame finale = new JFrame();
         finale.setSize(1000, 600);
-        finale.add(new ScenePrincipal(SceneDessin.sceneTest(10)));
+        finale.add(new ScenePrincipal(SceneDessin.sceneTest(10),new MenuPanel()));
         finale.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         finale.setVisible(true);
 

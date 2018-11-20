@@ -6,14 +6,16 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 
 /**
  *
  * @author Nicolas
  */
-public class SceneDessin {
+public class SceneDessin extends JPanel{
      private ArrayList<Figure> figuresScene;
 
     public ArrayList<Figure> getfiguresScene() {
@@ -33,7 +35,13 @@ public class SceneDessin {
         this.figuresScene.addAll(ef.getTabFigures());
         ef.getTabFigures().clear();
     }
-    
+      @Override
+    public void paintComponent(Graphics g) {
+        for (int i = 0; i < this.figuresScene.size(); i++) {
+            Figure cur = this.figuresScene.get(i);
+            cur.dessine(g);
+        }
+}
   
     
 
