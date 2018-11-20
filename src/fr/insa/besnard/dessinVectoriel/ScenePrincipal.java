@@ -43,6 +43,11 @@ public class ScenePrincipal extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println(e.getSource());
+        if(menu.getJbPoint().isSelected())
+        {
+            
+        }
    
     }
 

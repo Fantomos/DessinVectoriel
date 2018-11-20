@@ -7,6 +7,8 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -15,8 +17,9 @@ import javax.swing.JPanel;
  *
  * @author Nicolas
  */
-public class SceneDessin extends JPanel{
+public class SceneDessin extends JPanel implements MouseListener{
      private ArrayList<Figure> figuresScene;
+   
 
     public ArrayList<Figure> getfiguresScene() {
         return figuresScene;
@@ -28,13 +31,15 @@ public class SceneDessin extends JPanel{
 
     public SceneDessin() {
         this.figuresScene = new ArrayList<Figure>();
-    
+        this.addMouseListener(this);
     }
     
     public void eclaterEnsemble(EnsembleFigures ef) {
         this.figuresScene.addAll(ef.getTabFigures());
         ef.getTabFigures().clear();
     }
+    
+    
       @Override
     public void paintComponent(Graphics g) {
         for (int i = 0; i < this.figuresScene.size(); i++) {
@@ -42,6 +47,7 @@ public class SceneDessin extends JPanel{
             cur.dessine(g);
         }
 }
+   
   
     
 
@@ -104,6 +110,31 @@ public class SceneDessin extends JPanel{
             
         
         return res;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+      
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
     }
 
    
