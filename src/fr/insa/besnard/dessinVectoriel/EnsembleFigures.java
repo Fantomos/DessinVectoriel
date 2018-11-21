@@ -52,10 +52,9 @@ public class EnsembleFigures extends Figure{
       
     } 
      
-     public void supprimeEnsemble(SceneDessin sd) {
+     public void eclaterEnsemble(SceneDessin sd) {
         sd.getfiguresScene().addAll(this.getTabFigures());
         this.tabFigures.clear();
-
     }
      
     public void afficheFigure(){

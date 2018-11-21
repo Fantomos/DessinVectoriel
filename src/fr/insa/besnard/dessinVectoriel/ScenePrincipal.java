@@ -6,7 +6,6 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
@@ -19,23 +18,40 @@ public class ScenePrincipal extends JPanel implements MouseListener{
 
     private SceneDessin sceneDessin;
     private MenuPanel menu;
+    private InfoAction info;
 
+  
 
-    public ScenePrincipal(SceneDessin sceneDessin,MenuPanel menu) {
-        this.sceneDessin = sceneDessin;
-        this.menu = menu;
+    public ScenePrincipal() {
+        this.sceneDessin = new SceneDessin(this);
+        this.menu = new MenuPanel(this);
+        this.info = new InfoAction();
         this.setLayout(new BorderLayout());
-        this.add(menu, BorderLayout.NORTH);
-        this.add(sceneDessin, BorderLayout.CENTER);
+        this.add(this.menu, BorderLayout.NORTH);
+        this.add(this.sceneDessin, BorderLayout.CENTER);
+        this.add(this.info,BorderLayout.SOUTH);
         this.addMouseListener(this);
     }
-    
+
+    public MenuPanel getMenu() {
+        return menu;
+    }
+
+    public InfoAction getInfo() {
+        return info;
+    }
+
+      public SceneDessin getSceneDessin() {
+        return sceneDessin;
+    }
+   
   
 
     public static void main(String[] args) {
         JFrame finale = new JFrame();
         finale.setSize(1000, 600);
-        finale.add(new ScenePrincipal(SceneDessin.sceneTest(10),new MenuPanel()));
+   
+        finale.add(new ScenePrincipal());
         finale.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         finale.setVisible(true);
 
@@ -43,17 +59,15 @@ public class ScenePrincipal extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getSource());
-        if(menu.getJbPoint().isSelected())
-        {
-            
-        }
-   
-    }
+       
+     }
 
+     
+
+ 
     @Override
     public void mousePressed(MouseEvent e) {
-       
+     
     }
 
     @Override

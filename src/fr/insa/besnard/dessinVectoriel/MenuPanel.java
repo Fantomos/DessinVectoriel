@@ -6,6 +6,8 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,10 +18,11 @@ import javax.swing.WindowConstants;
  *
  * @author nbesnard01
  */
-public class MenuPanel extends JPanel{
+public class MenuPanel extends JPanel implements ActionListener{
     private JToggleButton jbPoint;
     private JToggleButton jbSegment;
-    private JToggleButton jbCercle;
+    private JToggleButton jbEllipse;
+    private ScenePrincipal main;
 
     public JToggleButton getJbPoint() {
         return jbPoint;
@@ -37,37 +40,68 @@ public class MenuPanel extends JPanel{
         this.jbSegment = jbSegment;
     }
 
-    public JToggleButton getJbCercle() {
-        return jbCercle;
+    public JToggleButton getJbEllipse() {
+        return jbEllipse;
     }
 
-    public void setJbCercle(JToggleButton jbCercle) {
-        this.jbCercle = jbCercle;
+    public void setJbEllipse(JToggleButton jbEllipse) {
+        this.jbEllipse = jbEllipse;
     }
     
     
-    public MenuPanel(){
+    public MenuPanel(ScenePrincipal main){
         this.jbPoint = new JToggleButton("P");
         this.jbSegment = new JToggleButton("S");
-        this.jbCercle = new JToggleButton("C");
+        this.jbEllipse = new JToggleButton("E");
+        this.main = main;
+        this.jbPoint.addActionListener(this);
+        this.jbSegment.addActionListener(this);
+         this.jbEllipse.addActionListener(this);
         this.setLayout(new GridLayout(1,3));
         ButtonGroup boutons = new ButtonGroup();
         boutons.add(jbPoint);
         boutons.add(jbSegment);
-        boutons.add(jbCercle);
+        boutons.add(jbEllipse);
         this.add(jbPoint);
         this.add(jbSegment);
-        this.add(jbCercle);
+        this.add(jbEllipse);
     }
     
+    
+    
+    
     public static void main(String[] args) {
-        JFrame f = new JFrame("test point");
-        f.setSize(300, 100);
-        // l'instruction ci-dessous indique que l'on veut
-        // arréter l'application lorsque l'on ferme la fenetre
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.add(new MenuPanel());
-        f.setVisible(true);
+    
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == jbPoint) {
+            if (jbPoint.isSelected()) {
+                this.main.getSceneDessin().setConstructionSeg(false);
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter un point");
+            } else {
+                this.main.getInfo().getInfoText().setText("Ajouter des figures");
+            }
+       
+        }
+        if (e.getSource() == jbSegment) {
+            if (jbSegment.isSelected()) {
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter la première extremité du segment");
+            } else {
+                this.main.getInfo().getInfoText().setText("Ajouter des figures");
+            }
+
+        }
+        if (e.getSource() == jbEllipse) {
+            if (jbEllipse.isSelected()) {
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter le centre de l'ellipse");
+            } else {
+                this.main.getInfo().getInfoText().setText("Ajouter des figures");
+            }
+
+        }
+    }
+
     
 }

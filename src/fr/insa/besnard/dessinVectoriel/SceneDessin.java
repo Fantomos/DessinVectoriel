@@ -18,7 +18,17 @@ import javax.swing.JPanel;
  * @author Nicolas
  */
 public class SceneDessin extends JPanel implements MouseListener{
-     private ArrayList<Figure> figuresScene;
+    
+    private ScenePrincipal main;
+    private ArrayList<Figure> figuresScene;
+    private boolean constructionSeg;
+    private boolean constructionEllipse;
+    private Point ptTemp;
+
+    public void setConstructionSeg(boolean constructionSeg) {
+        this.constructionSeg = constructionSeg;
+    }
+
    
 
     public ArrayList<Figure> getfiguresScene() {
@@ -29,9 +39,11 @@ public class SceneDessin extends JPanel implements MouseListener{
         this.figuresScene = contient;
     }
 
-    public SceneDessin() {
+    public SceneDessin(ScenePrincipal main) {
+        this.main = main;
         this.figuresScene = new ArrayList<Figure>();
         this.addMouseListener(this);
+    
     }
     
     public void eclaterEnsemble(EnsembleFigures ef) {
@@ -49,35 +61,29 @@ public class SceneDessin extends JPanel implements MouseListener{
 }
    
   
-    
-
-   
-    
-   
-    
-    public static SceneDessin sceneTest(int nbr) {
-        SceneDessin res = new SceneDessin();
+    public void sceneTest(int nbr) {
+       
    
           
-            res.figuresScene.add(
+            this.figuresScene.add(
                         new Point(
                                 Math.random() * 400,
                                 Math.random() * 400,"point",new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
-           res.figuresScene.add(new Segment (new Point(Math.random() * 400, Math.random() * 400), new Point(Math.random() * 400,Math.random() * 400),"segment",
+           this.figuresScene.add(new Segment (new Point(Math.random() * 400, Math.random() * 400), new Point(Math.random() * 400,Math.random() * 400),"segment",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
            
-           res.figuresScene.add(new Cercle (new Point(Math.random() * 400, Math.random() * 400), Math.random()*100,"cercle",
+           this.figuresScene.add(new Cercle (new Point(Math.random() * 400, Math.random() * 400), Math.random()*100,"cercle",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
-            res.figuresScene.add(new Ellipse (new Point(Math.random() * 400, Math.random() * 400), Math.random()*100,Math.random()*100,"cercle",
+            this.figuresScene.add(new Ellipse (new Point(Math.random() * 400, Math.random() * 400), Math.random()*100,Math.random()*100,"cercle",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
@@ -86,13 +92,13 @@ public class SceneDessin extends JPanel implements MouseListener{
            for(int i =0; i<5;i++){
                sommet.add(new Point(Math.random() * 200, Math.random() * 200));
            }
-            res.figuresScene.add(new Polygone(sommet,"polygone",
+            this.figuresScene.add(new Polygone(sommet,"polygone",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
 
-            res.figuresScene.add(new Rectangle(new Point(Math.random() * 400, Math.random() * 400),100,300,"Rectangle",
+            this.figuresScene.add(new Rectangle(new Point(Math.random() * 400, Math.random() * 400),100,300,"Rectangle",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
@@ -102,40 +108,73 @@ public class SceneDessin extends JPanel implements MouseListener{
            for(int i =0; i<5;i++){
                sommet2.add(new Point(Math.random() * 200, Math.random() * 200));
            }
-            res.figuresScene.add(new Polyligne(sommet2,"polygone",
+            this.figuresScene.add(new Polyligne(sommet2,"polygone",
                         new Color(
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)),
                                 ((int) (Math.random() * 255)))));
             
-        
-        return res;
+       
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(main.getMenu().getJbPoint().isSelected()){
+            this.getfiguresScene().add(new Point(e.getX(),e.getY()));
+            this.repaint();
+        }
+        else if(main.getMenu().getJbSegment().isSelected()){
+             
+            if(this.constructionSeg == false){
+                this.ptTemp = new Point(e.getX(),e.getY());
+                this.constructionSeg = true;
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter la seconde extremité du segment");
+            }
+            else{
+                this.figuresScene.add(new Segment(ptTemp,new Point(e.getX(),e.getY())));
+                this.constructionSeg = false;
+                this.repaint();
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter la première extremité du segment");
+            }
         
+    }
+         else if(main.getMenu().getJbEllipse().isSelected()){
+             
+            if(this.constructionEllipse == false){
+                this.ptTemp = new Point(e.getX(),e.getY());
+                this.constructionEllipse = true;
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter la seconde extremité du segment");
+            }
+            else{
+                
+                this.constructionEllipse = false;
+                this.repaint();
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter le centre de l'ellipse");
+            }
+    }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-      
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
+      
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         
     }
+
+   
 
    
 }
