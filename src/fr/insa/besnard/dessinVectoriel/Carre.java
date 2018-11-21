@@ -6,9 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import utils.Lire;
+
 
 
 /**

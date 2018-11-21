@@ -15,8 +15,7 @@ import utils.Lire;
  * @author Nicolas
  */
 public class Rectangle extends Polygone{
-    
- 
+   
     // Constructeur
 
     public Rectangle(Point p1, double largeur, double longueur, String nom, Color couleur) {
