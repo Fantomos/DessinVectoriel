@@ -21,9 +21,18 @@ public class Cercle extends Ellipse{
        this(centre,rayon,nom,Color.BLACK);
     }
     
+    public Cercle(Point centre, double rayon){
+       this(centre,rayon,"Cercle",Color.BLACK);
+    }
+    
     public Cercle(Point centre, double rayon, String nom, Color couleur){
         super(centre,rayon,rayon,nom,couleur);
        
+    }
+    
+    public void update(double rayon){
+        super.setRayonX(rayon);
+        super.setRayonY(rayon);
     }
     
     
@@ -39,18 +48,18 @@ public class Cercle extends Ellipse{
 
      @Override
     public String toString() {
-        return super.getNom() + " : Centre = " + super.getCentre()+ ", Rayon : " + super.getRayonX() ;
+        return super.getNom() + " : Centre = " + super.getPtSupGauche()+ ", Rayon : " + super.getRayonX() ;
     }
 
     @Override
     public double distancePoint(Point p){
-        return Math.abs(super.getCentre().distancePoint(p) - super.getRayonX());  
+        return Math.abs(super.getPtSupGauche().distancePoint(p) - super.getRayonX());  
     };
 
     @Override
      public String toSave(){
         return "C;" + super.getNom() + ";"
-                + super.getCentre().toSave()
+                + super.getPtSupGauche().toSave()
                 + super.getRayonX() + ";"
                 + super.getCouleur() + ";\n"; // ?
     }
