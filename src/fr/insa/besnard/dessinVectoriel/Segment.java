@@ -17,6 +17,14 @@ import utils.Lire;
 public class Segment extends Figure{
     private Point depart;
     private Point fin;
+
+    public void setDepart(Point depart) {
+        this.depart = depart;
+    }
+
+    public void setFin(Point fin) {
+        this.fin = fin;
+    }
     
     //Constructeur
     public Segment(Point a, Point b){

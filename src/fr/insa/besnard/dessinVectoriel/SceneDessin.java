@@ -7,26 +7,41 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 
 /**
  *
  * @author Nicolas
  */
-public class SceneDessin extends JPanel implements MouseListener{
+public class SceneDessin extends JPanel implements MouseListener,MouseMotionListener{
     
     private ScenePrincipal main;
     private ArrayList<Figure> figuresScene;
     private boolean constructionSeg;
     private boolean constructionEllipse;
-    private Point ptTemp;
+    private boolean constructionRec;
+    private Segment stTemp;
+    private Ellipse elTemp;
+    private Rectangle recTemp;
+    
+    public void setConstructionEllipse(boolean constructionEllipse) {
+        this.constructionEllipse = constructionEllipse;
+    }
+
 
     public void setConstructionSeg(boolean constructionSeg) {
         this.constructionSeg = constructionSeg;
+    }
+
+    public void setConstructionRec(boolean constructionRec) {
+        this.constructionRec = constructionRec;
     }
 
    
@@ -43,6 +58,7 @@ public class SceneDessin extends JPanel implements MouseListener{
         this.main = main;
         this.figuresScene = new ArrayList<Figure>();
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
     
     }
     
@@ -54,9 +70,23 @@ public class SceneDessin extends JPanel implements MouseListener{
     
       @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        //Dessine les figures dans le tableau
         for (int i = 0; i < this.figuresScene.size(); i++) {
             Figure cur = this.figuresScene.get(i);
             cur.dessine(g);
+        }
+        
+        //Dessine les constructions
+        if(this.constructionSeg == true){
+            this.stTemp.dessine(g);
+        }
+        if(this.constructionEllipse == true){
+            this.elTemp.dessine(g);
+        }
+        if(this.constructionRec == true){
+            this.recTemp.dessine(g);
         }
 }
    
@@ -126,30 +156,47 @@ public class SceneDessin extends JPanel implements MouseListener{
         else if(main.getMenu().getJbSegment().isSelected()){
              
             if(this.constructionSeg == false){
-                this.ptTemp = new Point(e.getX(),e.getY());
+     
+   
+                this.stTemp = new Segment(new Point(e.getX(),e.getY()),new Point(e.getX(),e.getY()));
                 this.constructionSeg = true;
-                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter la seconde extremité du segment");
+                this.main.getInfo().getInfoText().setText("Cliquer pour valider");
+               
             }
             else{
-                this.figuresScene.add(new Segment(ptTemp,new Point(e.getX(),e.getY())));
+                this.figuresScene.add(this.stTemp);
                 this.constructionSeg = false;
                 this.repaint();
-                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter la première extremité du segment");
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter un segment");
             }
         
     }
          else if(main.getMenu().getJbEllipse().isSelected()){
              
             if(this.constructionEllipse == false){
-                this.ptTemp = new Point(e.getX(),e.getY());
+                this.elTemp = new Ellipse(new Point(e.getX(),e.getY()),2,2);
                 this.constructionEllipse = true;
-                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter la seconde extremité du segment");
+                this.main.getInfo().getInfoText().setText("Cliquer pour valider");
             }
             else{
-                
+                this.figuresScene.add(this.elTemp);
                 this.constructionEllipse = false;
                 this.repaint();
-                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter le centre de l'ellipse");
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter une ellipse");
+            }
+    }
+         else if(main.getMenu().getJbRectangle().isSelected()){
+             
+            if(this.constructionRec == false){
+                this.recTemp = new Rectangle(new Point(e.getX(),e.getY()),2,2);
+                this.constructionRec = true;
+                this.main.getInfo().getInfoText().setText("Cliquer pour valider");
+            }
+            else{
+                this.figuresScene.add(this.recTemp);
+                this.constructionRec = false;
+                this.repaint();
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter un rectangle");
             }
     }
     }
@@ -174,7 +221,38 @@ public class SceneDessin extends JPanel implements MouseListener{
         
     }
 
-   
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+    
+        if(this.constructionSeg == true){
+            java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
+            SwingUtilities.convertPointFromScreen(p, this);
+            this.stTemp.setFin(new Point(p.x,p.y));
+            this.repaint();
+        }
+        else if(this.constructionEllipse == true){
+            java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
+            SwingUtilities.convertPointFromScreen(p, this);
+            this.elTemp.setRayonX(Math.abs(p.x - this.elTemp.getCentre().getCoordx()));
+            this.elTemp.setRayonY(Math.abs(p.y - this.elTemp.getCentre().getCoordy()));
+            this.repaint();
+        }
+        else if(this.constructionRec == true){
+            System.out.println(e);
+            java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
+            SwingUtilities.convertPointFromScreen(p, this);
+            this.recTemp = new Rectangle(recTemp.getSommet().get(0), Math.abs(p.x - recTemp.getSommet().get(0).getCoordx()),Math.abs(p.y - recTemp.getSommet().get(0).getCoordy()));
+          
+            this.repaint();
+        }
+    }
+
+
 
    
 }

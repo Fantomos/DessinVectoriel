@@ -19,6 +19,9 @@ public class Ellipse extends Figure{
     private double rayonX;
     private double rayonY;
 
+
+   
+
     public Point getCentre() {
         return centre;
     }
@@ -48,11 +51,17 @@ public class Ellipse extends Figure{
     
     public Ellipse(Point centre, double rayonX, double rayonY, String nom, Color couleur){
         super(nom,couleur);
+        centre.setCoordx(centre.getCoordx() - rayonX);
+        centre.setCoordy(centre.getCoordy() - rayonY);
         this.centre = centre;
         this.rayonX = rayonX;
-         this.rayonY = rayonY;
+        this.rayonY = rayonY;
+        
     }
     
+    public Ellipse(Point centre, double rayonX, double rayonY){
+        this(centre,rayonX,rayonY,"Ellipse",Color.BLACK);
+    }
     
   
     
@@ -65,7 +74,7 @@ public class Ellipse extends Figure{
     @Override
      public void dessine(Graphics g) {
         g.setColor(this.getCouleur());
-        g.fillOval((int)(this.centre.getCoordx() - this.rayonX),(int)(this.centre.getCoordy() + this.rayonY),(int)(2*this.rayonX),(int)(2*this.rayonY));
+        g.fillOval((int)(this.centre.getCoordx()),(int)(this.centre.getCoordy()),(int)(2*this.rayonX),(int)(2*this.rayonY));
        
     }
      

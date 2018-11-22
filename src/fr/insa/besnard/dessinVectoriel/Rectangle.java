@@ -21,10 +21,15 @@ public class Rectangle extends Polygone{
 
     public Rectangle(Point p1, double largeur, double longueur, String nom, Color couleur) {
         super(new ArrayList<Point>(), nom, couleur);
+        super.getSommet().add(p1);
         super.getSommet().add(new Point (p1.getCoordx() + longueur,p1.getCoordy()));
         super.getSommet().add(new Point (p1.getCoordx() + longueur,p1.getCoordy() + largeur));
         super.getSommet().add(new Point (p1.getCoordx(),p1.getCoordy() + largeur));
     }
+    public Rectangle(Point p1, double largeur, double longueur) {
+        this(p1,largeur,longueur,"Rectangle",Color.BLACK);
+    }
+   
   
     
     @Override

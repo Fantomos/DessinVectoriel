@@ -50,7 +50,6 @@ public class ScenePrincipal extends JPanel implements MouseListener{
     public static void main(String[] args) {
         JFrame finale = new JFrame();
         finale.setSize(1000, 600);
-   
         finale.add(new ScenePrincipal());
         finale.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         finale.setVisible(true);
