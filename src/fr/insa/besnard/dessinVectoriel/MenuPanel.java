@@ -25,7 +25,9 @@ public class MenuPanel extends JPanel implements ActionListener{
     private JToggleButton jbEllipse;
      private JToggleButton jbCercle;
     private JToggleButton jbRectangle;
+     private JToggleButton jbCarre;
     private JToggleButton jbPolygone;
+     private JToggleButton jbPolyligne;
  
      
       private JToggleButton jbSelection;
@@ -33,9 +35,17 @@ public class MenuPanel extends JPanel implements ActionListener{
      private Container figures;
    
     private ScenePrincipal main;
+
+    public JToggleButton getJbCarre() {
+        return jbCarre;
+    }
     
     public JToggleButton getJbRectangle() {
         return jbRectangle;
+    }
+
+    public JToggleButton getJbPolyligne() {
+        return jbPolyligne;
     }
 
     public JToggleButton getJbPolygone() {
@@ -82,8 +92,11 @@ public class MenuPanel extends JPanel implements ActionListener{
         this.jbEllipse = new JToggleButton("Ellipse");
         this.jbCercle = new JToggleButton("Cercle");
         this.jbRectangle = new JToggleButton("Rectangle");
+         this.jbCarre = new JToggleButton("Carre");
          this.jbPolygone = new JToggleButton("Polygone");
+          this.jbPolyligne = new JToggleButton("Polyligne");
          this.jbSelection = new JToggleButton("Selection");
+         
          this.figures = new Container();
          this.outils = new Container();
         this.main = main;
@@ -92,7 +105,9 @@ public class MenuPanel extends JPanel implements ActionListener{
          this.jbEllipse.addActionListener(this);
          this.jbCercle.addActionListener(this);
          this.jbRectangle.addActionListener(this);
-          this.jbRectangle.addActionListener(this);
+          this.jbCarre.addActionListener(this);
+          this.jbPolygone.addActionListener(this);
+          this.jbPolyligne.addActionListener(this);
           this.jbSelection.addActionListener(this);
          
           
@@ -101,13 +116,17 @@ public class MenuPanel extends JPanel implements ActionListener{
         outils.add(jbSelection);
         
        
-        figures.setLayout(new GridLayout(1,6));
+        figures.setLayout(new GridLayout(1,8));
         figures.add(jbPoint);
         figures.add(jbSegment);
+        figures.add(jbPolyligne);
+        figures.add(jbPolygone);
+        figures.add(jbRectangle);
+         figures.add(jbCarre);
         figures.add(jbEllipse);
         figures.add(jbCercle);
-        figures.add(jbRectangle);
-        figures.add(jbPolygone);
+        
+        
         
         this.setLayout(new GridLayout(2,1));
        
@@ -117,7 +136,9 @@ public class MenuPanel extends JPanel implements ActionListener{
         boutons.add(jbEllipse);
           boutons.add(jbCercle);
         boutons.add(jbRectangle);
+         boutons.add(jbCarre);
         boutons.add(jbPolygone);
+        boutons.add(jbPolyligne);
         boutons.add(jbSelection);
         
        
@@ -140,7 +161,9 @@ public class MenuPanel extends JPanel implements ActionListener{
         this.main.getSceneDessin().setConstructionEllipse(false);
         this.main.getSceneDessin().setConstructionCercle(false);
         this.main.getSceneDessin().setConstructionRec(false);
+         this.main.getSceneDessin().setConstructionCarre(false);
         this.main.getSceneDessin().setConstructionPoly(false);
+        this.main.getSceneDessin().setConstructionPolyligne(false);
         this.main.getSceneDessin().repaint();
         
         
@@ -185,9 +208,25 @@ public class MenuPanel extends JPanel implements ActionListener{
             }
 
         }
+          else if (e.getSource() == jbCarre) {
+            if (jbCarre.isSelected()) {
+                this.main.getInfo().getInfoText().setText("Cliquer pour ajouter un carre");
+            } else {
+                this.main.getInfo().getInfoText().setText("Ajouter des figures");
+            }
+
+        }
         else if (e.getSource() == jbPolygone) {
             if (jbPolygone.isSelected()) {
-                this.main.getInfo().getInfoText().setText("Clique droit pour ajouter des sommets. Clique gauche pour valider");
+                this.main.getInfo().getInfoText().setText("Clique gauche pour ajouter des sommets. Clique droit pour valider");
+            } else {
+                this.main.getInfo().getInfoText().setText("Ajouter des figures");
+            }
+
+        }
+         else if (e.getSource() == jbPolyligne) {
+            if (jbPolyligne.isSelected()) {
+                this.main.getInfo().getInfoText().setText("Clique gauche pour ajouter des sommets. Clique droit pour valider");
             } else {
                 this.main.getInfo().getInfoText().setText("Ajouter des figures");
             }

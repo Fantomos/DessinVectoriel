@@ -20,6 +20,15 @@ public class Carre extends Rectangle{
     public Carre(Point p1, double longueur, String nom, Color couleur) {
         super(p1, longueur,longueur,nom,couleur);
     }
-    
+     public Carre(Point p1, double longueur) {
+        this(p1, longueur,"Carre",Color.BLACK);
+    }
+    public void update(double longueur){
+      Point p1 = this.getSommet().get(0);
+      this.getSommet().get(1).setCoordx(p1.getCoordx() + longueur);
+       this.getSommet().get(2).setCoordx(p1.getCoordx() + longueur);
+       this.getSommet().get(2).setCoordy(p1.getCoordy() + longueur);
+       this.getSommet().get(3).setCoordy(p1.getCoordy() + longueur);
+  }
     
 }
