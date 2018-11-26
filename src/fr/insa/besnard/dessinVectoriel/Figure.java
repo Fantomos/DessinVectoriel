@@ -60,7 +60,18 @@ public abstract class Figure{
         a.getTabFigures().remove(this); 
         b.ajouterFigure(this); 
     }
-    
+    public static Figure figSelection(Figure a){
+        
+        Figure fgTemp = a.copy();
+       fgTemp.setCouleur(Color.blue);
+                if(fgTemp instanceof Polygone){
+                  ((Polygone) fgTemp).setRemplir(false);  
+                }
+                else if(fgTemp instanceof Ellipse){
+                    ((Ellipse) fgTemp).setRemplir(false); 
+                }
+                return fgTemp;
+    }
     public abstract Figure copy();
  
  

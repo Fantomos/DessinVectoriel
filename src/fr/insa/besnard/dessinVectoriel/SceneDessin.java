@@ -46,6 +46,14 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         this.enSelection = enSelection;
     }
 
+    public void setFgTemp(Figure fgTemp) {
+        this.fgTemp = fgTemp;
+    }
+
+    public boolean isEnSelection() {
+        return enSelection;
+    }
+
     public void setConstructionCarre(boolean constructionCarre) {
         this.constructionCarre = constructionCarre;
     }
@@ -315,14 +323,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                 if(clic != null){   
                 enSelection = true;
                 // Fait une copie de la figure selectionné pour afficher une nouvelle figure superposé avec contour bleu
-                fgTemp = clic.copy();
-                fgTemp.setCouleur(Color.blue);
-                if(clic instanceof Polygone){
-                  ((Polygone) fgTemp).setRemplir(false);  
-                }
-                else if(fgTemp instanceof Ellipse){
-                    ((Ellipse) fgTemp).setRemplir(false); 
-                }
+                Figure.figSelection(clic);
               
                 this.main.getDetail().afficherDetail(clic);
                 
@@ -334,6 +335,8 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
             
         }
     }
+    
+    
 
     @Override
     public void mousePressed(MouseEvent e) {
