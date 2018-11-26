@@ -27,6 +27,13 @@ public class Segment extends Figure{
     }
     
     //Constructeur
+    public Segment(){
+        this(new Point(),new Point(),"Segment",Color.BLACK);
+    }
+    
+    public Segment(Segment seg){
+        this(seg.depart,seg.fin,seg.getNom(),seg.getCouleur());
+    }
     public Segment(Point a, Point b){
         this(a,b,"Segment",Color.BLACK);
     }
@@ -127,7 +134,10 @@ public class Segment extends Figure{
     };
     
     
-    
+     @Override
+    public Segment copy() {
+        return new Segment(this);
+    }
     
      public static void main(String[] args) {
        

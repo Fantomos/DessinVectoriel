@@ -18,6 +18,7 @@ public class ScenePrincipal extends JPanel implements MouseListener{
 
     private SceneDessin sceneDessin;
     private MenuPanel menu;
+    private DetailPanel detail;
     private InfoAction info;
 
   
@@ -26,11 +27,17 @@ public class ScenePrincipal extends JPanel implements MouseListener{
         this.sceneDessin = new SceneDessin(this);
         this.menu = new MenuPanel(this);
         this.info = new InfoAction();
+        this.detail = new DetailPanel(this);
         this.setLayout(new BorderLayout());
         this.add(this.menu, BorderLayout.NORTH);
         this.add(this.sceneDessin, BorderLayout.CENTER);
         this.add(this.info,BorderLayout.SOUTH);
+        this.add(this.detail,BorderLayout.EAST);
         this.addMouseListener(this);
+    }
+
+    public DetailPanel getDetail() {
+        return detail;
     }
 
     public MenuPanel getMenu() {
@@ -53,7 +60,7 @@ public class ScenePrincipal extends JPanel implements MouseListener{
         finale.add(new ScenePrincipal());
         finale.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         finale.setVisible(true);
-
+    
     }
 
     @Override

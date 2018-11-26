@@ -23,12 +23,22 @@ public class Carre extends Rectangle{
      public Carre(Point p1, double longueur) {
         this(p1, longueur,"Carre",Color.BLACK);
     }
-    public void update(double longueur){
-      Point p1 = this.getSommet().get(0);
+      public Carre(Carre car) {
+        super(car);
+    }
+      public Carre() {
+        this(new Point(),0);
+    }
+    public void update(Point p1,double longueur){
+     this.getSommet().set(0, p1);
       this.getSommet().get(1).setCoordx(p1.getCoordx() + longueur);
        this.getSommet().get(2).setCoordx(p1.getCoordx() + longueur);
        this.getSommet().get(2).setCoordy(p1.getCoordy() + longueur);
        this.getSommet().get(3).setCoordy(p1.getCoordy() + longueur);
   }
+     @Override
+    public Carre copy() {
+        return new Carre(this);
+    }
     
 }

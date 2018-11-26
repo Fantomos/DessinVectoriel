@@ -206,8 +206,10 @@ public class EnsembleFigures extends Figure{
         return figureMaxY.maxY();
     };
     
-   
-    
+     @Override
+    public Figure copy() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
 
     // TP 3 : 3)
@@ -234,4 +236,6 @@ public class EnsembleFigures extends Figure{
       
      
     }
+
+   
 }

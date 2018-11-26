@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -30,12 +32,19 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
     private boolean constructionCarre;
     private boolean constructionPoly;
     private boolean constructionPolyligne;
+    private boolean enSelection;
     private Segment stTemp;
     private Ellipse elTemp;
     private Cercle clTemp;
     private Rectangle recTemp;
     private Carre carTemp;
     private Polyligne plTemp;
+    private Figure fgTemp;
+    private Polygone plgTemp;
+
+    public void setEnSelection(boolean enSelection) {
+        this.enSelection = enSelection;
+    }
 
     public void setConstructionCarre(boolean constructionCarre) {
         this.constructionCarre = constructionCarre;
@@ -85,6 +94,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         this.constructionSeg = false;
         this.constructionPoly = false;
         this.constructionPolyligne = false;
+        this.enSelection = false;
 
     }
 
@@ -93,6 +103,19 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         ef.getTabFigures().clear();
     }
 
+    public Figure figureProche(Point clic){
+        if(figuresScene.isEmpty()){
+            return null;
+        }
+         Figure figure =  Collections.min(this.figuresScene, Comparator.comparing((Figure a) -> a.distancePoint(clic)));
+         if(figure.distancePoint(clic) < 50){
+                return figure;
+         }
+         return null;
+               
+    }
+
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -120,25 +143,35 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
             this.carTemp.dessine(g);
         }
         if (this.constructionPoly == true) {
-            this.plTemp.dessine(g);
+            this.plgTemp.dessine(g);
         }
         if (this.constructionPolyligne == true) {
             this.plTemp.dessine(g);
+        }
+        
+        //Dessine la selection
+        if(this.enSelection == true){
+            this.fgTemp.dessine(g);
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        this.enSelection = false;
+        
         // Si Bouton Point selectionné
         if (main.getMenu().getJbPoint().isSelected()) {
-            this.getfiguresScene().add(new Point(e.getX(), e.getY()));
+            Point a = (Point)this.main.getDetail().getFigureDetail().copy();
+            a.setCoordx(e.getX());
+            a.setCoordy(e.getY());
+            this.getfiguresScene().add(a);
             this.repaint();
         } // Si Bouton Segment selectionné
         else if (main.getMenu().getJbSegment().isSelected()) {
             // Si premier clique
             if (this.constructionSeg == false) {
-                this.stTemp = new Segment(new Point(e.getX(), e.getY()), new Point(e.getX(), e.getY()));
+                this.stTemp = (Segment)this.main.getDetail().getFigureDetail().copy();
+                stTemp.setDepart(new Point(e.getX(),e.getY()));
                 this.constructionSeg = true;
                 this.main.getInfo().getInfoText().setText("Cliquer pour valider");
 
@@ -154,7 +187,8 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if (main.getMenu().getJbEllipse().isSelected()) {
 
             if (this.constructionEllipse == false) {
-                this.elTemp = new Ellipse(new Point(e.getX(), e.getY()), 2, 2);
+                this.elTemp = (Ellipse)this.main.getDetail().getFigureDetail().copy();
+                this.elTemp.setPtSupGauche(new Point(e.getX(), e.getY()));
                 this.constructionEllipse = true;
                 this.main.getInfo().getInfoText().setText("Cliquer pour valider");
             } // Si construction en cours
@@ -168,7 +202,8 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if (main.getMenu().getJbCercle().isSelected()) {
 
             if (this.constructionCercle == false) {
-                this.clTemp = new Cercle(new Point(e.getX(), e.getY()), 0);
+                this.clTemp = (Cercle)this.main.getDetail().getFigureDetail().copy();
+                this.clTemp.setPtSupGauche(new Point(e.getX(), e.getY()));
                 this.constructionCercle = true;
                 this.main.getInfo().getInfoText().setText("Cliquer pour valider");
             } // Si construction en cours
@@ -182,9 +217,11 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if (main.getMenu().getJbRectangle().isSelected()) {
 
             if (this.constructionRec == false) {
-                this.recTemp = new Rectangle(new Point(e.getX(), e.getY()), 0, 0);
+                this.recTemp = (Rectangle)this.main.getDetail().getFigureDetail();
+                this.recTemp.update(new Point(e.getX(), e.getY()),0,0);
                 this.constructionRec = true;
                 this.main.getInfo().getInfoText().setText("Cliquer pour valider");
+                this.main.getDetail().afficherDetail(new Rectangle());
 
             } // Si construction en cours
             else {
@@ -192,6 +229,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                 this.constructionRec = false;
                 this.repaint();
                 this.main.getInfo().getInfoText().setText("Cliquer pour ajouter un rectangle");
+                
             }
             
         }
@@ -199,10 +237,11 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if (main.getMenu().getJbCarre().isSelected()) {
 
             if (this.constructionCarre == false) {
-                this.carTemp = new Carre(new Point(e.getX(), e.getY()), 0);
+                this.carTemp = (Carre)this.main.getDetail().getFigureDetail();
+                this.carTemp.update(new Point(e.getX(), e.getY()),0);
                 this.constructionCarre = true;
                 this.main.getInfo().getInfoText().setText("Cliquer pour valider");
-
+                this.main.getDetail().afficherDetail(new Carre());
             } // Si construction en cours
             else {
                 this.figuresScene.add(this.carTemp);
@@ -215,22 +254,26 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if (main.getMenu().getJbPolygone().isSelected()) {
 
             if (this.constructionPoly == false) {
-                this.plTemp = new Polyligne(new ArrayList<Point>());
-                plTemp.getSommet().add(new Point(e.getX(), e.getY()));
+                this.plgTemp = (Polygone)this.main.getDetail().getFigureDetail();
+                plgTemp.getSommet().add(new Point(e.getX(), e.getY()));
                 this.constructionPoly = true;
                 this.main.getInfo().getInfoText().setText("Clique gauche pour ajouter des sommets. Clique droit pour valider");
                 this.repaint();
             } // Si construction en cours
             else {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    if (plTemp.getSommet().size() > 2) {
-                        this.figuresScene.add(new Polygone(this.plTemp.getSommet()));
+                    if(this.plgTemp.getSommet().size() > 1){
+                     this.plgTemp.getSommet().remove(this.plgTemp.getSommet().size()-1);
+                    }
+                    if (plgTemp.getSommet().size() > 2) {
+                        this.figuresScene.add(this.plgTemp);
+                        this.main.getDetail().afficherDetail(new Polygone());
                     }
                     this.constructionPoly = false;
                     this.repaint();
-                    this.main.getInfo().getInfoText().setText("Clique gauche pour ajouter des sommets. Clique droit pour valider");
+                    this.main.getInfo().getInfoText().setText("Cliquer pour ajouter un polygone");
                 } else {
-                    this.plTemp.getSommet().add(new Point(e.getX(), e.getY()));
+                    this.plgTemp.getSommet().add(new Point(e.getX(), e.getY()));
                     this.repaint();
                 }
 
@@ -239,7 +282,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if (main.getMenu().getJbPolyligne().isSelected()) {
 
             if (this.constructionPolyligne == false) {
-                this.plTemp = new Polyligne(new ArrayList<Point>());
+                this.plTemp = (Polyligne)this.main.getDetail().getFigureDetail();
                 plTemp.getSommet().add(new Point(e.getX(), e.getY()));
                 this.constructionPolyligne = true;
                 this.main.getInfo().getInfoText().setText("Clique gauche pour ajouter des sommets. Clique droit pour valider");
@@ -247,18 +290,48 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
             } // Si construction en cours
             else {
                 if (SwingUtilities.isRightMouseButton(e)) {
+                    if(this.plTemp.getSommet().size() > 1){
+                     this.plTemp.getSommet().remove(this.plTemp.getSommet().size()-1);
+                    }
                     if (plTemp.getSommet().size() > 2) {
                         this.figuresScene.add(plTemp);
+                        this.main.getDetail().afficherDetail(new Polyligne());
                     }
                     this.constructionPolyligne = false;
                     this.repaint();
-                    this.main.getInfo().getInfoText().setText("Clique gauche pour ajouter des sommets. Clique droit pour valider");
+                    this.main.getInfo().getInfoText().setText("Cliquer pour ajouter un polyligne");
                 } else {
                     this.plTemp.getSommet().add(new Point(e.getX(), e.getY()));
                     this.repaint();
                 }
 
             }
+        } // Si Bouton Selection en cours
+        else if (main.getMenu().getJbSelection().isSelected()) {
+                
+                Figure clic = this.figureProche(new Point(e.getX(), e.getY()));
+                
+                // Si figure est assez proche
+                if(clic != null){   
+                enSelection = true;
+                // Fait une copie de la figure selectionné pour afficher une nouvelle figure superposé avec contour bleu
+                fgTemp = clic.copy();
+                fgTemp.setCouleur(Color.blue);
+                if(clic instanceof Polygone){
+                  ((Polygone) fgTemp).setRemplir(false);  
+                }
+                else if(fgTemp instanceof Ellipse){
+                    ((Ellipse) fgTemp).setRemplir(false); 
+                }
+              
+                this.main.getDetail().afficherDetail(clic);
+                
+                } // Sinon si aucune figure proche
+                else{
+                     enSelection=false;
+                     this.main.getDetail().setVisible(false);
+                }
+            
         }
     }
 
@@ -298,8 +371,8 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         } else if (this.constructionEllipse == true) {
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
             SwingUtilities.convertPointFromScreen(p, this);
-            this.elTemp.setRayonX(p.x - this.elTemp.getPtSupGauche().getCoordx());
-            this.elTemp.setRayonY(p.y - this.elTemp.getPtSupGauche().getCoordy());
+            this.elTemp.setRayonX(Math.abs(p.x - this.elTemp.getPtSupGauche().getCoordx()));
+            this.elTemp.setRayonY(Math.abs(p.y - this.elTemp.getPtSupGauche().getCoordy()));
             this.repaint();
         } else if (this.constructionCercle == true) {
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
@@ -312,7 +385,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
             SwingUtilities.convertPointFromScreen(p, this);
-            this.recTemp.update(p.y - recTemp.getSommet().get(0).getCoordy(), p.x - recTemp.getSommet().get(0).getCoordx());
+            this.recTemp.update(recTemp.getSommet().get(0),p.y - recTemp.getSommet().get(0).getCoordy(), p.x - recTemp.getSommet().get(0).getCoordx());
 
             this.repaint();
         }
@@ -320,7 +393,29 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
             SwingUtilities.convertPointFromScreen(p, this);
-            this.carTemp.update(Math.max(p.y - carTemp.getSommet().get(0).getCoordy(), p.x - carTemp.getSommet().get(0).getCoordx()));
+            this.carTemp.update(carTemp.getSommet().get(0),Math.max(p.y - carTemp.getSommet().get(0).getCoordy(), p.x - carTemp.getSommet().get(0).getCoordx()));
+            this.repaint();
+        }
+        else if (this.constructionPolyligne == true) {
+
+            java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
+            SwingUtilities.convertPointFromScreen(p, this);
+            Point p1 = new Point(p.x,p.y);
+            if(this.plTemp.getSommet().size() > 1){
+                this.plTemp.getSommet().remove(this.plTemp.getSommet().size()-1);
+            }
+            this.plTemp.getSommet().add(p1);
+            this.repaint();
+        }
+         else if (this.constructionPoly == true) {
+
+            java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
+            SwingUtilities.convertPointFromScreen(p, this);
+            Point p1 = new Point(p.x,p.y);
+            if(this.plgTemp.getSommet().size() > 1){
+                this.plgTemp.getSommet().remove(this.plgTemp.getSommet().size()-1);
+            }
+            this.plgTemp.getSommet().add(p1);
             this.repaint();
         }
 

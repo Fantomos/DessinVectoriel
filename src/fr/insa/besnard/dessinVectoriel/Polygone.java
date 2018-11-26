@@ -18,6 +18,17 @@ import utils.Lire;
  */
 public class Polygone extends Figure {
     private ArrayList<Point> sommet;
+    private boolean remplir;
+
+    public boolean isRemplir() {
+        return remplir;
+    }
+    public boolean getRemplir() {
+        return remplir;
+    }
+    public void setRemplir(boolean remplir) {
+        this.remplir = remplir;
+    }
 
     public ArrayList<Point> getSommet() {
         return sommet;
@@ -28,16 +39,28 @@ public class Polygone extends Figure {
     }
     
     //Constructeur
+     public Polygone(){
+        this(new ArrayList<Point>(), "Polygone",Color.BLACK,false);
+    }
+     
+     public Polygone(Polygone poly){
+        this(poly.getSommet(), poly.getNom(),poly.getCouleur(),poly.getRemplir());
+    }
+    
     public Polygone(ArrayList<Point> sommet){
-        this(sommet, "Polygone",Color.BLACK);
+        this(sommet, "Polygone",Color.BLACK,false);
     }
     
     public Polygone(ArrayList<Point> sommet,String nom) {
-        this(sommet,nom,Color.BLACK);
+        this(sommet,nom,Color.BLACK,false);
+    }
+    public Polygone(ArrayList<Point> sommet,String nom,Color couleur) {
+        this(sommet,nom,couleur,false);
     }
     
-    public Polygone(ArrayList<Point> sommet,String nom, Color couleur) {
+    public Polygone(ArrayList<Point> sommet,String nom, Color couleur,Boolean remplir) {
         super(nom,couleur);
+        this.remplir = remplir;
         this.sommet = sommet;
     }
     
@@ -74,7 +97,12 @@ public class Polygone extends Figure {
             x[i] = (int) this.sommet.get(i).getCoordx();
             y[i] = (int) this.sommet.get(i).getCoordy();
         }
+        if(this.remplir){
         g.fillPolygon(x,y,this.sommet.size());
+        }
+        else{
+         g.drawPolygon(x,y,this.sommet.size());    
+        }
        
     }
     
@@ -146,6 +174,8 @@ public class Polygone extends Figure {
        
     }
     
+    
+     
     @Override
     public String toSave(){
         String texte = "PG;" + this.getNom() + ";" + this.sommet.size() + ";";
@@ -157,7 +187,10 @@ public class Polygone extends Figure {
         return texte;
     };
     
-    
+     @Override
+    public Polygone copy() {
+        return new Polygone(this);
+    }
     
     public static void main(String[] args) {
         Polygone pol = Polygone.nouveauPolygone();

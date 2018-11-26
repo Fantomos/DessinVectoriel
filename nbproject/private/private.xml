@@ -5,13 +5,17 @@
         <group>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/MenuPanel.java</file>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/ScenePrincipal.java</file>
-            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/InfoAction.java</file>
+            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Segment.java</file>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Polyligne.java</file>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Ellipse.java</file>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Polygone.java</file>
+            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/EnsembleFigures.java</file>
+            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/DetailPanel.java</file>
+            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Carre.java</file>
+            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Figure.java</file>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Cercle.java</file>
-            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Point.java</file>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Rectangle.java</file>
+            <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/Point.java</file>
             <file>file:/D:/Doc/NetBeansProjects/DessinVectoriel/src/fr/insa/besnard/dessinVectoriel/SceneDessin.java</file>
         </group>
     </open-files>

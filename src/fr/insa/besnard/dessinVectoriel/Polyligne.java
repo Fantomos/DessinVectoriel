@@ -28,6 +28,13 @@ public class Polyligne extends Figure{
     }
     
     //Constructeur
+     public Polyligne(){
+        this(new ArrayList<Point>(), "Polyligne",Color.BLACK);
+    }
+     public Polyligne(Polyligne poly){
+        this(poly.getSommet(), poly.getNom(),poly.getCouleur());
+    }
+    
     public Polyligne(ArrayList<Point> sommet){
         this(sommet, "Polyligne",Color.BLACK);
     }
@@ -145,7 +152,10 @@ public class Polyligne extends Figure{
         return texte;
     };
     
-    
+     @Override
+    public Polyligne copy() {
+        return new Polyligne(this);
+    }
     
     public static void main(String[] args) {
  

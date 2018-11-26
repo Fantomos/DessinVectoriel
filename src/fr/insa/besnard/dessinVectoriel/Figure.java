@@ -13,7 +13,7 @@ import utils.Lire;
  *
  * @author nbesnard01
  */
-public abstract class Figure {
+public abstract class Figure{
     
     private String nom;
     private Color couleur;
@@ -39,6 +39,10 @@ public abstract class Figure {
         this.nom = nom;
         this.couleur = couleur;
     }
+     public Figure(Figure a) {
+        this(a.nom,a.couleur);
+     }
+    
     
     public static Figure entreFigure(){
         System.out.println("\n0) Point");
@@ -57,7 +61,9 @@ public abstract class Figure {
         b.ajouterFigure(this); 
     }
     
-    
+    public abstract Figure copy();
+ 
+ 
     public abstract Figure symetriqueOrigine();
     public abstract void dessine(Graphics g);
     public abstract String toSave();
@@ -66,6 +72,7 @@ public abstract class Figure {
     public abstract double maxX();
     public abstract double maxY();
     public abstract double distancePoint(Point p); 
+
     
    
 }

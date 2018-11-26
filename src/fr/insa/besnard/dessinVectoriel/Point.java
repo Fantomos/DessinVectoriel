@@ -37,7 +37,9 @@ public class Point extends Figure{
     public Point() {
         this(0,0,"Point",Color.black);
     }
-    
+    public Point(Point a) {
+        this(a.coordx,a.coordy,a.getNom(),a.getCouleur());
+    }
     public Point(double px, double py){
     
         this(px, py, "Point",Color.black);
@@ -127,7 +129,10 @@ public class Point extends Figure{
         return new Point(coordxSym, coordySym,this.getNom()+"Sym");
     };
     
-  
+   @Override
+    public Point copy() {
+        return new Point(this);
+    }
  
     
     

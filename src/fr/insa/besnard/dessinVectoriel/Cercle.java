@@ -15,16 +15,21 @@ import utils.Lire;
  */
 public class Cercle extends Ellipse{
  
-
     
+    public Cercle(){
+       this(new Point(),0,"Cercle",Color.BLACK);
+    }
+    public Cercle(Cercle cercle){
+       super(cercle);
+    }
+    
+     public Cercle(Point centre, double rayon){
+       this(centre,rayon,"Cercle",Color.BLACK);
+    }
     public Cercle(Point centre, double rayon, String nom){
        this(centre,rayon,nom,Color.BLACK);
     }
-    
-    public Cercle(Point centre, double rayon){
-       this(centre,rayon,"Cercle",Color.BLACK);
-    }
-    
+        
     public Cercle(Point centre, double rayon, String nom, Color couleur){
         super(centre,rayon,rayon,nom,couleur);
        
@@ -63,7 +68,10 @@ public class Cercle extends Ellipse{
                 + super.getRayonX() + ";"
                 + super.getCouleur() + ";\n"; // ?
     }
-     
+      @Override
+    public Cercle copy() {
+        return new Cercle(this);
+    }
     
     
     
