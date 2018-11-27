@@ -159,7 +159,7 @@ public class DetailPanel extends JPanel implements ActionListener{
     
     public void afficherDetail(Figure a){
         if(main.getSceneDessin().isEnSelection()){
-            main.getSceneDessin().setFgTemp(Figure.figSelection(a));
+            main.getSceneDessin().setFgContourBleu(Figure.figSelection(a));
         }
         figureDetail = a;
         forme.setText(a.getClass().getSimpleName());
@@ -179,9 +179,9 @@ public class DetailPanel extends JPanel implements ActionListener{
                Ellipse figureDetailEll = (Ellipse) a;
                jcRemplir.setSelected(figureDetailEll.isRemplir());
                RemplirC.setVisible(true);
-               coordX.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordx()));
+               coordX.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordx() + figureDetailEll.getRayonX()));
                coordXC.setVisible(true);
-                coordY.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordy()));
+                coordY.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordy() + figureDetailEll.getRayonY()));
                coordYC.setVisible(true);
         }
          else if(figureDetail instanceof Point){

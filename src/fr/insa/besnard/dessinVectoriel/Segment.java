@@ -25,6 +25,14 @@ public class Segment extends Figure{
     public void setFin(Point fin) {
         this.fin = fin;
     }
+
+    public Point getDepart() {
+        return depart;
+    }
+
+    public Point getFin() {
+        return fin;
+    }
     
     //Constructeur
     public Segment(){
@@ -62,6 +70,11 @@ public class Segment extends Figure{
                 Math.pow(
                 this.fin.getCoordy()-this.depart.getCoordy(),2));
    }   
+   
+   public Point extremiteProche(Point a){
+       
+       return ;
+   }
    
    
    //Définition méthode abstract de Figure

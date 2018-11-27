@@ -39,15 +39,16 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
     private Rectangle recTemp;
     private Carre carTemp;
     private Polyligne plTemp;
-    private Figure fgTemp;
+    private Figure fgContourBleu;
+    private Figure fgSelected;
     private Polygone plgTemp;
 
     public void setEnSelection(boolean enSelection) {
         this.enSelection = enSelection;
     }
 
-    public void setFgTemp(Figure fgTemp) {
-        this.fgTemp = fgTemp;
+    public void setFgContourBleu(Figure fgContourBleu) {
+        this.fgContourBleu = fgContourBleu;
     }
 
     public boolean isEnSelection() {
@@ -159,7 +160,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         
         //Dessine la selection
         if(this.enSelection == true){
-            this.fgTemp.dessine(g);
+            this.fgContourBleu.dessine(g);
         }
     }
 
@@ -317,15 +318,14 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         } // Si Bouton Selection en cours
         else if (main.getMenu().getJbSelection().isSelected()) {
                 
-                Figure clic = this.figureProche(new Point(e.getX(), e.getY()));
+                this.fgSelected = this.figureProche(new Point(e.getX(), e.getY()));
                 
                 // Si figure est assez proche
-                if(clic != null){   
+                if(fgSelected != null){   
                 enSelection = true;
                 // Fait une copie de la figure selectionné pour afficher une nouvelle figure superposé avec contour bleu
-                Figure.figSelection(clic);
-              
-                this.main.getDetail().afficherDetail(clic);
+                this.fgContourBleu=Figure.figSelection(fgSelected);
+                this.main.getDetail().afficherDetail(fgSelected);
                 
                 } // Sinon si aucune figure proche
                 else{
@@ -345,7 +345,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+ 
     }
 
     @Override
@@ -360,12 +360,28 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+      
+            if(enSelection){   
+                if(fgSelected instanceof Point){
+                 ((Point) fgSelected).setCoordx(e.getX());
+                 ((Point) fgSelected).setCoordy(e.getY());
+                }
+                else if(fgSelected instanceof Ellipse){
+                  ((Ellipse) fgSelected).setPtSupGauche(new Point(e.getX()- ((Ellipse) fgSelected).getRayonX(),e.getY()- ((Ellipse) fgSelected).getRayonY()));
+               
+                }
+                else if(fgSelected instanceof Segment){
+                 Segment  sgSelected =  ((Segment) fgSelected);
+                 sgSelected.setDepart(new Point(e.getX(),e.getY()));
+             
+                }
+                this.main.getDetail().afficherDetail(fgSelected);
+            }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        
         if (this.constructionSeg == true) {
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
             SwingUtilities.convertPointFromScreen(p, this);

@@ -34,8 +34,8 @@ public class Ellipse extends Figure{
         return ptSupGauche;
     }
 
-    public void setPtSupGauche(Point centre) {
-        this.ptSupGauche = centre;
+    public void setPtSupGauche(Point ptSupGauche) {
+        this.ptSupGauche = ptSupGauche;
     }
 
     public double getRayonX() {
@@ -76,8 +76,7 @@ public class Ellipse extends Figure{
     
     public Ellipse(Point centre, double rayonX, double rayonY, String nom, Color couleur,boolean remplir){
         super(nom,couleur);
-        centre.setCoordx(centre.getCoordx() - rayonX);
-        centre.setCoordy(centre.getCoordy() - rayonY);
+     
         this.ptSupGauche = centre;
         this.rayonX = rayonX;
         this.rayonY = rayonY;
@@ -97,6 +96,7 @@ public class Ellipse extends Figure{
     @Override
      public void dessine(Graphics g) {
         g.setColor(this.getCouleur());
+        
         if(remplir){
               g.fillOval((int)(this.ptSupGauche.getCoordx()),(int)(this.ptSupGauche.getCoordy()),(int)(2*this.rayonX),(int)(2*this.rayonY));
         }else{
