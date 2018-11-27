@@ -45,17 +45,31 @@ public class Rectangle extends Polygone{
        this.getSommet().get(2).setCoordy(p1.getCoordy() + largeur);
        this.getSommet().get(3).setCoordy(p1.getCoordy() + largeur);
   }
+   public void update(Point p1){
+      double longueur = this.getSommet().get(1).getCoordx() -  this.getSommet().get(0).getCoordx();
+       double largeur = this.getSommet().get(2).getCoordy() -  this.getSommet().get(0).getCoordy();
+      update(p1,largeur,longueur);
+  }
+   
+   public Point centre(){
+       return new Point((this.getSommet().get(0).getCoordx()+this.getSommet().get(1).getCoordx())/2,(this.getSommet().get(0).getCoordy()+this.getSommet().get(2).getCoordy())/2);
+   }
+    public double largeur(){
+       return this.getSommet().get(2).getCoordy() - this.getSommet().get(0).getCoordy();
+   }
+    public double longueur(){
+       return this.getSommet().get(1).getCoordx() - this.getSommet().get(0).getCoordx();
+   }
     
     @Override
      public void dessine(Graphics g) {
-         double longueur = this.getSommet().get(1).getCoordx() - this.getSommet().get(0).getCoordx();
-         double largeur = this.getSommet().get(2).getCoordy() - this.getSommet().get(0).getCoordy();
+      
         g.setColor(this.getCouleur());
          if(super.isRemplir()){
-         g.fillRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),(int) longueur,(int)largeur);
+         g.fillRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),(int)this.longueur(),(int)this.largeur());
          }
          else{
-           g.drawRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),(int) longueur,(int)largeur);  
+           g.drawRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),(int) this.longueur(),(int)this.largeur());  
          }
      }
    @Override

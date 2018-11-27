@@ -71,9 +71,26 @@ public class Segment extends Figure{
                 this.fin.getCoordy()-this.depart.getCoordy(),2));
    }   
    
-   public Point extremiteProche(Point a){
-       
-       return ;
+   public Point centre(){
+       return new Point((depart.getCoordx()+fin.getCoordx())/2,(depart.getCoordy()+fin.getCoordy())/2);
+   }
+   public int extremiteProche(Point a){
+       if(this.depart.distancePoint(a) < this.fin.distancePoint(a)){
+           if(this.depart.distancePoint(a) < this.longueur()/3){
+               return 0;
+           }
+           else{
+                 return -1;
+           }
+          
+       }
+       else{
+            if(this.fin.distancePoint(a) < this.longueur()/3){
+               return 1;
+           }
+            return -1;
+       }
+      
    }
    
    

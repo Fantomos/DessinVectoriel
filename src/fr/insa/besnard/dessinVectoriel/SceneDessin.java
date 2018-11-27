@@ -41,6 +41,8 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
     private Polyligne plTemp;
     private Figure fgContourBleu;
     private Figure fgSelected;
+    private int fgSelectedIndexPoint;
+    private Point fgSelectedPoint;
     private Polygone plgTemp;
 
     public void setEnSelection(boolean enSelection) {
@@ -161,6 +163,29 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         //Dessine la selection
         if(this.enSelection == true){
             this.fgContourBleu.dessine(g);
+            
+            //Dessine le point selectionné sur la selection
+            if(this.fgSelectedIndexPoint != -1){
+                if(fgSelected.getClass().equals(Polygone.class)){
+                    ((Polygone) fgSelected).getSommet().get(fgSelectedIndexPoint).setCouleur(Color.blue);
+                    ((Polygone) fgSelected).getSommet().get(fgSelectedIndexPoint).dessine(g);
+                }
+                else if(fgSelected.getClass().equals(Polyligne.class)){
+                    ((Polyligne) fgSelected).getSommet().get(fgSelectedIndexPoint).setCouleur(Color.blue);
+                    ((Polyligne) fgSelected).getSommet().get(fgSelectedIndexPoint).dessine(g);
+                }
+                else if(fgSelected.getClass().equals(Segment.class)){
+                    if(this.fgSelectedIndexPoint == 0){
+                        ((Segment) fgSelected).getDepart().setCouleur(Color.blue);
+                    ((Segment) fgSelected).getDepart().dessine(g);
+                    }
+                    else{
+                        ((Segment) fgSelected).getFin().setCouleur(Color.blue);
+                    ((Segment) fgSelected).getFin().dessine(g);
+                    }
+                    
+                }
+            }
         }
     }
 
@@ -323,6 +348,23 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                 // Si figure est assez proche
                 if(fgSelected != null){   
                 enSelection = true;
+                fgSelectedIndexPoint = -1;
+                
+                // Cas des figures déformable
+                if(fgSelected instanceof Segment){
+                    Segment sgSelected = (Segment) fgSelected;
+                    this.fgSelectedIndexPoint = sgSelected.extremiteProche(new Point(e.getX(), e.getY())); 
+                }
+                else if(fgSelected.getClass().equals(Polygone.class)){
+                    Polygone polySelected = (Polygone) fgSelected;
+                    this.fgSelectedIndexPoint = polySelected.sommetProche(new Point(e.getX(), e.getY())); 
+                }
+                else if(fgSelected.getClass().equals(Polyligne.class)){
+                    Polyligne polySelected = (Polyligne) fgSelected;
+                    this.fgSelectedIndexPoint = polySelected.sommetProche(new Point(e.getX(), e.getY())); 
+                }
+               
+                
                 // Fait une copie de la figure selectionné pour afficher une nouvelle figure superposé avec contour bleu
                 this.fgContourBleu=Figure.figSelection(fgSelected);
                 this.main.getDetail().afficherDetail(fgSelected);
@@ -333,6 +375,11 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                      this.main.getDetail().setVisible(false);
                 }
             
+        }
+        else if(main.getMenu().getJbSupprimer().isSelected()) {
+            Figure figSup =  this.figureProche(new Point(e.getX(), e.getY()));
+            this.figuresScene.remove(figSup);
+            this.repaint();
         }
     }
     
@@ -360,20 +407,68 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseDragged(MouseEvent e) {
-      
+            // Deplace les figures
             if(enSelection){   
+                // Deplace le point
                 if(fgSelected instanceof Point){
                  ((Point) fgSelected).setCoordx(e.getX());
                  ((Point) fgSelected).setCoordy(e.getY());
-                }
+                } // Deplace l'ellipse entiere
                 else if(fgSelected instanceof Ellipse){
                   ((Ellipse) fgSelected).setPtSupGauche(new Point(e.getX()- ((Ellipse) fgSelected).getRayonX(),e.getY()- ((Ellipse) fgSelected).getRayonY()));
                
                 }
                 else if(fgSelected instanceof Segment){
                  Segment  sgSelected =  ((Segment) fgSelected);
-                 sgSelected.setDepart(new Point(e.getX(),e.getY()));
-             
+                 // Deplace les sommets
+                 if(this.fgSelectedIndexPoint == 0){
+                     sgSelected.setDepart(new Point(e.getX(),e.getY()));
+                 }
+                 else if(this.fgSelectedIndexPoint == 1){
+                      sgSelected.setFin(new Point(e.getX(),e.getY()));
+                 } // Deplace le segment entier
+                 else{
+                     double deltaX = sgSelected.centre().getCoordx() - e.getX();
+                     double deltaY = sgSelected.centre().getCoordy()  - e.getY();
+                     sgSelected.setDepart(new Point(Math.abs(sgSelected.getDepart().getCoordx() - deltaX),Math.abs(sgSelected.getDepart().getCoordy() - deltaY)));
+                     sgSelected.setFin(new Point(Math.abs(sgSelected.getFin().getCoordx() - deltaX),Math.abs(sgSelected.getFin().getCoordy() - deltaY)));
+                 }
+                
+                }
+                else if(fgSelected.getClass().equals(Polygone.class)){
+                 Polygone  polySelected =  ((Polygone) fgSelected);
+                 // Deplace les sommets
+                 if(this.fgSelectedIndexPoint != -1){
+                     polySelected.getSommet().set(fgSelectedIndexPoint,new Point(e.getX(),e.getY()));
+                 }
+                 // Deplace le polygone entier
+                 else{
+                     double deltaX = polySelected.getSommet().get(0).getCoordx() - e.getX();
+                     double deltaY = polySelected.getSommet().get(0).getCoordy()  - e.getY();
+                     for(int i=0;i<polySelected.getSommet().size();i++){
+                          polySelected.getSommet().set(i,new Point(Math.abs(polySelected.getSommet().get(i).getCoordx() - deltaX),Math.abs(polySelected.getSommet().get(i).getCoordy() - deltaY)));
+                     }
+                   
+                 }
+                }
+                else if(fgSelected.getClass().equals(Polyligne.class)){
+                 Polyligne  polySelected =  ((Polyligne) fgSelected);
+                 // Deplace les sommets
+                 if(this.fgSelectedIndexPoint != -1){
+                     polySelected.getSommet().set(fgSelectedIndexPoint,new Point(e.getX(),e.getY()));
+                 }
+                 // Deplace la polyligne entiere
+                 else{
+                     double deltaX = polySelected.getSommet().get(0).getCoordx() - e.getX();
+                     double deltaY = polySelected.getSommet().get(0).getCoordy()  - e.getY();
+                     for(int i=0;i<polySelected.getSommet().size();i++){
+                          polySelected.getSommet().set(i,new Point(Math.abs(polySelected.getSommet().get(i).getCoordx() - deltaX),Math.abs(polySelected.getSommet().get(i).getCoordy() - deltaY)));
+                     }
+                   
+                 }
+                } // Deplace le rectangle
+                else if(fgSelected instanceof Rectangle){
+                 ((Rectangle) fgSelected).update(new Point(e.getX(),e.getY()));
                 }
                 this.main.getDetail().afficherDetail(fgSelected);
             }
@@ -381,7 +476,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        
+        // Construction dynamique des figures
         if (this.constructionSeg == true) {
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
             SwingUtilities.convertPointFromScreen(p, this);

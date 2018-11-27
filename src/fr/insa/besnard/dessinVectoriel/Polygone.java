@@ -78,6 +78,16 @@ public class Polygone extends Figure {
        return new Polygone(sommet,nom,Color.BLACK);
     } 
     
+    public int sommetProche(Point p){
+         Point pointProche =  Collections.min(this.sommet, Comparator.comparing(a -> a.distancePoint(p)));
+         if(pointProche.distancePoint(p) < 5){
+             return sommet.indexOf(pointProche);
+         }
+         else{
+             return -1;
+         }
+    }
+    
     @Override
     public Polygone symetriqueOrigine(){
         ArrayList<Point> sommetSym = new ArrayList<Point>(); 

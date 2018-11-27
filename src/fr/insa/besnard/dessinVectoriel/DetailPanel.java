@@ -87,7 +87,8 @@ public class DetailPanel extends JPanel implements ActionListener{
        
          // Affichage/Edition de la couleur
         this.colorLabel = new JLabel("Couleur : ");
-        this.jbColor = new JButton("Color");
+        this.jbColor = new JButton(" ");
+        
         jbColor.addActionListener(this);
         this.colorC = new Box(BoxLayout.X_AXIS);
         colorC.add(colorLabel);
@@ -171,9 +172,17 @@ public class DetailPanel extends JPanel implements ActionListener{
          coordXC.setVisible(false);
          coordYC.setVisible(false);
         if(figureDetail instanceof Polygone){
-                  Polygone figureDetailPoly = (Polygone) a;
-                  jcRemplir.setSelected(figureDetailPoly.isRemplir());
-                  RemplirC.setVisible(true);
+                Polygone figureDetailPoly = (Polygone) a;
+                jcRemplir.setSelected(figureDetailPoly.isRemplir());
+                RemplirC.setVisible(true);
+                
+               if(figureDetail instanceof Rectangle){
+               Rectangle figureDetailRec = (Rectangle) a;
+               coordX.setText(Double.toString(figureDetailRec.centre().getCoordx()));
+               coordXC.setVisible(true);
+                coordY.setText(Double.toString(figureDetailRec.centre().getCoordy()));
+               coordYC.setVisible(true);
+        }
         }
         else if(figureDetail instanceof Ellipse){
                Ellipse figureDetailEll = (Ellipse) a;
@@ -184,12 +193,18 @@ public class DetailPanel extends JPanel implements ActionListener{
                 coordY.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordy() + figureDetailEll.getRayonY()));
                coordYC.setVisible(true);
         }
+        
          else if(figureDetail instanceof Point){
                Point figureDetailPt = (Point) a;
                coordX.setText(Double.toString(figureDetailPt.getCoordx()));
                coordXC.setVisible(true);
                coordY.setText(Double.toString(figureDetailPt.getCoordy()));
                coordYC.setVisible(true);
+               
+        }
+        else if(figureDetail instanceof Segment){
+               Segment figureDetailSeg = (Segment) a;
+               
                
         }
       
@@ -252,6 +267,10 @@ public class DetailPanel extends JPanel implements ActionListener{
                   Ellipse figureDetailElli = (Ellipse) figureDetail;
                  figureDetailElli.getPtSupGauche().setCoordx(Double.valueOf(coordX.getText())); 
               }
+              else if(figureDetail instanceof Rectangle){
+                  Rectangle figureDetailRec = (Rectangle) figureDetail;
+                 figureDetailRec.update(new Point(Double.valueOf(coordX.getText())-figureDetailRec.longueur()/2,figureDetailRec.getSommet().get(0).getCoordy())); 
+              }
           
            
       }
@@ -264,6 +283,10 @@ public class DetailPanel extends JPanel implements ActionListener{
               else if(figureDetail instanceof Ellipse){
                   Ellipse figureDetailElli = (Ellipse) figureDetail;
                   figureDetailElli.getPtSupGauche().setCoordy(Double.valueOf(coordY.getText())); 
+              }
+               else if(figureDetail instanceof Rectangle){
+                  Rectangle figureDetailRec = (Rectangle) figureDetail;
+                 figureDetailRec.update(new Point(figureDetailRec.getSommet().get(0).getCoordx(),Double.valueOf(coordY.getText())-figureDetailRec.largeur()/2)); 
               }
           
            

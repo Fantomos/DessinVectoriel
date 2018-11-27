@@ -33,6 +33,7 @@ public class MenuPanel extends JPanel implements ActionListener{
      private JToggleButton jbPolyligne;
  
       private JToggleButton jbSelection;
+      private JToggleButton jbSupprimer;
       private JButton jbNouveau;
       private JButton jbOuvrir;
       private JButton jbSave;
@@ -47,6 +48,10 @@ public class MenuPanel extends JPanel implements ActionListener{
 
     public JToggleButton getJbSelection() {
         return jbSelection;
+    }
+
+    public JToggleButton getJbSupprimer() {
+        return jbSupprimer;
     }
     
     public JToggleButton getJbRectangle() {
@@ -105,6 +110,7 @@ public class MenuPanel extends JPanel implements ActionListener{
          this.jbPolygone = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/polygone.png"));
           this.jbPolyligne = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/polyligne.png"));
          this.jbSelection = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/selectionner2.png"));
+         this.jbSupprimer = new JToggleButton("Supp");
           this.jbNouveau = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/nouveau.png"));
           this.jbOuvrir = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/ouvrir.png"));
          this.jbSave = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/save.png"));
@@ -119,6 +125,7 @@ public class MenuPanel extends JPanel implements ActionListener{
           this.jbPolygone.setToolTipText("Polygone");
           this.jbPolyligne.setToolTipText("Polyligne");
           this.jbSelection.setToolTipText("Selection");
+          this.jbSupprimer.setToolTipText("Supprimer");
            this.jbNouveau.setToolTipText("Nouveau");
           this.jbOuvrir.setToolTipText("Ouvrir");
         this.jbSave.setToolTipText("Sauvegarder");
@@ -138,6 +145,7 @@ public class MenuPanel extends JPanel implements ActionListener{
           this.jbPolygone.addActionListener(this);
           this.jbPolyligne.addActionListener(this);
           this.jbSelection.addActionListener(this);
+          this.jbSupprimer.addActionListener(this);
            this.jbNouveau.addActionListener(this);
           this.jbOuvrir.addActionListener(this);
         this.jbSave.addActionListener(this);
@@ -155,6 +163,7 @@ public class MenuPanel extends JPanel implements ActionListener{
         boutons.add(jbPolygone);
         boutons.add(jbPolyligne);
         boutons.add(jbSelection);
+         boutons.add(jbSupprimer);
        
         
        
@@ -200,8 +209,14 @@ public class MenuPanel extends JPanel implements ActionListener{
          c.gridy = 1;
          listeBoutons.add(jbSelection,c);
          
+         c.gridx = 1;
+         c.gridy = 1;
+         listeBoutons.add(jbSupprimer,c);
+         
+         
           c.gridx = 0;
          c.gridy = 0;
+         
          listeBoutons.add(jbNouveau,c);
          
          c.gridx = 1;
@@ -314,7 +329,15 @@ public class MenuPanel extends JPanel implements ActionListener{
         }
          else if(e.getSource() == jbSelection){
                if (jbSelection.isSelected()) {
-                this.main.getInfo().getInfoText().setText("Selectionner une figure");
+                this.main.getInfo().getInfoText().setText("Selectionner une figure pour la modifier");
+            } else {
+                this.main.getInfo().getInfoText().setText("Ajouter des figures");
+            }
+         }
+        else if(e.getSource() == jbSupprimer){
+             this.main.getDetail().setVisible(false);
+               if (jbSupprimer.isSelected()) {
+                this.main.getInfo().getInfoText().setText("Cliquer sur une figure pour la supprimer");
             } else {
                 this.main.getInfo().getInfoText().setText("Ajouter des figures");
             }

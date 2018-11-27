@@ -48,7 +48,15 @@ public class Polyligne extends Figure{
         this.sommet = sommet;
     }
     
-    
+     public int sommetProche(Point p){
+         Point pointProche =  Collections.min(this.sommet, Comparator.comparing(a -> a.distancePoint(p)));
+         if(pointProche.distancePoint(p) < 5){
+             return sommet.indexOf(pointProche);
+         }
+         else{
+             return -1;
+         }
+    }
     
     @Override
     public Polyligne symetriqueOrigine(){
