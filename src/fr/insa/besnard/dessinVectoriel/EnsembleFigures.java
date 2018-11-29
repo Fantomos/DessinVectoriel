@@ -43,6 +43,10 @@ public class EnsembleFigures extends Figure{
       public EnsembleFigures(ArrayList<Figure> tabFigures) {
        this(tabFigures, "Ensemble",Color.BLACK);
     }
+      
+      public EnsembleFigures(EnsembleFigures ef) {
+       this(ef.tabFigures,ef.getNom(),ef.getCouleur());
+    }
 
     // Méthode création 
     public static EnsembleFigures nouveauEnsembleFigures(ArrayList<Figure> figure){
@@ -87,7 +91,7 @@ public class EnsembleFigures extends Figure{
     
     
     public void gestion() {
-        int n = 0;
+    
         int rep;
         do {
             System.out.println("------------------------------------------------------------------------------");
@@ -115,20 +119,7 @@ public class EnsembleFigures extends Figure{
     }
     
    
-    
-    public void save(File f) {
-        try (BufferedWriter bf = new BufferedWriter(new FileWriter(f))) {
-        
-            bf.append((this.toSave()));
-
-        } catch (IOException ex) {
-            throw new Error(ex);
-          
-        }
-        
  
-  
-    }
     
    
     
@@ -207,8 +198,8 @@ public class EnsembleFigures extends Figure{
     };
     
      @Override
-    public Figure copy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public EnsembleFigures copy() {
+        return new EnsembleFigures(this);
     }
    
 

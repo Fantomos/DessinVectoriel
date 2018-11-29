@@ -11,6 +11,10 @@ import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -113,6 +117,11 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         this.figuresScene.addAll(ef.getTabFigures());
         this.figuresScene.remove(ef);
     }
+    
+    public void creerEnsemble(EnsembleFigures ef, Figure a){
+       ef.ajouterFigure(a);
+       this.figuresScene.remove(a);
+    }
 
     public Figure figureProche(Point clic){
         if(figuresScene.isEmpty()){
@@ -125,7 +134,17 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
          return null;
                
     }
+   
+    public void save(File f) {
+        try (BufferedWriter bf = new BufferedWriter(new FileWriter(f))) {
+          for(int i=0;i<this.figuresScene.size();i++){
+                bf.append((figuresScene.get(i).toSave()));
+        }
+        } catch (IOException ex) {
+            throw new Error(ex); 
+        }
 
+    }
     
     @Override
     public void paintComponent(Graphics g) {
@@ -166,14 +185,15 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
             
             //Dessine le point selectionné sur la selection
             if(this.fgSelectedIndexPoint != -1){
-                if(fgSelected.getClass().equals(Polygone.class)){
+                if(fgSelected instanceof Polygone){
+                    
                     ((Polygone) fgSelected).getSommet().get(fgSelectedIndexPoint).setCouleur(Color.blue);
                     ((Polygone) fgSelected).getSommet().get(fgSelectedIndexPoint).dessine(g);
                 }
-                else if(fgSelected.getClass().equals(Polyligne.class)){
+                else if(fgSelected instanceof Polyligne){
                     ((Polyligne) fgSelected).getSommet().get(fgSelectedIndexPoint).setCouleur(Color.blue);
                     ((Polyligne) fgSelected).getSommet().get(fgSelectedIndexPoint).dessine(g);
-                }
+                } 
                 else if(fgSelected.getClass().equals(Segment.class)){
                     if(this.fgSelectedIndexPoint == 0){
                         ((Segment) fgSelected).getDepart().setCouleur(Color.blue);
@@ -354,15 +374,19 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                 if(fgSelected instanceof Segment){
                     Segment sgSelected = (Segment) fgSelected;
                     this.fgSelectedIndexPoint = sgSelected.extremiteProche(new Point(e.getX(), e.getY())); 
+                    main.getInfo().getInfoText().setText("Clique sur un coin pour changer la taille / Clique sur un coté pour le déplacer");
                 }
-                else if(fgSelected.getClass().equals(Polygone.class)){
+                else if(fgSelected instanceof Polygone){
                     Polygone polySelected = (Polygone) fgSelected;
                     this.fgSelectedIndexPoint = polySelected.sommetProche(new Point(e.getX(), e.getY())); 
+                    main.getInfo().getInfoText().setText("Clique sur un coin pour changer la taille / Clique sur un coté pour le déplacer");
                 }
-                else if(fgSelected.getClass().equals(Polyligne.class)){
+                else if(fgSelected instanceof Polyligne){
                     Polyligne polySelected = (Polyligne) fgSelected;
                     this.fgSelectedIndexPoint = polySelected.sommetProche(new Point(e.getX(), e.getY())); 
+                    main.getInfo().getInfoText().setText("Clique sur un coin pour changer la taille / Clique sur un coté pour le déplacer");
                 }
+                 
                
                 
                 // Fait une copie de la figure selectionné pour afficher une nouvelle figure superposé avec contour bleu
@@ -407,6 +431,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        
             // Deplace les figures
             if(enSelection){   
                 // Deplace le point
@@ -415,7 +440,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                  ((Point) fgSelected).setCoordy(e.getY());
                 } // Deplace l'ellipse entiere
                 else if(fgSelected instanceof Ellipse){
-                  ((Ellipse) fgSelected).setPtSupGauche(new Point(e.getX()- ((Ellipse) fgSelected).getRayonX(),e.getY()- ((Ellipse) fgSelected).getRayonY()));
+                  ((Ellipse) fgSelected).setPtSupGauche(new Point(e.getX(),e.getY()));
                
                 }
                 else if(fgSelected instanceof Segment){
@@ -451,6 +476,34 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                    
                  }
                 }
+                else if(fgSelected.getClass().equals(Rectangle.class)){
+                 Rectangle  recSelected =  ((Rectangle) fgSelected);
+                 // Redimensionne largeur/longueur
+                 if(this.fgSelectedIndexPoint != -1){
+                    recSelected.update(e.getY() - recSelected.getSommet().get(0).getCoordy(), e.getX() - recSelected.getSommet().get(0).getCoordx());
+
+                 }
+                 // Deplace le rectangle entier
+                 else{
+                    recSelected.update(new Point(e.getX()-recSelected.longueur()/2,e.getY()-recSelected.largeur()/2));
+                     }
+                   
+                 }
+                
+            else if(fgSelected.getClass().equals(Carre.class)){
+                Carre  carSelected =  ((Carre) fgSelected);
+                 // Redimensionne longueur
+                 if(this.fgSelectedIndexPoint != -1){
+                   carSelected.update(carSelected.getSommet().get(0),Math.max(e.getY() -carSelected.getSommet().get(0).getCoordy(), e.getX()  - carSelected.getSommet().get(0).getCoordx()));
+
+                 }
+                 // Deplace le carre entier
+                 else{
+                    carSelected.update(new Point(e.getX()-carSelected.longueur()/2,e.getY()-carSelected.longueur()/2));
+                     }
+                   
+                 }
+                
                 else if(fgSelected.getClass().equals(Polyligne.class)){
                  Polyligne  polySelected =  ((Polyligne) fgSelected);
                  // Deplace les sommets
@@ -466,13 +519,12 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                      }
                    
                  }
-                } // Deplace le rectangle
-                else if(fgSelected instanceof Rectangle){
-                 ((Rectangle) fgSelected).update(new Point(e.getX(),e.getY()));
                 }
+               
                 this.main.getDetail().afficherDetail(fgSelected);
             }
     }
+    
 
     @Override
     public void mouseMoved(MouseEvent e) {

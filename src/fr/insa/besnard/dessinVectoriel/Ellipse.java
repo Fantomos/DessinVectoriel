@@ -15,7 +15,7 @@ import utils.Lire;
  */
 public class Ellipse extends Figure{
     
-    private Point ptSupGauche;
+    private Point center;
     private double rayonX;
     private double rayonY;
     private boolean remplir;
@@ -31,11 +31,11 @@ public class Ellipse extends Figure{
    
 
     public Point getPtSupGauche() {
-        return ptSupGauche;
+        return center;
     }
 
     public void setPtSupGauche(Point ptSupGauche) {
-        this.ptSupGauche = ptSupGauche;
+        this.center = ptSupGauche;
     }
 
     public double getRayonX() {
@@ -54,7 +54,7 @@ public class Ellipse extends Figure{
     }
      public Ellipse(Ellipse elli) {
         super(elli.getNom(),elli.getCouleur());
-        this.ptSupGauche = elli.ptSupGauche;
+        this.center = elli.center;
         this.rayonX = elli.rayonX;
         this.rayonY = elli.rayonY;
         this.remplir = elli.remplir;
@@ -77,7 +77,7 @@ public class Ellipse extends Figure{
     public Ellipse(Point centre, double rayonX, double rayonY, String nom, Color couleur,boolean remplir){
         super(nom,couleur);
      
-        this.ptSupGauche = centre;
+        this.center = centre;
         this.rayonX = rayonX;
         this.rayonY = rayonY;
         this.remplir = remplir;
@@ -89,7 +89,7 @@ public class Ellipse extends Figure{
     
     @Override
     public Ellipse symetriqueOrigine() {
-        return new Ellipse(this.ptSupGauche.symetriqueOrigine(),this.rayonX,this.rayonY,this.getNom()+"Sym");
+        return new Ellipse(this.center.symetriqueOrigine(),this.rayonX,this.rayonY,this.getNom()+"Sym");
     };
     
     
@@ -98,9 +98,9 @@ public class Ellipse extends Figure{
         g.setColor(this.getCouleur());
         
         if(remplir){
-              g.fillOval((int)(this.ptSupGauche.getCoordx()),(int)(this.ptSupGauche.getCoordy()),(int)(2*this.rayonX),(int)(2*this.rayonY));
+              g.fillOval((int)(this.center.getCoordx() - this.rayonX),(int)(this.center.getCoordy() - this.rayonY),(int)(2*this.rayonX),(int)(2*this.rayonY));
         }else{
-              g.drawOval((int)(this.ptSupGauche.getCoordx()),(int)(this.ptSupGauche.getCoordy()),(int)(2*this.rayonX),(int)(2*this.rayonY));
+              g.drawOval((int)(this.center.getCoordx() - this.rayonX),(int)(this.center.getCoordy() - this.rayonY),(int)(2*this.rayonX),(int)(2*this.rayonY));
         }
       
        
@@ -108,34 +108,38 @@ public class Ellipse extends Figure{
      
      @Override
     public String toString() {
-        return super.getNom() + " : Centre = " + ptSupGauche + ", Rayon X : " + rayonX + ", Rayon Y : " + rayonY;
+        return super.getNom() + " : Centre = " + center + ", Rayon X : " + rayonX + ", Rayon Y : " + rayonY;
     }
 
     @Override
     public double minX(){
-        return ptSupGauche.getCoordx() - 2*rayonX;
+        return center.getCoordx() - 2*rayonX;
     }
     @Override
     public double minY(){
-        return ptSupGauche.getCoordy();
+        return center.getCoordy();
     };
     @Override
     public double maxX(){
-        return ptSupGauche.getCoordx();
+        return center.getCoordx();
     };
     @Override
     public double maxY(){
-        return ptSupGauche.getCoordy() + 2*rayonY;
+        return center.getCoordy() + 2*rayonY;
     };
     @Override
     public double distancePoint(Point p){
-        return Math.abs(ptSupGauche.distancePoint(p) - rayonX);   // A DEFINIR
+        double distanceCenter = center.distancePoint(p);
+ 
+        return  Math.min(distanceCenter, distanceCenter);
+                 // A DEFINIR
+                
     };
 
     @Override
      public String toSave(){
         return "C;" + this.getNom() + ";"
-                + this.ptSupGauche.toSave()
+                + this.center.toSave()
                 + this.rayonX + ";"
                 + this.rayonY + ";"
                 + this.getCouleur() + ";\n"; // ?

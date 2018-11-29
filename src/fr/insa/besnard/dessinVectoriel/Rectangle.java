@@ -8,6 +8,8 @@ package fr.insa.besnard.dessinVectoriel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import utils.Lire;
 
 /**
@@ -45,6 +47,12 @@ public class Rectangle extends Polygone{
        this.getSommet().get(2).setCoordy(p1.getCoordy() + largeur);
        this.getSommet().get(3).setCoordy(p1.getCoordy() + largeur);
   }
+   public void update(double largeur,double longueur){
+       this.getSommet().get(1).setCoordx(this.getSommet().get(0).getCoordx() + longueur);
+       this.getSommet().get(2).setCoordx(this.getSommet().get(0).getCoordx() + longueur);
+       this.getSommet().get(2).setCoordy(this.getSommet().get(0).getCoordy() + largeur);
+       this.getSommet().get(3).setCoordy(this.getSommet().get(0).getCoordy() + largeur);
+   }
    public void update(Point p1){
       double longueur = this.getSommet().get(1).getCoordx() -  this.getSommet().get(0).getCoordx();
        double largeur = this.getSommet().get(2).getCoordy() -  this.getSommet().get(0).getCoordy();
@@ -60,6 +68,9 @@ public class Rectangle extends Polygone{
     public double longueur(){
        return this.getSommet().get(1).getCoordx() - this.getSommet().get(0).getCoordx();
    }
+    
+   
+    
     
     @Override
      public void dessine(Graphics g) {

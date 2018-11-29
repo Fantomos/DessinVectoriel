@@ -26,7 +26,7 @@ public class ScenePrincipal extends JPanel implements MouseListener{
     public ScenePrincipal() {
         this.sceneDessin = new SceneDessin(this);
         this.menu = new MenuPanel(this);
-        this.info = new InfoAction();
+        this.info = new InfoAction(this);
         this.detail = new DetailPanel(this);
         this.setLayout(new BorderLayout());
         this.add(this.menu, BorderLayout.NORTH);

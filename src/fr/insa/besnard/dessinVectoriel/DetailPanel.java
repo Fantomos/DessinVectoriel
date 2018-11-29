@@ -52,6 +52,20 @@ public class DetailPanel extends JPanel implements ActionListener{
     private JLabel coordYLabel;
     private JTextField coordY;
     private Box coordYC;
+    
+    private JLabel rayonXLabel;
+    private JTextField rayonX;
+    private Box rayonXC;
+    private JLabel rayonYLabel;
+    private JTextField rayonY;
+    private Box rayonYC;
+    
+    private JLabel longueurLabel;
+    private JTextField longueur;
+    private Box longueurC;
+    private JLabel largeurLabel;
+    private JTextField largeur;
+    private Box largeurC;
 
     public DetailPanel(ScenePrincipal main) {
         this.setVisible(false);
@@ -69,8 +83,6 @@ public class DetailPanel extends JPanel implements ActionListener{
         this.formeC = new Box(BoxLayout.X_AXIS);
         formeC.add(formeLabel);
         formeC.add(forme);
-       
-        
         formeC.setMaximumSize(formeC.getPreferredSize());
         
          // Affichage/Edition du nom
@@ -81,20 +93,15 @@ public class DetailPanel extends JPanel implements ActionListener{
         this.nomC =  new Box(BoxLayout.X_AXIS);
         nomC.add(nomLabel);
         nomC.add(nom);
- 
-        
         nomC.setMaximumSize(nomC.getPreferredSize());
        
          // Affichage/Edition de la couleur
         this.colorLabel = new JLabel("Couleur : ");
         this.jbColor = new JButton(" ");
-        
         jbColor.addActionListener(this);
         this.colorC = new Box(BoxLayout.X_AXIS);
         colorC.add(colorLabel);
         colorC.add(jbColor);
-     
-       
         colorC.setMaximumSize(colorC.getPreferredSize());
        
         // Affichage/Edition du remplissage
@@ -106,13 +113,8 @@ public class DetailPanel extends JPanel implements ActionListener{
         jcRemplir.setMaximumSize(jcRemplir.getPreferredSize());    
         RemplirC.add(jcRemplir);
         jcRemplir.setAlignmentX(SwingConstants.WEST);
-        
        
-        
-       
-               
-       
-        //
+        // Affichage/Edition des coordonnees 
         this.coordXLabel = new JLabel("X : ");
         this.coordX = new JTextField();
         coordX.addActionListener(this); 
@@ -131,6 +133,45 @@ public class DetailPanel extends JPanel implements ActionListener{
         coordYC.add(coordY);
         coordYC.setMaximumSize(coordYC.getPreferredSize());
        
+          // Affichage/Edition des rayons 
+        this.rayonXLabel = new JLabel("Rayon X : ");
+        this.rayonX = new JTextField();
+        rayonX.addActionListener(this); 
+        rayonX.setPreferredSize(new Dimension(50, 20));
+        this.rayonXC = new Box(BoxLayout.X_AXIS);
+        rayonXC.add(rayonXLabel);
+       rayonXC.add(rayonX);
+        rayonXC.setMaximumSize(rayonXC.getPreferredSize());
+        
+        this.rayonYLabel = new JLabel("Rayon Y : ");
+        this.rayonY = new JTextField();
+         rayonY.addActionListener(this); 
+        rayonY.setPreferredSize(new Dimension(50, 20));
+        this.rayonYC = new Box(BoxLayout.X_AXIS);
+        rayonYC.add(rayonYLabel);
+        rayonYC.add(rayonY);
+       rayonYC.setMaximumSize(rayonYC.getPreferredSize());
+        
+        // Affichage/Edition des longueurs/largeurs 
+        this.longueurLabel = new JLabel("Longueur : ");
+        this.longueur = new JTextField();
+        longueur.addActionListener(this); 
+        longueur.setPreferredSize(new Dimension(50, 20));
+        this.longueurC = new Box(BoxLayout.X_AXIS);
+        longueurC.add(longueurLabel);
+       longueurC.add(longueur);
+        longueurC.setMaximumSize(longueurC.getPreferredSize());
+        
+        this.largeurLabel = new JLabel("Largeur : ");
+        this.largeur = new JTextField();
+         largeur.addActionListener(this); 
+       largeur.setPreferredSize(new Dimension(50, 20));
+        this.largeurC = new Box(BoxLayout.X_AXIS);
+        largeurC.add(largeurLabel);
+       largeurC.add(largeur);
+       largeurC.setMaximumSize(largeurC.getPreferredSize());
+       
+       
         this.add(titre);
         this.add(Box.createRigidArea(new Dimension(0,20)));
         this.add(formeC);
@@ -144,6 +185,14 @@ public class DetailPanel extends JPanel implements ActionListener{
         this.add(coordXC);
         this.add(Box.createRigidArea(new Dimension(0,5)));
         this.add(coordYC);
+         this.add(Box.createRigidArea(new Dimension(0,5)));
+        this.add(rayonXC);
+        this.add(Box.createRigidArea(new Dimension(0,5)));
+        this.add(rayonYC);
+        this.add(Box.createRigidArea(new Dimension(0,5)));
+        this.add(longueurC);
+        this.add(Box.createRigidArea(new Dimension(0,5)));
+        this.add(largeurC);
      
    
       
@@ -163,35 +212,51 @@ public class DetailPanel extends JPanel implements ActionListener{
             main.getSceneDessin().setFgContourBleu(Figure.figSelection(a));
         }
         figureDetail = a;
+        
+        // Attribut communs à toutes les figures
         forme.setText(a.getClass().getSimpleName());
         nom.setText(a.getNom());
         jbColor.setBackground(a.getCouleur());
         
-        
+        // Attributs spécifique
          RemplirC.setVisible(false);
          coordXC.setVisible(false);
          coordYC.setVisible(false);
+         rayonXC.setVisible(false);
+         rayonYC.setVisible(false);
+         longueurC.setVisible(false);
+        largeurC.setVisible(false);
         if(figureDetail instanceof Polygone){
-                Polygone figureDetailPoly = (Polygone) a;
-                jcRemplir.setSelected(figureDetailPoly.isRemplir());
-                RemplirC.setVisible(true);
-                
                if(figureDetail instanceof Rectangle){
                Rectangle figureDetailRec = (Rectangle) a;
                coordX.setText(Double.toString(figureDetailRec.centre().getCoordx()));
                coordXC.setVisible(true);
                 coordY.setText(Double.toString(figureDetailRec.centre().getCoordy()));
                coordYC.setVisible(true);
+               longueur.setText(Double.toString(figureDetailRec.longueur()));
+               longueurC.setVisible(true);
+                largeur.setText(Double.toString(figureDetailRec.largeur()));
+               largeurC.setVisible(true);
+               
+              
         }
+                Polygone figureDetailPoly = (Polygone) a;
+                jcRemplir.setSelected(figureDetailPoly.isRemplir());
+                RemplirC.setVisible(true);
+                
         }
         else if(figureDetail instanceof Ellipse){
                Ellipse figureDetailEll = (Ellipse) a;
                jcRemplir.setSelected(figureDetailEll.isRemplir());
                RemplirC.setVisible(true);
-               coordX.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordx() + figureDetailEll.getRayonX()));
+               coordX.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordx()));
                coordXC.setVisible(true);
-                coordY.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordy() + figureDetailEll.getRayonY()));
+                coordY.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordy()));
                coordYC.setVisible(true);
+               rayonX.setText(Double.toString(figureDetailEll.getRayonX()));
+               rayonXC.setVisible(true);
+               rayonY.setText(Double.toString(figureDetailEll.getRayonY()));
+               rayonYC.setVisible(true);    
         }
         
          else if(figureDetail instanceof Point){
@@ -255,42 +320,56 @@ public class DetailPanel extends JPanel implements ActionListener{
               }
           }
       }
-      else if(e.getSource() == coordX){
+      else if(e.getSource() == coordX || e.getSource() == coordY){
        
               if(figureDetail instanceof Point){
                   Point figureDetailPt = (Point) figureDetail;
                   figureDetailPt.setCoordx(Double.valueOf(coordX.getText()));
-               
+                  figureDetailPt.setCoordy(Double.valueOf(coordY.getText()));  
+
                   
               }
               else if(figureDetail instanceof Ellipse){
                   Ellipse figureDetailElli = (Ellipse) figureDetail;
                  figureDetailElli.getPtSupGauche().setCoordx(Double.valueOf(coordX.getText())); 
+                  figureDetailElli.getPtSupGauche().setCoordy(Double.valueOf(coordY.getText())); 
               }
               else if(figureDetail instanceof Rectangle){
                   Rectangle figureDetailRec = (Rectangle) figureDetail;
                  figureDetailRec.update(new Point(Double.valueOf(coordX.getText())-figureDetailRec.longueur()/2,figureDetailRec.getSommet().get(0).getCoordy())); 
+                  figureDetailRec.update(new Point(figureDetailRec.getSommet().get(0).getCoordx(),Double.valueOf(coordY.getText())-figureDetailRec.largeur()/2)); 
               }
           
            
       }
-      else if(e.getSource() == coordY){
+       else if(e.getSource() == rayonX || e.getSource() == rayonY){
+           if(figureDetail.getClass().equals(Ellipse.class)){
+                   Ellipse figureDetailElli = (Ellipse) figureDetail;
+               figureDetailElli.setRayonX(Double.valueOf(rayonX.getText()));
+               figureDetailElli.setRayonY(Double.valueOf(rayonY.getText()));
+             }
+           else if(figureDetail.getClass().equals(Cercle.class)){
+               Cercle figureDetailCercle = (Cercle) figureDetail;
+              figureDetailCercle.update(Double.valueOf(rayonX.getText()));
+           }
+              
+           
+      }
+       else if(e.getSource() == longueur || e.getSource() == largeur){
+           if(figureDetail.getClass().equals(Rectangle.class)){
+                   Rectangle figureDetailRec = (Rectangle) figureDetail;
+               figureDetailRec.update(Double.valueOf(largeur.getText()),Double.valueOf(longueur.getText()));
+             }
+           else if(figureDetail.getClass().equals(Carre.class)){
+               Carre figureDetailCarre = (Carre) figureDetail;
+              figureDetailCarre.update(Double.valueOf(longueur.getText()));
+           }
+              
+           
+      }
+    
        
-              if(figureDetail instanceof Point){
-                  Point figureDetailPt = (Point) figureDetail;
-                  figureDetailPt.setCoordy(Double.valueOf(coordY.getText()));  
-              }
-              else if(figureDetail instanceof Ellipse){
-                  Ellipse figureDetailElli = (Ellipse) figureDetail;
-                  figureDetailElli.getPtSupGauche().setCoordy(Double.valueOf(coordY.getText())); 
-              }
-               else if(figureDetail instanceof Rectangle){
-                  Rectangle figureDetailRec = (Rectangle) figureDetail;
-                 figureDetailRec.update(new Point(figureDetailRec.getSommet().get(0).getCoordx(),Double.valueOf(coordY.getText())-figureDetailRec.largeur()/2)); 
-              }
-          
-           
-      }
+      
       afficherDetail(figureDetail);
     }
 

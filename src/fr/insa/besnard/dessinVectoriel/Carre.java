@@ -36,6 +36,13 @@ public class Carre extends Rectangle{
        this.getSommet().get(2).setCoordy(p1.getCoordy() + longueur);
        this.getSommet().get(3).setCoordy(p1.getCoordy() + longueur);
   }
+    public void update(double longueur){
+
+      this.getSommet().get(1).setCoordx(this.getSommet().get(0).getCoordx() + longueur);
+       this.getSommet().get(2).setCoordx(this.getSommet().get(0).getCoordx() + longueur);
+       this.getSommet().get(2).setCoordy(this.getSommet().get(0).getCoordy() + longueur);
+       this.getSommet().get(3).setCoordy(this.getSommet().get(0).getCoordy() + longueur);
+  }
      @Override
     public Carre copy() {
         return new Carre(this);

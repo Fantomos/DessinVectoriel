@@ -16,10 +16,12 @@ import javax.swing.SwingConstants;
  */
 public class InfoAction extends JPanel {
     private JLabel infoText;
+    private ScenePrincipal main;
 
     
     
-    public InfoAction(){
+    public InfoAction(ScenePrincipal main){
+        this.main = main;
         this.infoText = new JLabel("Ajouter des figures");
         this.infoText.setHorizontalAlignment(SwingConstants.LEFT);
         this.setBackground(Color.LIGHT_GRAY);
