@@ -111,7 +111,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     public void eclaterEnsemble(EnsembleFigures ef) {
         this.figuresScene.addAll(ef.getTabFigures());
-        ef.getTabFigures().clear();
+        this.figuresScene.remove(ef);
     }
 
     public Figure figureProche(Point clic){
