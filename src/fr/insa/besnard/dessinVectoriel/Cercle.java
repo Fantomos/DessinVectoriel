@@ -53,20 +53,22 @@ public class Cercle extends Ellipse{
 
      @Override
     public String toString() {
-        return super.getNom() + " : Centre = " + super.getPtSupGauche()+ ", Rayon : " + super.getRayonX() ;
+        return super.getNom() + " : Centre = " + super.getCenter()+ ", Rayon : " + super.getRayonX() ;
     }
 
     @Override
     public double distancePoint(Point p){
-        return Math.abs(super.getPtSupGauche().distancePoint(p) - super.getRayonX());  
+        return Math.abs(super.getCenter().distancePoint(p) - super.getRayonX());  
     };
 
     @Override
      public String toSave(){
-        return "C;" + super.getNom() + ";"
-                + super.getPtSupGauche().toSave()
+        return "CE;" + super.getNom() + ";"
+                + super.getRemplir() + ";"
+                + super.getCenter().getCoordx() + ";"
+                + super.getCenter().getCoordy() + ";"
                 + super.getRayonX() + ";"
-                + super.getCouleur() + ";\n"; // ?
+                + super.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
     }
       @Override
     public Cercle copy() {

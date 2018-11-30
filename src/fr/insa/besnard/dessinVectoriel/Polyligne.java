@@ -156,7 +156,7 @@ public class Polyligne extends Figure{
             texte = texte +  + this.sommet.get(i).getCoordx() + ";"
                 + this.sommet.get(i).getCoordy()  + ";";
         }
-        texte = texte + getCouleur() +";\n";
+        texte = texte + getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
         return texte;
     };
     

@@ -28,13 +28,17 @@ public class Ellipse extends Figure{
         this.remplir = remplir;
     }
 
+     public boolean getRemplir() {
+        return remplir;
+    }
+    
    
 
-    public Point getPtSupGauche() {
+    public Point getCenter() {
         return center;
     }
 
-    public void setPtSupGauche(Point ptSupGauche) {
+    public void setCenter(Point ptSupGauche) {
         this.center = ptSupGauche;
     }
 
@@ -138,11 +142,13 @@ public class Ellipse extends Figure{
 
     @Override
      public String toSave(){
-        return "C;" + this.getNom() + ";"
-                + this.center.toSave()
+        return "EL;" + this.getNom() + ";"
+                + this.remplir + ";"
+                + this.center.getCoordx() + ";"
+                + this.center.getCoordy() + ";"
                 + this.rayonX + ";"
                 + this.rayonY + ";"
-                + this.getCouleur() + ";\n"; // ?
+                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
     }
 
     @Override

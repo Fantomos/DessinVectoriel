@@ -249,9 +249,9 @@ public class DetailPanel extends JPanel implements ActionListener{
                Ellipse figureDetailEll = (Ellipse) a;
                jcRemplir.setSelected(figureDetailEll.isRemplir());
                RemplirC.setVisible(true);
-               coordX.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordx()));
+               coordX.setText(Double.toString(figureDetailEll.getCenter().getCoordx()));
                coordXC.setVisible(true);
-                coordY.setText(Double.toString(figureDetailEll.getPtSupGauche().getCoordy()));
+                coordY.setText(Double.toString(figureDetailEll.getCenter().getCoordy()));
                coordYC.setVisible(true);
                rayonX.setText(Double.toString(figureDetailEll.getRayonX()));
                rayonXC.setVisible(true);
@@ -331,8 +331,8 @@ public class DetailPanel extends JPanel implements ActionListener{
               }
               else if(figureDetail instanceof Ellipse){
                   Ellipse figureDetailElli = (Ellipse) figureDetail;
-                 figureDetailElli.getPtSupGauche().setCoordx(Double.valueOf(coordX.getText())); 
-                  figureDetailElli.getPtSupGauche().setCoordy(Double.valueOf(coordY.getText())); 
+                 figureDetailElli.getCenter().setCoordx(Double.valueOf(coordX.getText())); 
+                  figureDetailElli.getCenter().setCoordy(Double.valueOf(coordY.getText())); 
               }
               else if(figureDetail instanceof Rectangle){
                   Rectangle figureDetailRec = (Rectangle) figureDetail;

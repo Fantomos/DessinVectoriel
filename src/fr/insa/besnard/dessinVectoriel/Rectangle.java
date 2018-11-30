@@ -69,7 +69,16 @@ public class Rectangle extends Polygone{
        return this.getSommet().get(1).getCoordx() - this.getSommet().get(0).getCoordx();
    }
     
-   
+   @Override
+    public String toSave(){
+        return "R;" + this.getNom() + ";" + this.getRemplir() + ";"
+                + this.getSommet().get(0).getCoordx() + ";"
+                + this.getSommet().get(0).getCoordy()  + ";"
+                + this.longueur() + ";"
+                + this.largeur() + ";"
+                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
+    };
+    
     
     
     @Override

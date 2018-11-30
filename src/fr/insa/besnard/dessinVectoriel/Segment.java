@@ -147,13 +147,13 @@ public class Segment extends Figure{
     }
     
     @Override
-    public String toSave(){
+    public String toSave(){ 
         return "S;" + this.getNom() + ";"
                 + this.depart.getCoordx() + ";"
                 + this.depart.getCoordy() + ";"
                 + this.fin.getCoordx() + ";"
                 + this.fin.getCoordy() + ";"
-                + this.getCouleur() + ";\n"; // ?
+                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
     };
     
     @Override

@@ -72,9 +72,30 @@ public abstract class Figure{
                 }
                 return fgTemp;
     }
+    public static Figure parse(String info){
+        String[] infoTab = info.split(";");
+        if("P".equals(infoTab[0])){
+              double coordX = Double.parseDouble(infoTab[2]);
+              double coordY = Double.parseDouble(infoTab[3]);
+              String nom = infoTab[1];
+              Color couleur = new Color(Integer.parseInt(infoTab[4]),Integer.parseInt(infoTab[5]),Integer.parseInt(infoTab[6])); 
+              return new Point(coordX,coordY,nom,couleur);
+        }
+        else if("S".equals(infoTab[0])){
+              double coordXDepart = Double.parseDouble(infoTab[2]);
+              double coordYDepart = Double.parseDouble(infoTab[3]);
+              double coordXFin = Double.parseDouble(infoTab[4]);
+              double coordYFin = Double.parseDouble(infoTab[5]);
+              String nom = infoTab[1];
+              Color couleur = new Color(Integer.parseInt(infoTab[6]),Integer.parseInt(infoTab[7]),Integer.parseInt(infoTab[8])); 
+              return new Segment(new Point(coordXDepart,coordYDepart),new Point(coordXFin,coordYFin),nom,couleur);
+        }
+        
+      return null;
+    };
+    
+    
     public abstract Figure copy();
- 
- 
     public abstract Figure symetriqueOrigine();
     public abstract void dessine(Graphics g);
     public abstract String toSave();

@@ -143,7 +143,7 @@ public class EnsembleFigures extends Figure{
         for(int i=0;i<this.tabFigures.size();i++){
             texte = texte + this.tabFigures.get(i).toSave(); 
         }
-        texte = texte + this.getCouleur() + ";";
+        texte = texte + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
         return texte;
     }
      

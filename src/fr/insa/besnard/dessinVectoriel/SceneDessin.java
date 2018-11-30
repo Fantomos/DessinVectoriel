@@ -135,16 +135,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                
     }
    
-    public void save(File f) {
-        try (BufferedWriter bf = new BufferedWriter(new FileWriter(f))) {
-          for(int i=0;i<this.figuresScene.size();i++){
-                bf.append((figuresScene.get(i).toSave()));
-        }
-        } catch (IOException ex) {
-            throw new Error(ex); 
-        }
-
-    }
+    
     
     @Override
     public void paintComponent(Graphics g) {
@@ -242,7 +233,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
             if (this.constructionEllipse == false) {
                 this.elTemp = (Ellipse)this.main.getDetail().getFigureDetail().copy();
-                this.elTemp.setPtSupGauche(new Point(e.getX(), e.getY()));
+                this.elTemp.setCenter(new Point(e.getX(), e.getY()));
                 this.constructionEllipse = true;
                 this.main.getInfo().getInfoText().setText("Cliquer pour valider");
             } // Si construction en cours
@@ -257,7 +248,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
             if (this.constructionCercle == false) {
                 this.clTemp = (Cercle)this.main.getDetail().getFigureDetail().copy();
-                this.clTemp.setPtSupGauche(new Point(e.getX(), e.getY()));
+                this.clTemp.setCenter(new Point(e.getX(), e.getY()));
                 this.constructionCercle = true;
                 this.main.getInfo().getInfoText().setText("Cliquer pour valider");
             } // Si construction en cours
@@ -364,7 +355,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if (main.getMenu().getJbSelection().isSelected()) {
                 
                 this.fgSelected = this.figureProche(new Point(e.getX(), e.getY()));
-                
+            
                 // Si figure est assez proche
                 if(fgSelected != null){   
                 enSelection = true;
@@ -440,7 +431,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                  ((Point) fgSelected).setCoordy(e.getY());
                 } // Deplace l'ellipse entiere
                 else if(fgSelected instanceof Ellipse){
-                  ((Ellipse) fgSelected).setPtSupGauche(new Point(e.getX(),e.getY()));
+                  ((Ellipse) fgSelected).setCenter(new Point(e.getX(),e.getY()));
                
                 }
                 else if(fgSelected instanceof Segment){
@@ -537,14 +528,14 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         } else if (this.constructionEllipse == true) {
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
             SwingUtilities.convertPointFromScreen(p, this);
-            this.elTemp.setRayonX(Math.abs(p.x - this.elTemp.getPtSupGauche().getCoordx()));
-            this.elTemp.setRayonY(Math.abs(p.y - this.elTemp.getPtSupGauche().getCoordy()));
+            this.elTemp.setRayonX(Math.abs(p.x - this.elTemp.getCenter().getCoordx()));
+            this.elTemp.setRayonY(Math.abs(p.y - this.elTemp.getCenter().getCoordy()));
             this.repaint();
         } else if (this.constructionCercle == true) {
             java.awt.Point p = MouseInfo.getPointerInfo().getLocation();
             SwingUtilities.convertPointFromScreen(p, this);
 
-            this.clTemp.update(Math.max(p.y - this.clTemp.getPtSupGauche().getCoordy(), p.x - this.clTemp.getPtSupGauche().getCoordx()));
+            this.clTemp.update(Math.max(p.y - this.clTemp.getCenter().getCoordy(), p.x - this.clTemp.getCenter().getCoordx()));
 
             this.repaint();
         } else if (this.constructionRec == true) {

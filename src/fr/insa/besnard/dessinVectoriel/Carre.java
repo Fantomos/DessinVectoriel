@@ -48,4 +48,13 @@ public class Carre extends Rectangle{
         return new Carre(this);
     }
     
+    @Override
+    public String toSave(){ 
+        return "CA;" + this.getNom() + ";" + this.getRemplir() + ";"
+                + this.getSommet().get(0).getCoordx() + ";"
+                + this.getSommet().get(0).getCoordy()  + ";"
+                + this.longueur() + ";"
+                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
+    };
+    
 }

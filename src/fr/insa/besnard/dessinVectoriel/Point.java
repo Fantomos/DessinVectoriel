@@ -112,7 +112,7 @@ public class Point extends Figure{
         return "P;" + this.getNom() + ";"
                 + this.coordx + ";"
                 + this.coordy + ";"
-                + this.getCouleur() + ";\n"; // ?
+                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
     };
     
     @Override
@@ -133,7 +133,8 @@ public class Point extends Figure{
     public Point copy() {
         return new Point(this);
     }
- 
+    
+    
     
     
     public static void main(String[] args) {
@@ -143,8 +144,6 @@ public class Point extends Figure{
 
        System.out.println(p1.distancePoint(p2));
        
-       
-      
     }
     
 }

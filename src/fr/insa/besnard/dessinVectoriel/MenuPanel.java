@@ -12,9 +12,16 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -360,8 +367,51 @@ public class MenuPanel extends JPanel implements ActionListener{
                 this.main.getInfo().getInfoText().setText("Ajouter des figures");
             }
          }
+        else if(e.getSource() == jbSave){
+        
+             String nomFichier = JOptionPane.showInputDialog(this.getParent(),"Nom du fichier à sauvegarder") + ".txt";
+             if(!"null".equals(nomFichier)){
+                  File f = new File(nomFichier);
+             save(f);
+             }
+            
+               
+         }
+        else if(e.getSource() == jbOuvrir){
+        
+             String nomFichier = JOptionPane.showInputDialog(this.getParent(),"Nom du fichier à ouvrir") + ".txt";
+             File f = new File(nomFichier);
+             lire(f);
+             System.out.println(main.getSceneDessin().getfiguresScene().get(0));
+               
+         }
          
     
+    }
+    public void save(File f) {
+        try (BufferedWriter bf = new BufferedWriter(new FileWriter(f))) {
+          for(int i=0;i<this.main.getSceneDessin().getfiguresScene().size();i++){
+                bf.append((this.main.getSceneDessin().getfiguresScene().get(i).toSave()));
+        }
+        } catch (IOException ex) {
+            throw new Error(ex); 
+        }
+
+    }
+    public void lire(File f) {
+        try (BufferedReader bf = new BufferedReader(new FileReader(f))) {
+          String line = bf.readLine();
+          while(line != null){
+              main.getSceneDessin().getfiguresScene().add(Figure.parse(line));
+              line = bf.readLine();
+              
+          }
+          main.getSceneDessin().repaint();
+            
+        } catch (IOException ex) {
+            throw new Error(ex); 
+        }
+
     }
 
     
