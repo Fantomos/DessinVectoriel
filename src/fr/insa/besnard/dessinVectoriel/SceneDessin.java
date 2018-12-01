@@ -36,6 +36,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
     private boolean constructionCarre;
     private boolean constructionPoly;
     private boolean constructionPolyligne;
+    private boolean constructionEnsemble;
     private boolean enSelection;
     private Segment stTemp;
     private Ellipse elTemp;
@@ -43,11 +44,12 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
     private Rectangle recTemp;
     private Carre carTemp;
     private Polyligne plTemp;
+    private Polygone plgTemp;
     private Figure fgContourBleu;
     private Figure fgSelected;
     private int fgSelectedIndexPoint;
-    private Point fgSelectedPoint;
-    private Polygone plgTemp;
+    private EnsembleFigures efTemp;
+   
 
     public void setEnSelection(boolean enSelection) {
         this.enSelection = enSelection;
@@ -59,6 +61,10 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     public boolean isEnSelection() {
         return enSelection;
+    }
+
+    public boolean isConstructionEnsemble() {
+        return constructionEnsemble;
     }
 
     public void setConstructionCarre(boolean constructionCarre) {
@@ -75,6 +81,10 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
 
     public void setConstructionSeg(boolean constructionSeg) {
         this.constructionSeg = constructionSeg;
+    }
+
+    public void setConstructionEnsemble(boolean constructionEnsemble) {
+        this.constructionEnsemble = constructionEnsemble;
     }
 
     public void setConstructionRec(boolean constructionRec) {
@@ -118,9 +128,9 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         this.figuresScene.remove(ef);
     }
     
-    public void creerEnsemble(EnsembleFigures ef, Figure a){
-       ef.ajouterFigure(a);
-       this.figuresScene.remove(a);
+    public void creerEnsemble(EnsembleFigures ef){
+       this.figuresScene.add(ef);
+       this.figuresScene.removeAll(ef.getTabFigures());
     }
 
     public Figure figureProche(Point clic){
@@ -169,6 +179,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         if (this.constructionPolyligne == true) {
             this.plTemp.dessine(g);
         }
+        
         
         //Dessine la selection
         if(this.enSelection == true){
@@ -379,9 +390,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                 }
                  
                
-                
-                // Fait une copie de la figure selectionné pour afficher une nouvelle figure superposé avec contour bleu
-                this.fgContourBleu=Figure.figSelection(fgSelected);
+          
                 this.main.getDetail().afficherDetail(fgSelected);
                 
                 } // Sinon si aucune figure proche
@@ -394,6 +403,43 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         else if(main.getMenu().getJbSupprimer().isSelected()) {
             Figure figSup =  this.figureProche(new Point(e.getX(), e.getY()));
             this.figuresScene.remove(figSup);
+            this.repaint();
+        }
+        else if (main.getMenu().getJbCreeEnsemble().isSelected()) {
+           
+            if (this.constructionEnsemble == false) {
+                 if (!SwingUtilities.isRightMouseButton(e)) {
+              
+                 Figure figSup = this.figureProche(new Point(e.getX(), e.getY()));
+                 if(figSup != null){
+                        constructionEnsemble = true;
+                        efTemp = new EnsembleFigures(new ArrayList<Figure>());
+                        efTemp.ajouterFigure(figSup);
+                         main.getDetail().afficherDetail(efTemp);
+                 }
+                 }
+
+            } else {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    if (!efTemp.getTabFigures().isEmpty()) {
+                        creerEnsemble(efTemp);
+                         constructionEnsemble = false;
+                        efTemp.afficheFigure();
+                    }
+                }
+                else{
+                     Figure figSup = this.figureProche(new Point(e.getX(), e.getY()));
+                    if(figSup != null && efTemp.getTabFigures().indexOf(figSup) == -1){
+                     efTemp.ajouterFigure(figSup);
+                      main.getDetail().afficherDetail(efTemp);
+                      
+                    }
+                }
+            }
+
+          
+            
+            
             this.repaint();
         }
     }

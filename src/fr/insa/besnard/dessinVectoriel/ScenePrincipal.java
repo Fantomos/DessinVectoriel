@@ -21,6 +21,10 @@ public class ScenePrincipal extends JPanel implements MouseListener{
     private DetailPanel detail;
     private InfoAction info;
 
+    public void setSceneDessin(SceneDessin sceneDessin) {
+        this.sceneDessin = sceneDessin;
+    }
+
   
 
     public ScenePrincipal() {

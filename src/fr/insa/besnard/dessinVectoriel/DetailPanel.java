@@ -212,12 +212,11 @@ public class DetailPanel extends JPanel implements ActionListener{
             main.getSceneDessin().setFgContourBleu(Figure.figSelection(a));
         }
         figureDetail = a;
-        
         // Attribut communs à toutes les figures
         forme.setText(a.getClass().getSimpleName());
         nom.setText(a.getNom());
         jbColor.setBackground(a.getCouleur());
-        
+   
         // Attributs spécifique
          RemplirC.setVisible(false);
          coordXC.setVisible(false);
@@ -272,11 +271,20 @@ public class DetailPanel extends JPanel implements ActionListener{
                
                
         }
+         else if(figureDetail instanceof EnsembleFigures){
+            
+               EnsembleFigures figureDetailEf = (EnsembleFigures) a;
+               
+               
+        }
+      
       
         
         this.setVisible(true);
         main.repaint();
     }
+    
+    
     
     
     

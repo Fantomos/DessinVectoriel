@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import utils.Lire;
 
 /**
@@ -90,6 +91,72 @@ public abstract class Figure{
               Color couleur = new Color(Integer.parseInt(infoTab[6]),Integer.parseInt(infoTab[7]),Integer.parseInt(infoTab[8])); 
               return new Segment(new Point(coordXDepart,coordYDepart),new Point(coordXFin,coordYFin),nom,couleur);
         }
+        else if("EL".equals(infoTab[0])){
+              double coordXCenter = Double.parseDouble(infoTab[3]);
+              double coordYCenter = Double.parseDouble(infoTab[4]);
+              double rayonX = Double.parseDouble(infoTab[5]);
+              double rayonY = Double.parseDouble(infoTab[6]);
+              String nom = infoTab[1];
+              boolean remplir = Boolean.getBoolean(infoTab[2]);
+              Color couleur = new Color(Integer.parseInt(infoTab[7]),Integer.parseInt(infoTab[8]),Integer.parseInt(infoTab[9])); 
+              return new Ellipse(new Point(coordXCenter,coordYCenter),rayonX,rayonY,nom,couleur,remplir);
+        }
+        else if("CE".equals(infoTab[0])){
+              double coordXCenter = Double.parseDouble(infoTab[3]);
+              double coordYCenter = Double.parseDouble(infoTab[4]);
+              double rayonX = Double.parseDouble(infoTab[5]);
+              String nom = infoTab[1];
+              boolean remplir = Boolean.getBoolean(infoTab[2]);
+              Color couleur = new Color(Integer.parseInt(infoTab[6]),Integer.parseInt(infoTab[7]),Integer.parseInt(infoTab[8])); 
+              return new Cercle(new Point(coordXCenter,coordYCenter),rayonX,nom,couleur,remplir);
+        }
+         else if("PG".equals(infoTab[0])){
+              String nom = infoTab[1];
+              boolean remplir = Boolean.getBoolean(infoTab[2]);
+              ArrayList<Point> sommet = new ArrayList<>();
+              for(int i=0;i<Integer.parseInt(infoTab[6]);i++){
+                  double coordX = Double.parseDouble(infoTab[7+2*i]);
+                  double coordY = Double.parseDouble(infoTab[8+2*i]);
+                  Point p = new Point(coordX,coordY);
+                  sommet.add(p);
+              }
+              Color couleur = new Color(Integer.parseInt(infoTab[3]),Integer.parseInt(infoTab[4]),Integer.parseInt(infoTab[5])); 
+              return new Polygone(sommet,nom,couleur,remplir);
+        }
+          else if("PL".equals(infoTab[0])){
+              String nom = infoTab[1];
+              ArrayList<Point> sommet = new ArrayList<>();
+              for(int i=0;i<Integer.parseInt(infoTab[5]);i++){
+                  double coordX = Double.parseDouble(infoTab[6+2*i]);
+                  double coordY = Double.parseDouble(infoTab[7+2*i]);
+                  Point p = new Point(coordX,coordY);
+                  sommet.add(p);
+              }
+              Color couleur = new Color(Integer.parseInt(infoTab[2]),Integer.parseInt(infoTab[3]),Integer.parseInt(infoTab[4])); 
+              return new Polyligne(sommet,nom,couleur);
+        }
+         else if("R".equals(infoTab[0])){
+              String nom = infoTab[1];
+              boolean remplir = Boolean.getBoolean(infoTab[2]);
+              double coordX = Double.parseDouble(infoTab[3]);
+              double coordY = Double.parseDouble(infoTab[4]);
+              Point ptSupGauche = new Point(coordX,coordY);
+              double longueur = Double.parseDouble(infoTab[5]);
+              double largeur = Double.parseDouble(infoTab[6]);
+              Color couleur = new Color(Integer.parseInt(infoTab[7]),Integer.parseInt(infoTab[8]),Integer.parseInt(infoTab[9])); 
+              return new Rectangle(ptSupGauche,largeur,longueur,nom,couleur,remplir);
+        }
+        else if("CA".equals(infoTab[0])){
+              String nom = infoTab[1];
+              boolean remplir = Boolean.getBoolean(infoTab[2]);
+              double coordX = Double.parseDouble(infoTab[3]);
+              double coordY = Double.parseDouble(infoTab[4]);
+              Point ptSupGauche = new Point(coordX,coordY);
+              double longueur = Double.parseDouble(infoTab[5]);
+              Color couleur = new Color(Integer.parseInt(infoTab[6]),Integer.parseInt(infoTab[7]),Integer.parseInt(infoTab[8])); 
+              return new Carre(ptSupGauche,longueur,nom,couleur,remplir);
+        }
+        
         
       return null;
     };

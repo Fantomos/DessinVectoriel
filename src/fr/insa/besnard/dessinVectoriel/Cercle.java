@@ -34,6 +34,10 @@ public class Cercle extends Ellipse{
         super(centre,rayon,rayon,nom,couleur);
        
     }
+      public Cercle(Point centre, double rayon, String nom, Color couleur,boolean remplir){
+        super(centre,rayon,rayon,nom,couleur,remplir);
+       
+    }
     
     public void update(double rayon){
         super.setRayonX(rayon);

@@ -188,12 +188,12 @@ public class Polygone extends Figure {
      
     @Override
     public String toSave(){
-        String texte = "PG;" + this.getNom() + ";" +this.remplir + ";" + this.sommet.size() + ";";
+        String texte = "PG;" + this.getNom() + ";" +this.remplir + ";" + getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen() + ";" + this.sommet.size() + ";";
         for(int i=0;i<this.sommet.size();i++){
             texte = texte +  + this.sommet.get(i).getCoordx() + ";"
                 + this.sommet.get(i).getCoordy()  + ";";
         }
-        texte = texte + getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
+        texte = texte + "\n";
         return texte;
     };
     

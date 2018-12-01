@@ -18,12 +18,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -64,6 +68,10 @@ public class MenuPanel extends JPanel implements ActionListener{
     
     public JToggleButton getJbRectangle() {
         return jbRectangle;
+    }
+
+    public JToggleButton getJbCreeEnsemble() {
+        return jbCreeEnsemble;
     }
 
     public JToggleButton getJbPolyligne() {
@@ -117,9 +125,9 @@ public class MenuPanel extends JPanel implements ActionListener{
          this.jbCarre = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/carre.png"));
          this.jbPolygone = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/polygone.png"));
           this.jbPolyligne = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/polyligne.png"));
-         this.jbSelection = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/selectionner2.png"));
+         this.jbSelection = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/selectionner.png"));
          this.jbCreeEnsemble = new JToggleButton("Creer ef");
-         this.jbSupprimer = new JToggleButton("Supp");
+         this.jbSupprimer = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/supprimer.png"));
          
           this.jbNouveau = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/nouveau.png"));
           this.jbOuvrir = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/ouvrir.png"));
@@ -267,6 +275,7 @@ public class MenuPanel extends JPanel implements ActionListener{
          this.main.getSceneDessin().setConstructionCarre(false);
         this.main.getSceneDessin().setConstructionPoly(false);
         this.main.getSceneDessin().setConstructionPolyligne(false);
+        this.main.getSceneDessin().setConstructionEnsemble(false);
         this.main.getSceneDessin().setEnSelection(false);
         this.main.getSceneDessin().repaint();
         
@@ -352,8 +361,9 @@ public class MenuPanel extends JPanel implements ActionListener{
             }
          }
           else if(e.getSource() == jbCreeEnsemble){
-               if (jbSelection.isSelected()) {
+               if (jbCreeEnsemble.isSelected()) {
                 this.main.getInfo().getInfoText().setText("Selectionner une figure pour la modifier");
+                 this.main.getDetail().afficherDetail(new EnsembleFigures(new ArrayList<Figure>()));
             } else {
                 this.main.getInfo().getInfoText().setText("Ajouter des figures");
             }
@@ -367,22 +377,32 @@ public class MenuPanel extends JPanel implements ActionListener{
                 this.main.getInfo().getInfoText().setText("Ajouter des figures");
             }
          }
-        else if(e.getSource() == jbSave){
-        
-             String nomFichier = JOptionPane.showInputDialog(this.getParent(),"Nom du fichier à sauvegarder") + ".txt";
-             if(!"null".equals(nomFichier)){
-                  File f = new File(nomFichier);
-             save(f);
-             }
-            
-               
+        else if (e.getSource() == jbSave) {
+            JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            jfc.setSelectedFile(new File("save.txt"));
+            int returnValue = jfc.showSaveDialog(getParent());
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File f = jfc.getSelectedFile();
+                save(f);
+            }
+
+        } else if (e.getSource() == jbOuvrir) {
+            JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+            jfc.setFileFilter(filter);
+            int returnValue = jfc.showOpenDialog(getParent());
+    
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File f = jfc.getSelectedFile();
+                lire(f);
+            }
+
          }
-        else if(e.getSource() == jbOuvrir){
+        else if(e.getSource() == jbNouveau){
         
-             String nomFichier = JOptionPane.showInputDialog(this.getParent(),"Nom du fichier à ouvrir") + ".txt";
-             File f = new File(nomFichier);
-             lire(f);
-             System.out.println(main.getSceneDessin().getfiguresScene().get(0));
+             this.main.getSceneDessin().getfiguresScene().clear();
+             this.repaint();
                
          }
          
@@ -394,7 +414,7 @@ public class MenuPanel extends JPanel implements ActionListener{
                 bf.append((this.main.getSceneDessin().getfiguresScene().get(i).toSave()));
         }
         } catch (IOException ex) {
-            throw new Error(ex); 
+            JOptionPane.showMessageDialog(getParent(),"Impossible de sauvegarder","Erreur sauvegarde",JOptionPane.WARNING_MESSAGE);
         }
 
     }
@@ -409,7 +429,7 @@ public class MenuPanel extends JPanel implements ActionListener{
           main.getSceneDessin().repaint();
             
         } catch (IOException ex) {
-            throw new Error(ex); 
+           JOptionPane.showMessageDialog(getParent(),"Impossible d'ouvrir le fichier","Erreur ouverture",JOptionPane.WARNING_MESSAGE);
         }
 
     }

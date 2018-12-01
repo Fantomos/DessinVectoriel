@@ -16,7 +16,9 @@ import java.awt.Color;
 public class Carre extends Rectangle{
    
     // Constructeur
-  
+  public Carre(Point p1, double longueur, String nom, Color couleur,boolean remplir) {
+        super(p1, longueur,longueur,nom,couleur,remplir);
+    }
     public Carre(Point p1, double longueur, String nom, Color couleur) {
         super(p1, longueur,longueur,nom,couleur);
     }
