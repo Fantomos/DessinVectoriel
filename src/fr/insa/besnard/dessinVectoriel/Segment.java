@@ -164,7 +164,7 @@ public class Segment extends Figure {
                 + this.depart.getCoordy() + ";"
                 + this.fin.getCoordx() + ";"
                 + this.fin.getCoordy() + ";"
-                + this.getCouleur().getRed() + ";" + getCouleur().getBlue() + ";" + getCouleur().getGreen() + ";\n";
+                + this.getCouleur().getRed() + ";" + getCouleur().getBlue() + ";" + getCouleur().getGreen();
     }
 
     ;

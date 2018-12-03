@@ -142,11 +142,11 @@ public class EnsembleFigures extends Figure{
     
     @Override
      public String toSave(){
-        String texte = "EF;" + this.getNom() + ";" + this.tabFigures.size() + ";\n";
+        String texte = "EF;" + this.getNom() + ";" +  this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+ ";" +this.tabFigures.size() ;
         for(int i=0;i<this.tabFigures.size();i++){
-            texte = texte + this.tabFigures.get(i).toSave(); 
+            texte = texte + ";" +this.tabFigures.get(i).toSave(); 
         }
-        texte = texte + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
+        
         return texte;
     }
      

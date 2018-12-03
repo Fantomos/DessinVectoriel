@@ -151,7 +151,7 @@ this.setCenter(new Point(e.getX(),e.getY()));
                 + this.center.getCoordy() + ";"
                 + this.rayonX + ";"
                 + this.rayonY + ";"
-                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
+                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen();
     }
 
     @Override
