@@ -156,6 +156,9 @@ public abstract class Figure{
               Color couleur = new Color(Integer.parseInt(infoTab[6]),Integer.parseInt(infoTab[7]),Integer.parseInt(infoTab[8])); 
               return new Carre(ptSupGauche,longueur,nom,couleur,remplir);
         }
+        else if("EF".equals(infoTab[0])){
+            // A Faire
+        }
         
         
       return null;

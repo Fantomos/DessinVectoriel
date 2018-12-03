@@ -362,7 +362,7 @@ public class MenuPanel extends JPanel implements ActionListener{
          }
           else if(e.getSource() == jbCreeEnsemble){
                if (jbCreeEnsemble.isSelected()) {
-                this.main.getInfo().getInfoText().setText("Selectionner une figure pour la modifier");
+                this.main.getInfo().getInfoText().setText("Clique gauche pour ajouter dans une figure dans un nouvel ensemble/Clique droit pour valider");
                  this.main.getDetail().afficherDetail(new EnsembleFigures(new ArrayList<Figure>()));
             } else {
                 this.main.getInfo().getInfoText().setText("Ajouter des figures");

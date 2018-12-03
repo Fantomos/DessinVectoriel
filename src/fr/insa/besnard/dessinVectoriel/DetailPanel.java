@@ -6,12 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Box;
@@ -21,6 +16,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -66,6 +62,10 @@ public class DetailPanel extends JPanel implements ActionListener{
     private JLabel largeurLabel;
     private JTextField largeur;
     private Box largeurC;
+    
+    private JTextArea listeFig;
+    
+    private JButton supprimer;
 
     public DetailPanel(ScenePrincipal main) {
         this.setVisible(false);
@@ -172,6 +172,11 @@ public class DetailPanel extends JPanel implements ActionListener{
        largeurC.setMaximumSize(largeurC.getPreferredSize());
        
        
+       this.listeFig = new JTextArea();
+       this.supprimer = new JButton("Eclater");
+       supprimer.addActionListener(this);
+      
+       
         this.add(titre);
         this.add(Box.createRigidArea(new Dimension(0,20)));
         this.add(formeC);
@@ -193,7 +198,10 @@ public class DetailPanel extends JPanel implements ActionListener{
         this.add(longueurC);
         this.add(Box.createRigidArea(new Dimension(0,5)));
         this.add(largeurC);
-     
+        this.add(Box.createRigidArea(new Dimension(0,5)));
+        this.add(listeFig);
+        this.add(Box.createRigidArea(new Dimension(0,5)));
+        this.add(supprimer);
    
       
 
@@ -225,6 +233,7 @@ public class DetailPanel extends JPanel implements ActionListener{
          rayonYC.setVisible(false);
          longueurC.setVisible(false);
         largeurC.setVisible(false);
+        listeFig.setVisible(false);
         if(figureDetail instanceof Polygone){
                if(figureDetail instanceof Rectangle){
                Rectangle figureDetailRec = (Rectangle) a;
@@ -274,8 +283,13 @@ public class DetailPanel extends JPanel implements ActionListener{
          else if(figureDetail instanceof EnsembleFigures){
             
                EnsembleFigures figureDetailEf = (EnsembleFigures) a;
-               
-               
+               String text ="";
+               for(int i=0;i<figureDetailEf.getTabFigures().size();i++){
+                  text = text + i + "|" +figureDetailEf.getTabFigures().get(i).getNom() + "\n";
+               }
+               listeFig.setText(text);
+               listeFig.setVisible(true);
+               supprimer.setVisible(true);
         }
       
       
