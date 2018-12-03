@@ -6,6 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 
 
 
@@ -45,6 +46,13 @@ public class Carre extends Rectangle{
        this.getSommet().get(2).setCoordy(this.getSommet().get(0).getCoordy() + longueur);
        this.getSommet().get(3).setCoordy(this.getSommet().get(0).getCoordy() + longueur);
   }
+    
+  @Override
+    public void deplace(MouseEvent e) {
+         this.update(new Point(e.getX()-this.longueur()/2,e.getY()-this.longueur()/2));
+    }
+    
+    
      @Override
     public Carre copy() {
         return new Carre(this);

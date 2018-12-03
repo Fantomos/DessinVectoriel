@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import utils.Lire;
 
 /**
@@ -88,7 +89,9 @@ public class Ellipse extends Figure{
         
     }
     
-  
+  public void deplace(MouseEvent e) {
+this.setCenter(new Point(e.getX(),e.getY()));
+    }
   
     
     @Override

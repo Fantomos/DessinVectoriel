@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -56,6 +57,15 @@ public class Polyligne extends Figure{
          else{
              return -1;
          }
+    }
+     
+  @Override
+     public void deplace(MouseEvent e) {
+        double deltaX = this.getSommet().get(0).getCoordx() - e.getX();
+        double deltaY = this.getSommet().get(0).getCoordy() - e.getY();
+        for (int i = 0; i < this.getSommet().size(); i++) {
+            this.getSommet().set(i, new Point(Math.abs(this.getSommet().get(i).getCoordx() - deltaX), Math.abs(this.getSommet().get(i).getCoordy() - deltaY)));
+        }
     }
     
     @Override

@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -69,6 +70,7 @@ public class Rectangle extends Polygone{
        return this.getSommet().get(1).getCoordx() - this.getSommet().get(0).getCoordx();
    }
     
+    
    @Override
     public String toSave(){
         return "R;" + this.getNom() + ";" + this.getRemplir() + ";"
@@ -79,7 +81,10 @@ public class Rectangle extends Polygone{
                 + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+";\n";
     };
     
-    
+    @Override
+    public void deplace(MouseEvent e) {
+        this.update(new Point(e.getX()-this.longueur()/2,e.getY()-this.largeur()/2));
+    }
     
     @Override
      public void dessine(Graphics g) {

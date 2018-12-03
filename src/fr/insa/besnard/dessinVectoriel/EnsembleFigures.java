@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -137,6 +138,8 @@ public class EnsembleFigures extends Figure{
     
     //Définition méthode abstract de Figure
     
+    
+    
     @Override
      public String toSave(){
         String texte = "EF;" + this.getNom() + ";" + this.tabFigures.size() + ";\n";
@@ -199,7 +202,11 @@ public class EnsembleFigures extends Figure{
     
      @Override
     public EnsembleFigures copy() {
-        return new EnsembleFigures(this);
+        EnsembleFigures ef = new EnsembleFigures(new ArrayList<Figure>());
+        for(int i =0;i<this.getTabFigures().size();i++){
+            ef.getTabFigures().add(this.getTabFigures().get(i).copy());
+        }
+        return ef;
     }
    
 
@@ -226,6 +233,13 @@ public class EnsembleFigures extends Figure{
       
       
      
+    }
+
+    @Override
+    public void deplace(MouseEvent e) {
+        for(int i=0;i<this.getTabFigures().size();i++){
+            this.getTabFigures().get(i).deplace(e);
+        }
     }
 
    

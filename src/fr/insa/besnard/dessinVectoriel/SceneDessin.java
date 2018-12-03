@@ -155,7 +155,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         for (int i = 0; i < this.figuresScene.size(); i++) {
             Figure cur = this.figuresScene.get(i);
             cur.dessine(g);
-        }
+     }
 
         //Dessine les constructions
         if (this.constructionSeg == true) {
@@ -178,6 +178,9 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         }
         if (this.constructionPolyligne == true) {
             this.plTemp.dessine(g);
+        }
+        if(this.constructionEnsemble == true){
+            this.fgContourBleu.dessine(g);
         }
         
         
@@ -389,6 +392,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                     main.getInfo().getInfoText().setText("Clique sur un coin pour changer la taille / Clique sur un coté pour le déplacer");
                 }
                  
+                 
                
           
                 this.main.getDetail().afficherDetail(fgSelected);
@@ -470,96 +474,74 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
     public void mouseDragged(MouseEvent e) {
         
             // Deplace les figures
-            if(enSelection){   
-                // Deplace le point
-                if(fgSelected instanceof Point){
-                 ((Point) fgSelected).setCoordx(e.getX());
-                 ((Point) fgSelected).setCoordy(e.getY());
-                } // Deplace l'ellipse entiere
-                else if(fgSelected instanceof Ellipse){
-                  ((Ellipse) fgSelected).setCenter(new Point(e.getX(),e.getY()));
-               
+        if (enSelection) {
+
+            if (fgSelected instanceof Segment) {
+                Segment sgSelected = ((Segment) fgSelected);
+                // Deplace les sommets
+                if (this.fgSelectedIndexPoint == 0) {
+                    sgSelected.setDepart(new Point(e.getX(), e.getY()));
+                } else if (this.fgSelectedIndexPoint == 1) {
+                    sgSelected.setFin(new Point(e.getX(), e.getY()));
+                } // Deplace le segment entier
+                else {
+                    sgSelected.deplace(e);
                 }
-                else if(fgSelected instanceof Segment){
-                 Segment  sgSelected =  ((Segment) fgSelected);
-                 // Deplace les sommets
-                 if(this.fgSelectedIndexPoint == 0){
-                     sgSelected.setDepart(new Point(e.getX(),e.getY()));
-                 }
-                 else if(this.fgSelectedIndexPoint == 1){
-                      sgSelected.setFin(new Point(e.getX(),e.getY()));
-                 } // Deplace le segment entier
-                 else{
-                     double deltaX = sgSelected.centre().getCoordx() - e.getX();
-                     double deltaY = sgSelected.centre().getCoordy()  - e.getY();
-                     sgSelected.setDepart(new Point(Math.abs(sgSelected.getDepart().getCoordx() - deltaX),Math.abs(sgSelected.getDepart().getCoordy() - deltaY)));
-                     sgSelected.setFin(new Point(Math.abs(sgSelected.getFin().getCoordx() - deltaX),Math.abs(sgSelected.getFin().getCoordy() - deltaY)));
-                 }
-                
+
+            } else if (fgSelected.getClass().equals(Polygone.class)) {
+                Polygone polySelected = ((Polygone) fgSelected);
+                // Deplace les sommets
+                if (this.fgSelectedIndexPoint != -1) {
+                    polySelected.getSommet().set(fgSelectedIndexPoint, new Point(e.getX(), e.getY()));
+                } // Deplace le polygone entier
+                else {
+                    polySelected.deplace(e);
+
                 }
-                else if(fgSelected.getClass().equals(Polygone.class)){
-                 Polygone  polySelected =  ((Polygone) fgSelected);
-                 // Deplace les sommets
-                 if(this.fgSelectedIndexPoint != -1){
-                     polySelected.getSommet().set(fgSelectedIndexPoint,new Point(e.getX(),e.getY()));
-                 }
-                 // Deplace le polygone entier
-                 else{
-                     double deltaX = polySelected.getSommet().get(0).getCoordx() - e.getX();
-                     double deltaY = polySelected.getSommet().get(0).getCoordy()  - e.getY();
-                     for(int i=0;i<polySelected.getSommet().size();i++){
-                          polySelected.getSommet().set(i,new Point(Math.abs(polySelected.getSommet().get(i).getCoordx() - deltaX),Math.abs(polySelected.getSommet().get(i).getCoordy() - deltaY)));
-                     }
-                   
-                 }
-                }
-                else if(fgSelected.getClass().equals(Rectangle.class)){
-                 Rectangle  recSelected =  ((Rectangle) fgSelected);
-                 // Redimensionne largeur/longueur
-                 if(this.fgSelectedIndexPoint != -1){
+            } else if (fgSelected.getClass().equals(Rectangle.class)) {
+                Rectangle recSelected = ((Rectangle) fgSelected);
+                // Redimensionne largeur/longueur
+                if (this.fgSelectedIndexPoint != -1) {
                     recSelected.update(e.getY() - recSelected.getSommet().get(0).getCoordy(), e.getX() - recSelected.getSommet().get(0).getCoordx());
 
-                 }
-                 // Deplace le rectangle entier
-                 else{
-                    recSelected.update(new Point(e.getX()-recSelected.longueur()/2,e.getY()-recSelected.largeur()/2));
-                     }
-                   
-                 }
-                
-            else if(fgSelected.getClass().equals(Carre.class)){
-                Carre  carSelected =  ((Carre) fgSelected);
-                 // Redimensionne longueur
-                 if(this.fgSelectedIndexPoint != -1){
-                   carSelected.update(carSelected.getSommet().get(0),Math.max(e.getY() -carSelected.getSommet().get(0).getCoordy(), e.getX()  - carSelected.getSommet().get(0).getCoordx()));
-
-                 }
-                 // Deplace le carre entier
-                 else{
-                    carSelected.update(new Point(e.getX()-carSelected.longueur()/2,e.getY()-carSelected.longueur()/2));
-                     }
-                   
-                 }
-                
-                else if(fgSelected.getClass().equals(Polyligne.class)){
-                 Polyligne  polySelected =  ((Polyligne) fgSelected);
-                 // Deplace les sommets
-                 if(this.fgSelectedIndexPoint != -1){
-                     polySelected.getSommet().set(fgSelectedIndexPoint,new Point(e.getX(),e.getY()));
-                 }
-                 // Deplace la polyligne entiere
-                 else{
-                     double deltaX = polySelected.getSommet().get(0).getCoordx() - e.getX();
-                     double deltaY = polySelected.getSommet().get(0).getCoordy()  - e.getY();
-                     for(int i=0;i<polySelected.getSommet().size();i++){
-                          polySelected.getSommet().set(i,new Point(Math.abs(polySelected.getSommet().get(i).getCoordx() - deltaX),Math.abs(polySelected.getSommet().get(i).getCoordy() - deltaY)));
-                     }
-                   
-                 }
+                } // Deplace le rectangle entier
+                else {
+                    recSelected.deplace(e);
                 }
-               
-                this.main.getDetail().afficherDetail(fgSelected);
+
+            } else if (fgSelected.getClass().equals(Carre.class)) {
+                Carre carSelected = ((Carre) fgSelected);
+                // Redimensionne longueur
+                if (this.fgSelectedIndexPoint != -1) {
+                    carSelected.update(carSelected.getSommet().get(0), Math.max(e.getY() - carSelected.getSommet().get(0).getCoordy(), e.getX() - carSelected.getSommet().get(0).getCoordx()));
+
+                } // Deplace le carre entier
+                else {
+                    carSelected.deplace(e);
+                }
+
+            } else if (fgSelected.getClass().equals(Polyligne.class)) {
+                Polyligne polySelected = (Polyligne) fgSelected;
+                // Deplace les sommets
+                if (this.fgSelectedIndexPoint != -1) {
+                    polySelected.getSommet().set(fgSelectedIndexPoint, new Point(e.getX(), e.getY()));
+                } // Deplace la polyligne entiere
+                else {
+                    polySelected.deplace(e);
+
+                }
+            } else if (fgSelected.getClass().equals(EnsembleFigures.class)) {
+                EnsembleFigures ef = (EnsembleFigures) fgSelected;
+                for (int i = 0; i < ef.getTabFigures().size(); i++) {
+                    ef.deplace(e);
+                }
+
+            } else {
+                fgSelected.deplace(e);
             }
+
+            this.main.getDetail().afficherDetail(fgSelected);
+        }
     }
     
 

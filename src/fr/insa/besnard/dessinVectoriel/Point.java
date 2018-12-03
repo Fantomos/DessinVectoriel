@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import utils.Lire;
 
 /**
@@ -70,6 +71,7 @@ public class Point extends Figure{
     public void dessine(Graphics g) {
         g.setColor(this.getCouleur());
         g.fillOval((int)this.coordx,(int)this.coordy,5,5);
+       
     }
     
     
@@ -134,6 +136,12 @@ public class Point extends Figure{
         return new Point(this);
     }
     
+    
+    @Override
+    public void deplace(MouseEvent e){
+        this.setCoordx(e.getX());
+        this.setCoordy(e.getY());
+    }
     
     
     

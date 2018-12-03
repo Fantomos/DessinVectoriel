@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -173,9 +174,10 @@ public class DetailPanel extends JPanel implements ActionListener{
        
        
        this.listeFig = new JTextArea();
+       listeFig.setEditable(false);
        this.supprimer = new JButton("Eclater");
        supprimer.addActionListener(this);
-      
+       
        
         this.add(titre);
         this.add(Box.createRigidArea(new Dimension(0,20)));
@@ -216,7 +218,7 @@ public class DetailPanel extends JPanel implements ActionListener{
     }
     
     public void afficherDetail(Figure a){
-        if(main.getSceneDessin().isEnSelection()){
+        if(main.getSceneDessin().isEnSelection() || main.getSceneDessin().isConstructionEnsemble()){
             main.getSceneDessin().setFgContourBleu(Figure.figSelection(a));
         }
         figureDetail = a;
@@ -234,6 +236,7 @@ public class DetailPanel extends JPanel implements ActionListener{
          longueurC.setVisible(false);
         largeurC.setVisible(false);
         listeFig.setVisible(false);
+       supprimer.setVisible(false);
         if(figureDetail instanceof Polygone){
                if(figureDetail instanceof Rectangle){
                Rectangle figureDetailRec = (Rectangle) a;
@@ -281,9 +284,8 @@ public class DetailPanel extends JPanel implements ActionListener{
                
         }
          else if(figureDetail instanceof EnsembleFigures){
-            
                EnsembleFigures figureDetailEf = (EnsembleFigures) a;
-               String text ="";
+               String text = "";
                for(int i=0;i<figureDetailEf.getTabFigures().size();i++){
                   text = text + i + "|" +figureDetailEf.getTabFigures().get(i).getNom() + "\n";
                }
@@ -291,8 +293,7 @@ public class DetailPanel extends JPanel implements ActionListener{
                listeFig.setVisible(true);
                supprimer.setVisible(true);
         }
-      
-      
+     
         
         this.setVisible(true);
         main.repaint();
@@ -389,6 +390,11 @@ public class DetailPanel extends JPanel implements ActionListener{
               
            
       }
+       else if(e.getSource() == supprimer){
+           
+           main.getSceneDessin().eclaterEnsemble((EnsembleFigures) figureDetail);
+           figureDetail = new EnsembleFigures(new ArrayList<Figure>());
+       }
     
        
       
