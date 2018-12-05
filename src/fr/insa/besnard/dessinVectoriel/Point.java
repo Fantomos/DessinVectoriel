@@ -114,7 +114,7 @@ public class Point extends Figure{
         return "P;" + this.getNom() + ";"
                 + this.coordx + ";"
                 + this.coordy + ";"
-                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen();
+                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue();
     };
     
     @Override

@@ -142,7 +142,7 @@ public class EnsembleFigures extends Figure{
     
     @Override
      public String toSave(){
-        String texte = "EF;" + this.getNom() + ";" +  this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen()+ ";" +this.tabFigures.size() ;
+        String texte = "EF;" + this.getNom() + ";" +  getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue()+ ";" +this.tabFigures.size() ;
         for(int i=0;i<this.tabFigures.size();i++){
             texte = texte + ";" +this.tabFigures.get(i).toSave(); 
         }
@@ -237,6 +237,7 @@ public class EnsembleFigures extends Figure{
 
     @Override
     public void deplace(MouseEvent e) {
+        
         for(int i=0;i<this.getTabFigures().size();i++){
             this.getTabFigures().get(i).deplace(e);
         }

@@ -124,7 +124,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.jbPolygone = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/polygone.png"));
         this.jbPolyligne = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/polyligne.png"));
         this.jbSelection = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/selectionner.png"));
-        this.jbCreeEnsemble = new JToggleButton("Creer ef");
+        this.jbCreeEnsemble = new JToggleButton("EF");
         this.jbSupprimer = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/supprimer.png"));
         this.jbNouveau = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/nouveau.png"));
         this.jbOuvrir = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/ouvrir.png"));

@@ -138,7 +138,7 @@ this.setCenter(new Point(e.getX(),e.getY()));
     public double distancePoint(Point p){
         double distanceCenter = center.distancePoint(p);
  
-        return  Math.min(distanceCenter, distanceCenter);
+        return  distanceCenter;
                  // A DEFINIR
                 
     };
@@ -151,7 +151,7 @@ this.setCenter(new Point(e.getX(),e.getY()));
                 + this.center.getCoordy() + ";"
                 + this.rayonX + ";"
                 + this.rayonY + ";"
-                + this.getCouleur().getRed() +";" + getCouleur().getBlue() + ";" + getCouleur().getGreen();
+                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue();
     }
 
     @Override
