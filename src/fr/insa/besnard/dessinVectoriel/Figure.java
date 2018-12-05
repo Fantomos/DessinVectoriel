@@ -107,7 +107,7 @@ public abstract class Figure {
             double rayonX = Double.parseDouble(infoTab[5]);
             double rayonY = Double.parseDouble(infoTab[6]);
             String nom = infoTab[1];
-            boolean remplir = Boolean.getBoolean(infoTab[2]);
+            boolean remplir = Boolean.parseBoolean(infoTab[2]);
             Color couleur = new Color(Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]), Integer.parseInt(infoTab[9]));
             return new Ellipse(new Point(coordXCenter, coordYCenter), rayonX, rayonY, nom, couleur, remplir);
         } else if ("CE".equals(infoTab[0])) {
@@ -115,12 +115,13 @@ public abstract class Figure {
             double coordYCenter = Double.parseDouble(infoTab[4]);
             double rayonX = Double.parseDouble(infoTab[5]);
             String nom = infoTab[1];
-            boolean remplir = Boolean.getBoolean(infoTab[2]);
+            boolean remplir = Boolean.parseBoolean(infoTab[2]);
             Color couleur = new Color(Integer.parseInt(infoTab[6]), Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]));
             return new Cercle(new Point(coordXCenter, coordYCenter), rayonX, nom, couleur, remplir);
         } else if ("PG".equals(infoTab[0])) {
             String nom = infoTab[1];
-            boolean remplir = Boolean.getBoolean(infoTab[2]);
+          
+            boolean remplir = Boolean.parseBoolean(infoTab[2]);
             ArrayList<Point> sommet = new ArrayList<>();
             for (int i = 0; i < Integer.parseInt(infoTab[6]); i++) {
                 double coordX = Double.parseDouble(infoTab[7 + 2 * i]);
@@ -143,7 +144,7 @@ public abstract class Figure {
             return new Polyligne(sommet, nom, couleur);
         } else if ("R".equals(infoTab[0])) {
             String nom = infoTab[1];
-            boolean remplir = Boolean.getBoolean(infoTab[2]);
+            boolean remplir = Boolean.parseBoolean(infoTab[2]);
             double coordX = Double.parseDouble(infoTab[3]);
             double coordY = Double.parseDouble(infoTab[4]);
             Point ptSupGauche = new Point(coordX, coordY);
@@ -153,7 +154,7 @@ public abstract class Figure {
             return new Rectangle(ptSupGauche, largeur, longueur, nom, couleur, remplir);
         } else if ("CA".equals(infoTab[0])) {
             String nom = infoTab[1];
-            boolean remplir = Boolean.getBoolean(infoTab[2]);
+            boolean remplir = Boolean.parseBoolean(infoTab[2]);
             double coordX = Double.parseDouble(infoTab[3]);
             double coordY = Double.parseDouble(infoTab[4]);
             Point ptSupGauche = new Point(coordX, coordY);

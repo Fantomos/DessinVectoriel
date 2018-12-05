@@ -362,6 +362,7 @@ public class MenuPanel extends JPanel implements ActionListener {
             int returnValue = jfc.showOpenDialog(getParent());
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
+                 this.main.getSceneDessin().getfiguresScene().clear();
                 File f = jfc.getSelectedFile();
                 lire(f);
             }
@@ -397,7 +398,7 @@ public class MenuPanel extends JPanel implements ActionListener {
             main.getSceneDessin().repaint();
 
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(getParent(), "Impossible d'ouvrir le fichier", "Erreur ouverture", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(getParent(), "Impossible d'ouvrir le fichier", "Erreur ouverture", JOptionPane.WARNING_MESSAGE);
         }
 
     }
