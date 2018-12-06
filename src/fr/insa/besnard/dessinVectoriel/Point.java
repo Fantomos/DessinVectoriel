@@ -7,7 +7,10 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import utils.Lire;
 
 /**
@@ -68,10 +71,9 @@ public class Point extends Figure{
     }
     
     @Override
-    public void dessine(Graphics g) {
+    public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
-        g.fillOval((int)this.coordx,(int)this.coordy,5,5);
-       
+        g.fill(new Ellipse2D.Double(coordx,coordy,5,5));
     }
     
     
@@ -138,9 +140,9 @@ public class Point extends Figure{
     
     
     @Override
-    public void deplace(MouseEvent e){
-        this.setCoordx(e.getX());
-        this.setCoordy(e.getY());
+    public void deplace(Point2D p){
+        this.setCoordx(p.getX());
+        this.setCoordy(p.getY());
     }
     
     

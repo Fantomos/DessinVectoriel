@@ -7,7 +7,10 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import utils.Lire;
 
 /**
@@ -89,8 +92,8 @@ public class Ellipse extends Figure{
         
     }
     
-  public void deplace(MouseEvent e) {
-this.setCenter(new Point(e.getX(),e.getY()));
+  public void deplace(Point2D p) {
+this.setCenter(new Point(p.getX(),p.getY()));
     }
   
     
@@ -101,13 +104,13 @@ this.setCenter(new Point(e.getX(),e.getY()));
     
     
     @Override
-     public void dessine(Graphics g) {
+     public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
         
         if(remplir){
-              g.fillOval((int)(this.center.getCoordx() - this.rayonX),(int)(this.center.getCoordy() - this.rayonY),(int)(2*this.rayonX),(int)(2*this.rayonY));
+            g.fill(new Ellipse2D.Double(this.center.getCoordx() - this.rayonX, this.center.getCoordy() - this.rayonY,2*this.rayonX, 2*this.rayonY));
         }else{
-              g.drawOval((int)(this.center.getCoordx() - this.rayonX),(int)(this.center.getCoordy() - this.rayonY),(int)(2*this.rayonX),(int)(2*this.rayonY));
+             g.draw(new Ellipse2D.Double(this.center.getCoordx() - this.rayonX, this.center.getCoordy() - this.rayonY,2*this.rayonX, 2*this.rayonY));
         }
       
        

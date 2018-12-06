@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.scene.transform.Scale;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,6 +51,8 @@ public class MenuPanel extends JPanel implements ActionListener {
     private JButton jbNouveau;
     private JButton jbOuvrir;
     private JButton jbSave;
+    private JButton jbZoomIn;
+    private JButton jbZoomOut;
     private Container listeBoutons;
 
     private ScenePrincipal main;
@@ -129,6 +132,8 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.jbNouveau = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/nouveau.png"));
         this.jbOuvrir = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/ouvrir.png"));
         this.jbSave = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/save.png"));
+          this.jbZoomIn = new JButton();
+            this.jbZoomOut = new JButton();
         this.listeBoutons = new Container();
 
         this.jbPoint.setToolTipText("Point");
@@ -145,7 +150,9 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.jbNouveau.setToolTipText("Nouveau");
         this.jbOuvrir.setToolTipText("Ouvrir");
         this.jbSave.setToolTipText("Sauvegarder");
-
+        this.jbZoomIn.setToolTipText("Aggrandir");
+        this.jbZoomOut.setToolTipText("Réduire");
+        
         this.main = main;
         this.jbPoint.addActionListener(this);
         this.jbSegment.addActionListener(this);
@@ -161,6 +168,8 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.jbNouveau.addActionListener(this);
         this.jbOuvrir.addActionListener(this);
         this.jbSave.addActionListener(this);
+         this.jbZoomIn.addActionListener(this);
+        this.jbZoomOut.addActionListener(this);
 
         ButtonGroup boutons = new ButtonGroup();
         boutons.add(jbPoint);
@@ -236,6 +245,16 @@ public class MenuPanel extends JPanel implements ActionListener {
         c.gridx = 2;
         c.gridy = 0;
         listeBoutons.add(jbSave, c);
+        
+        c.gridx = 3;
+        c.gridy = 0;
+        listeBoutons.add(jbZoomIn, c);
+        
+        c.gridx = 4;
+        c.gridy = 0;
+        listeBoutons.add(jbZoomOut, c);
+        
+        
         this.setBackground(Color.LIGHT_GRAY);
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         this.add(listeBoutons);
@@ -372,6 +391,16 @@ public class MenuPanel extends JPanel implements ActionListener {
             this.main.getSceneDessin().getfiguresScene().clear();
             this.repaint();
 
+        }
+        else if(e.getSource() == jbZoomIn){
+            this.main.getSceneDessin().setZoom(new Scale(main.getSceneDessin().getZoom().getX()+0.1,main.getSceneDessin().getZoom().getY()-0.1));
+            System.out.println( this.main.getSceneDessin().getZoom());
+        }
+        else if(e.getSource() == jbZoomOut){
+            if(this.main.getSceneDessin().getZoom().getX() > 0.1){   
+            this.main.getSceneDessin().setZoom(new Scale(main.getSceneDessin().getZoom().getX()-0.1,main.getSceneDessin().getZoom().getY()+0.1));
+            System.out.println( this.main.getSceneDessin().getZoom());
+          }
         }
 
     }

@@ -7,6 +7,7 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 
 
 
@@ -48,8 +49,8 @@ public class Carre extends Rectangle{
   }
     
   @Override
-    public void deplace(MouseEvent e) {
-         this.update(new Point(e.getX()-this.longueur()/2,e.getY()-this.longueur()/2));
+    public void deplace(Point2D p) {
+         this.update(new Point(p.getX()-this.longueur()/2,p.getY()-this.longueur()/2));
     }
     
     

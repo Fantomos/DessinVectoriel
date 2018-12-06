@@ -7,7 +7,10 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -82,19 +85,21 @@ public class Rectangle extends Polygone{
     };
     
     @Override
-    public void deplace(MouseEvent e) {
-        this.update(new Point(e.getX()-this.longueur()/2,e.getY()-this.largeur()/2));
+    public void deplace(Point2D p) {
+        this.update(new Point(p.getX()-this.longueur()/2,p.getY()-this.largeur()/2));
     }
     
     @Override
-     public void dessine(Graphics g) {
+     public void dessine(Graphics2D g) {
       
         g.setColor(this.getCouleur());
          if(super.isRemplir()){
-         g.fillRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),(int)this.longueur(),(int)this.largeur());
+           g.fill(new Rectangle2D.Double(this.getSommet().get(0).getCoordx(),this.getSommet().get(0).getCoordy(),this.longueur(),this.largeur()));
+        
          }
          else{
-           g.drawRect((int)this.getSommet().get(0).getCoordx(),(int)this.getSommet().get(0).getCoordy(),(int) this.longueur(),(int)this.largeur());  
+              g.draw(new Rectangle2D.Double(this.getSommet().get(0).getCoordx(),this.getSommet().get(0).getCoordy(),this.longueur(),this.largeur()));
+      
          }
      }
    @Override

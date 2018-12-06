@@ -7,7 +7,9 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import utils.Lire;
 
@@ -193,7 +195,7 @@ public abstract class Figure {
 
     public abstract Figure symetriqueOrigine();
 
-    public abstract void dessine(Graphics g);
+    public abstract void dessine(Graphics2D g);
 
     public abstract String toSave();
 
@@ -205,7 +207,7 @@ public abstract class Figure {
 
     public abstract double maxY();
 
-    public abstract void deplace(MouseEvent e);
+    public abstract void deplace(Point2D p);
 
     public abstract double distancePoint(Point p);
 

@@ -7,7 +7,10 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import utils.Lire;
 
 /**
@@ -93,18 +96,19 @@ public class Segment extends Figure {
 
     }
 
-    public void deplace(MouseEvent e) {
-        double deltaX = this.centre().getCoordx() - e.getX();
-        double deltaY = this.centre().getCoordy() - e.getY();
-        this.setDepart(new Point(Math.abs(this.getDepart().getCoordx() - deltaX), Math.abs(this.getDepart().getCoordy() - deltaY)));
-        this.setFin(new Point(Math.abs(this.getFin().getCoordx() - deltaX), Math.abs(this.getFin().getCoordy() - deltaY)));
+    public void deplace(Point2D p) {
+        double deltaX = this.centre().getCoordx() - p.getX();
+        double deltaY = this.centre().getCoordy() - p.getY();
+        this.setDepart(new Point(this.getDepart().getCoordx() - deltaX, this.getDepart().getCoordy() - deltaY));
+        this.setFin(new Point(this.getFin().getCoordx() - deltaX, this.getFin().getCoordy() - deltaY));
     }
 
     //Définition méthode abstract de Figure
     @Override
-    public void dessine(Graphics g) {
+    public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
-        g.drawLine((int) this.depart.getCoordx(), (int) this.depart.getCoordy(), (int) this.fin.getCoordx(), (int) this.fin.getCoordy());
+        g.draw(new Line2D.Double(this.depart.getCoordx(),this.depart.getCoordy(), this.fin.getCoordx(),this.fin.getCoordy()));
+ 
 
     }
 

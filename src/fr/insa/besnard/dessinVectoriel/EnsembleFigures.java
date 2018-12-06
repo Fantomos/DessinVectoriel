@@ -7,11 +7,9 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -153,7 +151,7 @@ public class EnsembleFigures extends Figure{
     
      
     @Override
-      public void dessine(Graphics g) {
+      public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
         for(int i=0;i<this.tabFigures.size();i++){
             this.tabFigures.get(i).dessine(g);
@@ -236,12 +234,13 @@ public class EnsembleFigures extends Figure{
     }
 
     @Override
-    public void deplace(MouseEvent e) {
-        
+    public void deplace(Point2D p) {
+    
         for(int i=0;i<this.getTabFigures().size();i++){
-            this.getTabFigures().get(i).deplace(e);
+            this.getTabFigures().get(i).deplace(p);
         }
     }
 
+ 
    
 }

@@ -7,7 +7,11 @@ package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -92,11 +96,11 @@ public class Polygone extends Figure {
     }
 
     @Override
-    public void deplace(MouseEvent e) {
-        double deltaX = this.getSommet().get(0).getCoordx() - e.getX();
-        double deltaY = this.getSommet().get(0).getCoordy() - e.getY();
+    public void deplace(Point2D p) {
+        double deltaX = this.getSommet().get(0).getCoordx() - p.getX();
+        double deltaY = this.getSommet().get(0).getCoordy() - p.getY();
         for (int i = 0; i < this.getSommet().size(); i++) {
-            this.getSommet().set(i, new Point(Math.abs(this.getSommet().get(i).getCoordx() - deltaX), Math.abs(this.getSommet().get(i).getCoordy() - deltaY)));
+            this.getSommet().set(i, new Point(this.getSommet().get(i).getCoordx() - deltaX, this.getSommet().get(i).getCoordy() - deltaY));
         }
     }
 
@@ -111,18 +115,26 @@ public class Polygone extends Figure {
     }
 
     @Override
-    public void dessine(Graphics g) {
+    public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
-        int[] x = new int[sommet.size()];
-        int[] y = new int[sommet.size()];
+        double[] x = new double[sommet.size()];
+        double[] y = new double[sommet.size()];
         for (int i = 0; i < this.sommet.size(); i++) {
-            x[i] = (int) this.sommet.get(i).getCoordx();
-            y[i] = (int) this.sommet.get(i).getCoordy();
+            x[i] = this.sommet.get(i).getCoordx();
+            y[i] = this.sommet.get(i).getCoordy();
         }
+        Path2D path = new Path2D.Double();
+        path.moveTo(x[0], y[0]);
+        for (int i = 1; i < x.length; ++i) {
+            path.lineTo(x[i], y[i]);
+        }
+        path.closePath();
         if (this.remplir) {
-            g.fillPolygon(x, y, this.sommet.size());
+            g.fill(path);
+            //g.fillPolygon(x, y, this.sommet.size());
         } else {
-            g.drawPolygon(x, y, this.sommet.size());
+             g.draw(path);
+            //g.drawPolygon(x, y, this.sommet.size());
         }
 
     }
@@ -199,12 +211,12 @@ public class Polygone extends Figure {
 
     @Override
     public String toSave() {
-        String texte = "PG;" + this.getNom() + ";" + this.remplir + ";" + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + this.sommet.size() ;
+        String texte = "PG;" + this.getNom() + ";" + this.remplir + ";" + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + this.sommet.size();
         for (int i = 0; i < this.sommet.size(); i++) {
-            texte = texte + ";" +this.sommet.get(i).getCoordx() + ";"
+            texte = texte + ";" + this.sommet.get(i).getCoordx() + ";"
                     + this.sommet.get(i).getCoordy();
         }
-      
+
         return texte;
     }
 
