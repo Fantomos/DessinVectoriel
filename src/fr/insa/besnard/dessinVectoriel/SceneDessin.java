@@ -132,7 +132,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
         this.constructionPoly = false;
         this.constructionPolyligne = false;
         this.enSelection = false;
-        this.zoom = new Scale(2, -2);
+        this.zoom = new Scale(1, -1);
     }
 
     public void eclaterEnsemble(EnsembleFigures ef) {
@@ -218,6 +218,21 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                     }
 
                 }
+            }
+        }
+        
+        
+        //Dessine les axes
+        if(main.getMenu().getJbAxes().isSelected()){
+            g2.draw(new Line2D.Double((-getWidth()/2)/zoom.getX(), 0,(getWidth()/2)/zoom.getX(), 0));
+            g2.draw(new Line2D.Double(0,(getHeight()/2)/zoom.getY(),0, (-getHeight()/2)/zoom.getY()));
+            for(int i=1;i<(getWidth()/200)/zoom.getX()+1 ;i++){
+                g2.draw(new Line2D.Double((100*i), 5,(100*i), -5));
+                g2.draw(new Line2D.Double((-100*i), 5,(-100*i), -5));
+            } 
+             for(int i=1;i<(getHeight()/200)/-zoom.getY()+1 ;i++){
+                g2.draw(new Line2D.Double(5,(100*i),-5, (100*i)));
+              g2.draw(new Line2D.Double(5,(-100*i),-5, (-100*i)));
             }
         }
     }
@@ -495,7 +510,6 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
                 } // Deplace le polygone entier
                 else {
                     polySelected.deplace(p);
-
                 }
             } else if (fgSelected.getClass().equals(Rectangle.class)) {
                 Rectangle recSelected = ((Rectangle) fgSelected);

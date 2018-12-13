@@ -44,15 +44,16 @@ public class MenuPanel extends JPanel implements ActionListener {
     private JToggleButton jbCarre;
     private JToggleButton jbPolygone;
     private JToggleButton jbPolyligne;
-
     private JToggleButton jbSelection;
     private JToggleButton jbSupprimer;
     private JToggleButton jbCreeEnsemble;
+    private JToggleButton jbAxes;
     private JButton jbNouveau;
     private JButton jbOuvrir;
     private JButton jbSave;
     private JButton jbZoomIn;
     private JButton jbZoomOut;
+   
     private Container listeBoutons;
 
     private ScenePrincipal main;
@@ -87,6 +88,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 
     public void setJbRectangle(JToggleButton jbRectangle) {
         this.jbRectangle = jbRectangle;
+    }
+
+    public JToggleButton getJbAxes() {
+        return jbAxes;
     }
 
     public JToggleButton getJbCercle() {
@@ -128,12 +133,13 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.jbPolyligne = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/polyligne.png"));
         this.jbSelection = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/selectionner.png"));
         this.jbCreeEnsemble = new JToggleButton("EF");
+        this.jbAxes = new JToggleButton("Axes");
         this.jbSupprimer = new JToggleButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/supprimer.png"));
         this.jbNouveau = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/nouveau.png"));
         this.jbOuvrir = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/ouvrir.png"));
         this.jbSave = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/save.png"));
-          this.jbZoomIn = new JButton();
-            this.jbZoomOut = new JButton();
+        this.jbZoomIn = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/zoom-in.png"));
+        this.jbZoomOut = new JButton(new ImageIcon("src/fr/insa/besnard/dessinVectoriel/Images/zoom-out.png"));
         this.listeBoutons = new Container();
 
         this.jbPoint.setToolTipText("Point");
@@ -146,6 +152,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.jbPolyligne.setToolTipText("Polyligne");
         this.jbSelection.setToolTipText("Selection");
         this.jbCreeEnsemble.setToolTipText("Ensemble");
+         this.jbAxes.setToolTipText("Afficher axes");
         this.jbSupprimer.setToolTipText("Supprimer");
         this.jbNouveau.setToolTipText("Nouveau");
         this.jbOuvrir.setToolTipText("Ouvrir");
@@ -164,6 +171,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.jbPolyligne.addActionListener(this);
         this.jbSelection.addActionListener(this);
         this.jbCreeEnsemble.addActionListener(this);
+        this.jbAxes.addActionListener(this);
         this.jbSupprimer.addActionListener(this);
         this.jbNouveau.addActionListener(this);
         this.jbOuvrir.addActionListener(this);
@@ -233,6 +241,19 @@ public class MenuPanel extends JPanel implements ActionListener {
         c.gridy = 1;
         listeBoutons.add(jbSupprimer, c);
 
+        c.gridx = 3;
+        c.gridy = 1;
+        listeBoutons.add(jbZoomIn, c);
+        
+        c.gridx = 4;
+        c.gridy = 1;
+        listeBoutons.add(jbZoomOut, c);
+        
+        c.gridx = 5;
+        c.gridy = 1;
+        listeBoutons.add(jbAxes, c);
+      
+        
         c.gridx = 0;
         c.gridy = 0;
 
@@ -246,13 +267,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         c.gridy = 0;
         listeBoutons.add(jbSave, c);
         
-        c.gridx = 3;
-        c.gridy = 0;
-        listeBoutons.add(jbZoomIn, c);
-        
-        c.gridx = 4;
-        c.gridy = 0;
-        listeBoutons.add(jbZoomOut, c);
+      
         
         
         this.setBackground(Color.LIGHT_GRAY);

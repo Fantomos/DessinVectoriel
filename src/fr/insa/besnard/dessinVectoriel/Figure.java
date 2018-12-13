@@ -167,15 +167,12 @@ public abstract class Figure {
             String nom = infoTab[1];
             Color couleur = new Color(Integer.parseInt(infoTab[2]), Integer.parseInt(infoTab[3]), Integer.parseInt(infoTab[4]));
              ArrayList<Figure> listeFig = new ArrayList<>();
-            StringBuilder builder = new StringBuilder();
+           StringBuilder builder = new StringBuilder();
             for(int i=6;i<infoTab.length;i++) {
-                if(i!=6 && (infoTab[i].equals("P") || infoTab[i].equals("S") || infoTab[i].equals("EF") || infoTab[i].equals("S"))){
-                     builder.append("/");
-                }
                 builder.append(infoTab[i] + ";");
             }
-            String[] newLines = builder.toString().split("/");
-
+           String[] newLines = builder.toString().split("/");
+     
             for(int i=0;i<Integer.parseInt(infoTab[5]);i++){
                  System.out.println(newLines[i]);
                 listeFig.add(parse(newLines[i]));
