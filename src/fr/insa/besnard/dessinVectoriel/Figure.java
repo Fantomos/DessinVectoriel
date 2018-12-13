@@ -103,7 +103,7 @@ public abstract class Figure {
             double coordX = Double.parseDouble(infoTab[2]);
             double coordY = Double.parseDouble(infoTab[3]);
             String nom = infoTab[1];
-            Color couleur = new Color(Integer.parseInt(infoTab[4]), Integer.parseInt(infoTab[5]), Integer.parseInt(infoTab[6]));
+            Color couleur = new Color(Integer.parseInt(infoTab[4]), Integer.parseInt(infoTab[5]), Integer.parseInt(infoTab[6]),Integer.parseInt(infoTab[7]));
             return new Point(coordX, coordY, nom, couleur);
         } else if ("S".equals(infoTab[0])) {
             double coordXDepart = Double.parseDouble(infoTab[2]);
@@ -111,7 +111,7 @@ public abstract class Figure {
             double coordXFin = Double.parseDouble(infoTab[4]);
             double coordYFin = Double.parseDouble(infoTab[5]);
             String nom = infoTab[1];
-            Color couleur = new Color(Integer.parseInt(infoTab[6]), Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]));
+            Color couleur = new Color(Integer.parseInt(infoTab[6]), Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]),Integer.parseInt(infoTab[9]));
             return new Segment(new Point(coordXDepart, coordYDepart), new Point(coordXFin, coordYFin), nom, couleur);
         } else if ("EL".equals(infoTab[0])) {
             double coordXCenter = Double.parseDouble(infoTab[3]);
@@ -120,7 +120,7 @@ public abstract class Figure {
             double rayonY = Double.parseDouble(infoTab[6]);
             String nom = infoTab[1];
             boolean remplir = Boolean.parseBoolean(infoTab[2]);
-            Color couleur = new Color(Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]), Integer.parseInt(infoTab[9]));
+            Color couleur = new Color(Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]), Integer.parseInt(infoTab[9]),Integer.parseInt(infoTab[10]));
             return new Ellipse(new Point(coordXCenter, coordYCenter), rayonX, rayonY, nom, couleur, remplir);
         } else if ("CE".equals(infoTab[0])) {
             double coordXCenter = Double.parseDouble(infoTab[3]);
@@ -128,12 +128,22 @@ public abstract class Figure {
             double rayonX = Double.parseDouble(infoTab[5]);
             String nom = infoTab[1];
             boolean remplir = Boolean.parseBoolean(infoTab[2]);
-            Color couleur = new Color(Integer.parseInt(infoTab[6]), Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]));
+            Color couleur = new Color(Integer.parseInt(infoTab[6]), Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]),Integer.parseInt(infoTab[9]));
             return new Cercle(new Point(coordXCenter, coordYCenter), rayonX, nom, couleur, remplir);
         } else if ("PG".equals(infoTab[0])) {
             String nom = infoTab[1];
-          
             boolean remplir = Boolean.parseBoolean(infoTab[2]);
+            ArrayList<Point> sommet = new ArrayList<>();
+            for (int i = 0; i < Integer.parseInt(infoTab[7]); i++) {
+                double coordX = Double.parseDouble(infoTab[8 + 2 * i]);
+                double coordY = Double.parseDouble(infoTab[9 + 2 * i]);
+                Point p = new Point(coordX, coordY);
+                sommet.add(p);
+            }
+            Color couleur = new Color(Integer.parseInt(infoTab[3]), Integer.parseInt(infoTab[4]), Integer.parseInt(infoTab[5]),Integer.parseInt(infoTab[6]));
+            return new Polygone(sommet, nom, couleur, remplir);
+        } else if ("PL".equals(infoTab[0])) {
+            String nom = infoTab[1];
             ArrayList<Point> sommet = new ArrayList<>();
             for (int i = 0; i < Integer.parseInt(infoTab[6]); i++) {
                 double coordX = Double.parseDouble(infoTab[7 + 2 * i]);
@@ -141,18 +151,7 @@ public abstract class Figure {
                 Point p = new Point(coordX, coordY);
                 sommet.add(p);
             }
-            Color couleur = new Color(Integer.parseInt(infoTab[3]), Integer.parseInt(infoTab[4]), Integer.parseInt(infoTab[5]));
-            return new Polygone(sommet, nom, couleur, remplir);
-        } else if ("PL".equals(infoTab[0])) {
-            String nom = infoTab[1];
-            ArrayList<Point> sommet = new ArrayList<>();
-            for (int i = 0; i < Integer.parseInt(infoTab[5]); i++) {
-                double coordX = Double.parseDouble(infoTab[6 + 2 * i]);
-                double coordY = Double.parseDouble(infoTab[7 + 2 * i]);
-                Point p = new Point(coordX, coordY);
-                sommet.add(p);
-            }
-            Color couleur = new Color(Integer.parseInt(infoTab[2]), Integer.parseInt(infoTab[3]), Integer.parseInt(infoTab[4]));
+            Color couleur = new Color(Integer.parseInt(infoTab[2]), Integer.parseInt(infoTab[3]), Integer.parseInt(infoTab[4]),Integer.parseInt(infoTab[5]));
             return new Polyligne(sommet, nom, couleur);
         } else if ("R".equals(infoTab[0])) {
             String nom = infoTab[1];
@@ -162,7 +161,7 @@ public abstract class Figure {
             Point ptSupGauche = new Point(coordX, coordY);
             double longueur = Double.parseDouble(infoTab[5]);
             double largeur = Double.parseDouble(infoTab[6]);
-            Color couleur = new Color(Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]), Integer.parseInt(infoTab[9]));
+            Color couleur = new Color(Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]), Integer.parseInt(infoTab[9]),Integer.parseInt(infoTab[10]));
             return new Rectangle(ptSupGauche, largeur, longueur, nom, couleur, remplir);
         } else if ("CA".equals(infoTab[0])) {
             String nom = infoTab[1];
@@ -171,19 +170,20 @@ public abstract class Figure {
             double coordY = Double.parseDouble(infoTab[4]);
             Point ptSupGauche = new Point(coordX, coordY);
             double longueur = Double.parseDouble(infoTab[5]);
-            Color couleur = new Color(Integer.parseInt(infoTab[6]), Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]));
+            System.out.println(Integer.parseInt(infoTab[9]));
+            Color couleur = new Color(Integer.parseInt(infoTab[6]), Integer.parseInt(infoTab[7]), Integer.parseInt(infoTab[8]),Integer.parseInt(infoTab[9]));
             return new Carre(ptSupGauche, longueur, nom, couleur, remplir);
         } else if ("EF".equals(infoTab[0])) {
             String nom = infoTab[1];
-            Color couleur = new Color(Integer.parseInt(infoTab[2]), Integer.parseInt(infoTab[3]), Integer.parseInt(infoTab[4]));
+            Color couleur = new Color(Integer.parseInt(infoTab[2]), Integer.parseInt(infoTab[3]), Integer.parseInt(infoTab[4]),Integer.parseInt(infoTab[5]));
              ArrayList<Figure> listeFig = new ArrayList<>();
            StringBuilder builder = new StringBuilder();
-            for(int i=6;i<infoTab.length;i++) {
+            for(int i=7;i<infoTab.length;i++) {
                 builder.append(infoTab[i] + ";");
             }
            String[] newLines = builder.toString().split("/");
      
-            for(int i=0;i<Integer.parseInt(infoTab[5]);i++){
+            for(int i=0;i<Integer.parseInt(infoTab[6]);i++){
                  System.out.println(newLines[i]);
                 listeFig.add(parse(newLines[i]));
                

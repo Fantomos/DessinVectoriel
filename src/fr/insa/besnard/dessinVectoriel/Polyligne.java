@@ -172,7 +172,7 @@ public class Polyligne extends Figure{
     
     @Override
     public String toSave(){
-        String texte = "PL;" + this.getNom() + ";" + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + this.sommet.size();
+        String texte = "PL;" + this.getNom() + ";" + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + getCouleur().getAlpha() + ";"+ this.sommet.size();
         for(int i=0;i<this.sommet.size();i++){
             texte = texte + ";"+ this.sommet.get(i).getCoordx() + ";"
                 + this.sommet.get(i).getCoordy();

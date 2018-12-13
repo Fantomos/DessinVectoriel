@@ -212,7 +212,7 @@ public class Polygone extends Figure {
 
     @Override
     public String toSave() {
-        String texte = "PG;" + this.getNom() + ";" + this.remplir + ";" + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + this.sommet.size();
+        String texte = "PG;" + this.getNom() + ";" + this.remplir + ";" + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";"  + getCouleur().getAlpha()+ ";" +this.sommet.size();
         for (int i = 0; i < this.sommet.size(); i++) {
             texte = texte + ";" + this.sommet.get(i).getCoordx() + ";"
                     + this.sommet.get(i).getCoordy();

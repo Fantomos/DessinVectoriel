@@ -14,7 +14,7 @@ import javax.swing.*;
  *
  * @author nbesnard01
  */
-public class ScenePrincipal extends JPanel implements MouseListener{
+public class ScenePrincipal extends JPanel implements MouseListener {
 
     private SceneDessin sceneDessin;
     private MenuPanel menu;
@@ -25,8 +25,6 @@ public class ScenePrincipal extends JPanel implements MouseListener{
         this.sceneDessin = sceneDessin;
     }
 
-  
-
     public ScenePrincipal() {
         this.sceneDessin = new SceneDessin(this);
         this.menu = new MenuPanel(this);
@@ -35,8 +33,8 @@ public class ScenePrincipal extends JPanel implements MouseListener{
         this.setLayout(new BorderLayout());
         this.add(this.menu, BorderLayout.NORTH);
         this.add(this.sceneDessin, BorderLayout.CENTER);
-        this.add(this.info,BorderLayout.SOUTH);
-        this.add(this.detail,BorderLayout.EAST);
+        this.add(this.info, BorderLayout.SOUTH);
+        this.add(this.detail, BorderLayout.EAST);
         this.addMouseListener(this);
     }
 
@@ -52,48 +50,44 @@ public class ScenePrincipal extends JPanel implements MouseListener{
         return info;
     }
 
-      public SceneDessin getSceneDessin() {
+    public SceneDessin getSceneDessin() {
         return sceneDessin;
     }
-   
-  
 
     public static void main(String[] args) {
         JFrame finale = new JFrame();
-        finale.setSize(1200, 600);
+        finale.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        finale.setUndecorated(true);
         finale.add(new ScenePrincipal());
         finale.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         finale.setVisible(true);
         finale.setTitle("Dessin Vectoriel");
-    
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-       
-     }
 
-     
+    }
 
- 
     @Override
     public void mousePressed(MouseEvent e) {
-     
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-       
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        
+
     }
 
 }

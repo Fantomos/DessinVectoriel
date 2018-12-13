@@ -65,7 +65,7 @@ public class Carre extends Rectangle{
                 + this.getSommet().get(0).getCoordx() + ";"
                 + this.getSommet().get(0).getCoordy()  + ";"
                 + this.longueur() + ";"
-                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue();
+                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + getCouleur().getAlpha();
     };
     
 }

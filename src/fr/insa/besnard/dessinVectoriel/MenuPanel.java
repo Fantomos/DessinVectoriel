@@ -267,8 +267,6 @@ public class MenuPanel extends JPanel implements ActionListener {
         c.gridy = 0;
         listeBoutons.add(jbSave, c);
         
-      
-        
         
         this.setBackground(Color.LIGHT_GRAY);
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -408,12 +406,12 @@ public class MenuPanel extends JPanel implements ActionListener {
 
         }
         else if(e.getSource() == jbZoomIn){
-            this.main.getSceneDessin().setZoom(new Scale(main.getSceneDessin().getZoom().getX()+0.1,main.getSceneDessin().getZoom().getY()-0.1));
+            this.main.getSceneDessin().setZoom(new Scale(Double.sum(main.getSceneDessin().getZoom().getX(),0.1),Double.sum(main.getSceneDessin().getZoom().getY(),-0.1)));
             System.out.println( this.main.getSceneDessin().getZoom());
         }
         else if(e.getSource() == jbZoomOut){
             if(this.main.getSceneDessin().getZoom().getX() > 0.1){   
-            this.main.getSceneDessin().setZoom(new Scale(main.getSceneDessin().getZoom().getX()-0.1,main.getSceneDessin().getZoom().getY()+0.1));
+            this.main.getSceneDessin().setZoom(new Scale(Double.sum(main.getSceneDessin().getZoom().getX(),-0.1),Double.sum(main.getSceneDessin().getZoom().getY(),0.1)));
             System.out.println( this.main.getSceneDessin().getZoom());
           }
         }

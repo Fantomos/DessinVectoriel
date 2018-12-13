@@ -6,9 +6,7 @@
 package fr.insa.besnard.dessinVectoriel;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import utils.Lire;
@@ -118,7 +116,7 @@ public class Point extends Figure{
         return "P;" + this.getNom() + ";"
                 + this.coordx + ";"
                 + this.coordy + ";"
-                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue();
+                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + getCouleur().getAlpha();
     };
     
     @Override

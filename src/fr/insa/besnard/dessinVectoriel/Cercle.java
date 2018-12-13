@@ -72,7 +72,7 @@ public class Cercle extends Ellipse{
                 + super.getCenter().getCoordx() + ";"
                 + super.getCenter().getCoordy() + ";"
                 + super.getRayonX() + ";"
-                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue();
+                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + getCouleur().getAlpha();
     }
       @Override
     public Cercle copy() {

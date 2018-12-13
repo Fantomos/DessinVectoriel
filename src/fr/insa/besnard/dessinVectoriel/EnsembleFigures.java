@@ -140,7 +140,7 @@ public class EnsembleFigures extends Figure{
     
     @Override
      public String toSave(){
-        String texte = "EF;" + this.getNom() + ";" +  getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue()+ ";" +this.tabFigures.size() + ";";
+        String texte = "EF;" + this.getNom() + ";" +  getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue()+ ";"  + getCouleur().getAlpha() + ";" +this.tabFigures.size() + ";";
         for(int i=0;i<this.tabFigures.size();i++){
             texte = texte +this.tabFigures.get(i).toSave() + "/"; 
         }

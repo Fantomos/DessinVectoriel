@@ -81,7 +81,7 @@ public class Rectangle extends Polygone{
                 + this.getSommet().get(0).getCoordy()  + ";"
                 + this.longueur() + ";"
                 + this.largeur() + ";"
-                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue();
+                + getCouleur().getRed() + ";" + getCouleur().getGreen() + ";" + getCouleur().getBlue() + ";" + getCouleur().getAlpha();
     };
     
     @Override

@@ -347,6 +347,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
             else {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     if (this.plgTemp.getSommet().size() > 3) {
+                        this.plgTemp.getSommet().remove(plgTemp.getSommet().size()-1);
                         this.figuresScene.add(this.plgTemp);
                         this.main.getDetail().afficherDetail(new Polygone());
                         this.constructionPoly = false;
@@ -373,6 +374,7 @@ public class SceneDessin extends JPanel implements MouseListener, MouseMotionLis
             else {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     if (plTemp.getSommet().size() > 3) {
+                        this.plTemp.getSommet().remove(plTemp.getSommet().size()-1);
                         this.figuresScene.add(plTemp);
                         this.main.getDetail().afficherDetail(new Polyligne());
                         this.constructionPolyligne = false;
