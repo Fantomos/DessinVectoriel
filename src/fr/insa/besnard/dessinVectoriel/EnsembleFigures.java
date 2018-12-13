@@ -33,7 +33,7 @@ public class EnsembleFigures extends Figure{
 
     // Constructeur
     public EnsembleFigures(ArrayList<Figure> tabFigures, String nom, Color couleur) {
-        super(nom,couleur);
+        super(nom,couleur,0);
         this.tabFigures = tabFigures;
     }
     public EnsembleFigures(ArrayList<Figure> tabFigures, String nom) {
@@ -152,8 +152,10 @@ public class EnsembleFigures extends Figure{
      
     @Override
       public void dessine(Graphics2D g) {
-        g.setColor(this.getCouleur());
+          g.rotate(super.getTheta());
+      
         for(int i=0;i<this.tabFigures.size();i++){
+            this.tabFigures.get(i).setCouleur(this.getCouleur());
             this.tabFigures.get(i).dessine(g);
         }
     }

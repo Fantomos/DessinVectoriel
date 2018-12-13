@@ -93,6 +93,7 @@ public class Rectangle extends Polygone{
      public void dessine(Graphics2D g) {
       
         g.setColor(this.getCouleur());
+         g.rotate(super.getTheta());
          if(super.isRemplir()){
            g.fill(new Rectangle2D.Double(this.getSommet().get(0).getCoordx(),this.getSommet().get(0).getCoordy(),this.longueur(),this.largeur()));
         

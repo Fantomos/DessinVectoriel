@@ -65,7 +65,11 @@ public class DetailPanel extends JPanel implements ActionListener {
     private JLabel largeurLabel;
     private JTextField largeur;
     private Box largeurC;
-
+    
+    private JLabel thetaLabel;
+    private JTextField theta;
+    private Box thetaC;
+    
     private JTextArea listeFig;
     private JScrollPane scroll;
 
@@ -174,7 +178,19 @@ public class DetailPanel extends JPanel implements ActionListener {
         largeurC.add(largeurLabel);
         largeurC.add(largeur);
         largeurC.setMaximumSize(largeurC.getPreferredSize());
+        
+        // Affichage/Edition de l'angle de rotation
+        this.thetaLabel = new JLabel("Rotation : ");
+        this.theta = new JTextField();
+        theta.addActionListener(this);
+        theta.setPreferredSize(new Dimension(50, 20));
+        this.thetaC = new Box(BoxLayout.X_AXIS);
+        thetaC.add(thetaLabel);
+        thetaC.add(theta);
+        thetaC.setMaximumSize(thetaC.getPreferredSize());
 
+        
+        // Liste des élements d'un ensemble
         this.listeFig = new JTextArea();
         this.scroll = new JScrollPane(listeFig);
         listeFig.setEditable(false);
@@ -208,6 +224,8 @@ public class DetailPanel extends JPanel implements ActionListener {
         this.add(Box.createRigidArea(new Dimension(0, 5)));
         this.add(largeurC);
         this.add(Box.createRigidArea(new Dimension(0, 5)));
+        this.add(thetaC);
+        this.add(Box.createRigidArea(new Dimension(0, 5)));
         this.add(scroll);
         this.add(Box.createRigidArea(new Dimension(0, 5)));
         this.add(supprimer);
@@ -231,7 +249,9 @@ this.add(Box.createRigidArea(new Dimension(0, 5)));
         forme.setText(a.getClass().getSimpleName());
         nom.setText(a.getNom());
         jbColor.setBackground(a.getCouleur());
-
+        theta.setText(""+a.getTheta());
+        
+        
         // Attributs spécifique
         RemplirC.setVisible(false);
         coordXC.setVisible(false);
@@ -367,6 +387,11 @@ this.add(Box.createRigidArea(new Dimension(0, 5)));
 
             main.getSceneDessin().eclaterEnsemble((EnsembleFigures) figureDetail);
             figureDetail = new EnsembleFigures(new ArrayList<Figure>());
+        }
+        
+         else if (e.getSource() == theta) {
+
+            figureDetail.setTheta(Integer.parseInt(theta.getText()));
         }
 
         afficherDetail(figureDetail);

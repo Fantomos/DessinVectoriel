@@ -21,6 +21,7 @@ public abstract class Figure {
 
     private String nom;
     private Color couleur;
+    private int theta;
 
     public Color getCouleur() {
         return couleur;
@@ -38,13 +39,22 @@ public abstract class Figure {
         this.nom = nom;
     }
 
-    public Figure(String nom, Color couleur) {
+    public Figure(String nom, Color couleur, int theta) {
         this.nom = nom;
         this.couleur = couleur;
+        this.theta = theta;
     }
 
     public Figure(Figure a) {
-        this(a.nom, a.couleur);
+        this(a.nom, a.couleur,0);
+    }
+
+    public void setTheta(int theta) {
+        this.theta = theta;
+    }
+
+    public int getTheta() {
+        return theta;
     }
 
     public static Figure entreFigure() {

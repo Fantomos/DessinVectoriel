@@ -61,7 +61,7 @@ public class Ellipse extends Figure{
         this.rayonY = rayonY;
     }
      public Ellipse(Ellipse elli) {
-        super(elli.getNom(),elli.getCouleur());
+        super(elli.getNom(),elli.getCouleur(),elli.getTheta());
         this.center = elli.center;
         this.rayonX = elli.rayonX;
         this.rayonY = elli.rayonY;
@@ -83,7 +83,7 @@ public class Ellipse extends Figure{
     }
     
     public Ellipse(Point centre, double rayonX, double rayonY, String nom, Color couleur,boolean remplir){
-        super(nom,couleur);
+        super(nom,couleur,0);
      
         this.center = centre;
         this.rayonX = rayonX;
@@ -106,7 +106,7 @@ this.setCenter(new Point(p.getX(),p.getY()));
     @Override
      public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
-        
+        g.rotate(super.getTheta());
         if(remplir){
             g.fill(new Ellipse2D.Double(this.center.getCoordx() - this.rayonX, this.center.getCoordy() - this.rayonY,2*this.rayonX, 2*this.rayonY));
         }else{

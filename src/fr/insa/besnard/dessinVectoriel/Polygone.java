@@ -68,7 +68,7 @@ public class Polygone extends Figure {
     }
 
     public Polygone(ArrayList<Point> sommet, String nom, Color couleur, Boolean remplir) {
-        super(nom, couleur);
+        super(nom, couleur,0);
         this.remplir = remplir;
         this.sommet = sommet;
     }
@@ -117,6 +117,7 @@ public class Polygone extends Figure {
     @Override
     public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
+        g.rotate(super.getTheta());
         double[] x = new double[sommet.size()];
         double[] y = new double[sommet.size()];
         for (int i = 0; i < this.sommet.size(); i++) {

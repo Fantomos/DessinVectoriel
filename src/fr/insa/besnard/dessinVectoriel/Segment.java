@@ -56,7 +56,7 @@ public class Segment extends Figure {
     }
 
     public Segment(Point a, Point b, String nom, Color couleur) {
-        super(nom, couleur);
+        super(nom, couleur,0);
         this.depart = a;
         this.fin = b;
     }
@@ -108,8 +108,7 @@ public class Segment extends Figure {
     public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
         g.draw(new Line2D.Double(this.depart.getCoordx(),this.depart.getCoordy(), this.fin.getCoordx(),this.fin.getCoordy()));
- 
-
+       g.rotate(super.getTheta());
     }
 
     @Override

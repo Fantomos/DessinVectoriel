@@ -54,7 +54,7 @@ public class Point extends Figure{
     }
     
     public Point(double px,double py, String nom, Color couleur) {
-        super(nom,couleur);
+        super(nom,couleur,0);
         this.coordx = px;
         this.coordy = py;
     }
@@ -72,8 +72,10 @@ public class Point extends Figure{
     
     @Override
     public void dessine(Graphics2D g) {
+
         g.setColor(this.getCouleur());
-        g.fill(new Ellipse2D.Double(coordx,coordy,5,5));
+        g.fill(new Ellipse2D.Double(coordx-2.5,coordy-2.5,5,5));
+ 
     }
     
     

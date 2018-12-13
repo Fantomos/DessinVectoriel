@@ -48,7 +48,7 @@ public class Polyligne extends Figure{
     }
     
     public Polyligne(ArrayList<Point> sommet,String nom, Color couleur) {
-        super(nom,couleur);
+        super(nom,couleur,0);
         this.sommet = sommet;
     }
     
@@ -84,6 +84,7 @@ public class Polyligne extends Figure{
     @Override
      public void dessine(Graphics2D g) {
         g.setColor(this.getCouleur());
+        g.rotate(super.getTheta());
         double[] x = new double[sommet.size()];
         double[] y = new double[sommet.size()];
         for(int i=0;i<this.sommet.size();i++){
